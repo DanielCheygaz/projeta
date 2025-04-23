@@ -3,32 +3,34 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
-public class StockManagerWindow extends JFrame{
-    private JTable productsTable;
+public class SessionManagerWindow extends JFrame{
     private JButton backButton;
+    private JTable sessionsTable;
     private JPanel mainPanel;
-    private JButton adicionarProdutoButton;
-    private JButton removerProdutoButton;
-    private JButton adicionarUnidadesButton;
-    private JButton removerUnidadesButton;
-    private JButton alterarPreçoButton;
+    private JButton addSessionButton;
+    private JButton removeSessionButton;
     private JScrollPane scrollPane;
 
-    public StockManagerWindow(){
-        super("Gestor de Stock");
+    public SessionManagerWindow(){
+        super("Gestor de Sessões");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setContentPane(mainPanel);
         pack();
+
         scrollPane.getViewport().setBackground(Color.decode("2894892"));
-        String[] columns = {"Nome do produto","Unidades","Preço Unidade"};
+        String[] columns = {"Filme","Sala","Data","Duração"};
 
         DefaultTableModel tableModel = new DefaultTableModel(columns,0);
-
-        for(Product product: AppData.getInstance().getProductList()){
-            Object[] row = {product.getName(),product.getUnits(),product.getPrice()};
+        for(Session session: AppData.getInstance().getSessionList()){
+            Object[] row = {
+              session.getMovie().getName(),
+              session.getRoom().getRoomNumber(),
+              session.getData(),
+              session.getMovie().getDuration()
+            };
             tableModel.addRow(row);
         }
-        productsTable.setModel(tableModel);
+        sessionsTable.setModel(tableModel);
 
         this.backButton.addActionListener(this::backButtonPerformed);
     }
@@ -37,7 +39,8 @@ public class StockManagerWindow extends JFrame{
         new MainWindow().setVisible(true);
         dispose();
     }
+
     public static void main(String[] args){
-        new StockManagerWindow().setVisible(true);
+        new SessionManagerWindow().setVisible(true);
     }
 }
