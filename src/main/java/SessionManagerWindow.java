@@ -18,7 +18,7 @@ public class SessionManagerWindow extends JFrame{
         pack();
 
         scrollPane.getViewport().setBackground(Color.decode("2894892"));
-        String[] columns = {"Filme","Sala","Data","Duração"};
+        String[] columns = {"Filme","Sala","Data","Duração","Descrição"};
 
         DefaultTableModel tableModel = new DefaultTableModel(columns,0);
         for(Session session: AppData.getInstance().getSessionList()){
@@ -26,7 +26,8 @@ public class SessionManagerWindow extends JFrame{
               session.getMovie().getName(),
               session.getRoom().getRoomNumber(),
               session.getData(),
-              session.getMovie().getDuration()
+              session.getMovie().getDuration(),
+              session.getMovie().getDescription()
             };
             tableModel.addRow(row);
         }
