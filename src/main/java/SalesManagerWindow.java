@@ -1,6 +1,6 @@
 import javax.swing.*;
 
-public class ManageSalesWindow {
+public class SalesManagerWindow {
     private JPanel mainPanel;
     private JButton backButton;
     private JScrollPane scrollPane;

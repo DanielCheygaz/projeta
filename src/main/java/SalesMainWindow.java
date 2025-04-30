@@ -1,7 +1,7 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 
-public class SalesWindow extends JFrame{
+public class SalesMainWindow extends JFrame{
     private JPanel mainPanel;
     private JButton sellTicketButton;
     private JButton sellBarProductsButton;
@@ -9,7 +9,7 @@ public class SalesWindow extends JFrame{
     private JButton editSaleButton;
     private JButton backButton;
 
-    public SalesWindow(){
+    public SalesMainWindow(){
         super("Gestor de Vendas");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setContentPane(mainPanel);
@@ -37,6 +37,6 @@ public class SalesWindow extends JFrame{
     }
 
     public static void main(String[] args){
-        new SalesWindow().setVisible(true);
+        new SalesMainWindow().setVisible(true);
     }
 }

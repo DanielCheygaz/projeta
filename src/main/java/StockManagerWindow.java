@@ -43,7 +43,7 @@ public class StockManagerWindow extends JFrame{
 
         Stock stock = AppData.getInstance().getStockList().get(selectedRow);
         dispose();
-        new EditProductWindow(stock,selectedRow).setVisible(true);
+        new ProductEditWindow(stock,selectedRow).setVisible(true);
     }
 
     private void backButtonPerformed(ActionEvent e){

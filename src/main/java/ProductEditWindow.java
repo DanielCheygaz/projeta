@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
-public class EditProductWindow extends JFrame{
+public class ProductEditWindow extends JFrame{
     private JPanel mainPanel;
     private JButton cancelButton;
     private JButton saveButton;
@@ -12,7 +12,7 @@ public class EditProductWindow extends JFrame{
     private Product product;
     private Stock stock;
 
-    public EditProductWindow(Stock stock, int index) throws HeadlessException {
+    public ProductEditWindow(Stock stock, int index) throws HeadlessException {
         super("Editar " + stock.getProduct().getName());
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setContentPane(mainPanel);

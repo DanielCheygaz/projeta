@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
-public class CreateRoomWindow  extends JFrame{
+public class RoomCreateWindow extends JFrame{
     private JPanel mainPanel;
     private JCheckBox dolbyAtmosCheckBox;
     private JCheckBox imaxCheckBox;
@@ -12,7 +12,7 @@ public class CreateRoomWindow  extends JFrame{
     private JFormattedTextField createRoom;
     private JButton criarSalaButton;
 
-    public CreateRoomWindow() throws HeadlessException {
+    public RoomCreateWindow() throws HeadlessException {
         super("Cinema Projeta");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setContentPane(mainPanel);
@@ -26,6 +26,6 @@ public class CreateRoomWindow  extends JFrame{
     private void criarSalaButtonActionPerformed(ActionEvent e) {
         //new Room(createRoom,numeroLugaresText,imaxCheckBox.isSelected(),dolbyAtmosCheckBox.isSelected());
     }
-    public static void main(String[] args){new CreateRoomWindow().setVisible(true);}
+    public static void main(String[] args){new RoomCreateWindow().setVisible(true);}
 
 }

@@ -1,7 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 
-public class EditSessionWindow extends JFrame{
+public class SessionEditWindow extends JFrame{
     private JFormattedTextField formattedTextNome;
     private JFormattedTextField formattedTextUnits;
     private JFormattedTextField formattedTextPrice;
@@ -9,7 +9,7 @@ public class EditSessionWindow extends JFrame{
     private JButton saveButton;
     private JPanel mainPanel;
 
-    public EditSessionWindow() throws HeadlessException {
+    public SessionEditWindow() throws HeadlessException {
         super("Edit Session");
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
