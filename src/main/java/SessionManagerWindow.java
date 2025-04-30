@@ -10,6 +10,7 @@ public class SessionManagerWindow extends JFrame{
     private JButton addSessionButton;
     private JButton removeSessionButton;
     private JScrollPane scrollPane;
+    private JButton editSessionButton;
 
     public SessionManagerWindow(){
         super("Gestor de Sessões");

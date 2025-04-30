@@ -3,24 +3,26 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 
 public class EditProductWindow extends JFrame{
-    private JTextField nameTextField;
-    private JTextField quantityTextField;
-    private JTextField priceTextField;
     private JPanel mainPanel;
     private JButton cancelButton;
     private JButton saveButton;
+    private JFormattedTextField formattedTextNome;
+    private JFormattedTextField formattedTextUnits;
+    private JFormattedTextField formattedTextPrice;
     private Product product;
+    private Stock stock;
 
-    public EditProductWindow(Product product) throws HeadlessException {
-        super("Editar " + product.getName());
+    public EditProductWindow(Stock stock, int index) throws HeadlessException {
+        super("Editar " + stock.getProduct().getName());
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setContentPane(mainPanel);
         pack();
-        this.product = product;
+        this.stock = stock;
+        this.product = stock.getProduct();
 
-        nameTextField.setText(product.getName());
-        quantityTextField.setText(String.valueOf(product.units));
-        priceTextField.setText(String.valueOf(product.price));
+        formattedTextNome.setText(product.getName());
+        formattedTextUnits.setText(String.valueOf(stock.getUnits()));
+        formattedTextPrice.setText(String.valueOf(product.getPrice()));
 
         this.cancelButton.addActionListener(this::cancelButtonPerformed);
         this.saveButton.addActionListener(this::saveButtonPerformed);
