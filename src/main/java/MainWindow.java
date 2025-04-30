@@ -4,9 +4,9 @@ import java.awt.event.ActionEvent;
 
 public class MainWindow extends JFrame{
     private JButton manageSessionsButton;
-    private JButton button2;
+    private JButton salesButton;
     private JButton manageStockButton;
-    private JButton button4;
+    private JButton manageRoomButton;
     private JPanel mainPanel;
 
     public MainWindow() throws HeadlessException {
@@ -16,6 +16,12 @@ public class MainWindow extends JFrame{
         pack();
         this.manageSessionsButton.addActionListener(this::manageSessionsButtonActionPerformed);
         this.manageStockButton.addActionListener(this::manageStockButtonActionPerformed);
+        this.salesButton.addActionListener(this::manageSalesButtonActionPerformed);
+        this.manageRoomButton.addActionListener(this::manageRoomButtonActionPerformed);
+    }
+    private void manageRoomButtonActionPerformed(ActionEvent e){
+        new RoomManagerWindow().setVisible(true);
+        setVisible(false);
     }
 
     private void manageSessionsButtonActionPerformed(ActionEvent e){
@@ -24,6 +30,11 @@ public class MainWindow extends JFrame{
     }
     private void manageStockButtonActionPerformed(ActionEvent e){
         new StockManagerWindow().setVisible(true);
+        setVisible(false);
+    }
+
+    private void manageSalesButtonActionPerformed(ActionEvent e){
+        new SalesWindow().setVisible(true);
         setVisible(false);
     }
 
