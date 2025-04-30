@@ -5,11 +5,11 @@ import java.util.List;
 
 public class AppData {
     public static AppData instance = null;
-    private static List<Product> productList = new ArrayList<>();
-    private static List<Genre> genreList = new ArrayList<>();
-    private static List<Movie> movieList = new ArrayList<>();
-    private static List<Room> roomList = new ArrayList<>();
-    private static List<Session> sessionList = new ArrayList<>();
+    private static LinkedList<Product> productList = new LinkedList<>();
+    private static LinkedList<Genre> genreList = new LinkedList<>();
+    private static LinkedList<Movie> movieList = new LinkedList<>();
+    private static LinkedList<Room> roomList = new LinkedList<>();
+    private static LinkedList<Session> sessionList = new LinkedList<>();
 
     public AppData() {
         productList.add(new Product("CocaCola",15,1.2));
@@ -48,23 +48,23 @@ public class AppData {
 
     private static void carregarDados() {}
 
-    public static List<Product> getProductList() {
+    public static LinkedList<Product> getProductList() {
         return productList;
     }
 
-    public static List<Genre> getGenreList() {
+    public static LinkedList<Genre> getGenreList() {
         return genreList;
     }
 
-    public static List<Movie> getMovieList() {
+    public static LinkedList<Movie> getMovieList() {
         return movieList;
     }
 
-    public static List<Room> getRoomList() {
+    public static LinkedList<Room> getRoomList() {
         return roomList;
     }
 
-    public static List<Session> getSessionList() {
+    public static LinkedList<Session> getSessionList() {
         return sessionList;
     }
 }

@@ -9,9 +9,12 @@ public class EditProductWindow extends JFrame{
     private JPanel mainPanel;
     private JButton cancelButton;
     private JButton saveButton;
+    private JFormattedTextField formattedTextFieldNome;
+    private JFormattedTextField formattedTextField2;
+    private JFormattedTextField formattedTextField3;
     private Product product;
 
-    public EditProductWindow(Product product) throws HeadlessException {
+    public EditProductWindow(Product product, int index) throws HeadlessException {
         super("Editar " + product.getName());
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setContentPane(mainPanel);

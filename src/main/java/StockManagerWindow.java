@@ -27,6 +27,7 @@ public class StockManagerWindow extends JFrame{
             tableModel.addRow(row);
         }
         productsTable.setModel(tableModel);
+        productsTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
         this.editProductButton.addActionListener(this::editProductButtonPerformed);
         this.backButton.addActionListener(this::backButtonPerformed);
@@ -40,13 +41,9 @@ public class StockManagerWindow extends JFrame{
             return;
         }
 
-        String name = productsTable.getValueAt(selectedRow,0).toString();
-        int quantity = (int)productsTable.getValueAt(selectedRow,1);
-        double price = (double)productsTable.getValueAt(selectedRow,2);
-
-        Product product = new Product(name,quantity,price);
+        Product product = AppData.getInstance().getProductList().get(selectedRow);
         dispose();
-        new EditProductWindow(product).setVisible(true);
+        new EditProductWindow(product,selectedRow).setVisible(true);
     }
 
     private void backButtonPerformed(ActionEvent e){
