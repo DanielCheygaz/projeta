@@ -32,6 +32,7 @@ public class AppData {
         roomList.add(new Room(2));
         roomList.add(new Room(3));
         roomList.add(new Room(4));
+        roomList.add(new Room(30));
 
         sessionList.add(new Session(new Date(2025,5,12,12,30),movieList.get(0),roomList.get(0)));
         sessionList.add(new Session(new Date(2025,5,12,12,30),movieList.get(1),roomList.get(1)));
