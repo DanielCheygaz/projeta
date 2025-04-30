@@ -55,6 +55,7 @@ public class BarProductsSaleWindow extends JFrame {
             DefaultTableModel model = (DefaultTableModel) barProductsTable.getModel();
             String productName = (String) model.getValueAt(selectedRow, 0);
             double productPrice = (double) model.getValueAt(selectedRow, 1);
+
             JOptionPane.showMessageDialog(this, "Produto adicionado à venda: " + productName + " - Preço: " + productPrice);
         } else {
             JOptionPane.showMessageDialog(this, "Selecione um produto para adicionar à venda.");

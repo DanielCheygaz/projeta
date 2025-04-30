@@ -3,6 +3,7 @@ public class Ticket {
     private Session session;
     private double price;
 
+
     public Ticket(int id, Session session, double price) {
         this.id = id;
         this.session = session;
