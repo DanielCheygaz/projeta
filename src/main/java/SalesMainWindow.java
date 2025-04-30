@@ -27,7 +27,7 @@ public class SalesMainWindow extends JFrame{
     }
 
     private void sellTicketButtonPerformed(ActionEvent e){
-        new TicketSalesWindow().setVisible(true);
+        new SessionSelectWindow().setVisible(true);
         dispose();
     }
 

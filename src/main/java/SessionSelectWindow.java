@@ -3,40 +3,41 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
-public class TicketSalesWindow extends JFrame {
+public class SessionSelectWindow extends JFrame {
     private JPanel mainPanel;
-    private JTable ticketTable;
+    private JTable sessionTable;
     private JButton addBarProductsButton;
     private JButton finishSaleButton;
     private JButton editSaleButton;
     private JButton backButton;
-    private JButton addTicketToSaleButton;
+    private JButton selectSessionButton;
     private JScrollPane scrollPane;
 
-    public TicketSalesWindow() {
+    public SessionSelectWindow() {
         super("Venda de Bilhetes");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setContentPane(mainPanel);
         pack();
         scrollPane.getViewport().setBackground(Color.decode("2894892"));
-        String[] columns = {"ID do bilhete", "Filme da Sessão","Preço Total"};
+
+        String[] columns = {"ID da Sessão", "Nome do filme", "Hora da Sessão"};
         DefaultTableModel tableModel = new DefaultTableModel(columns, 0);
-        for (Ticket ticket : AppData.getInstance().getTicketList()) {
-            Object[] row = {ticket.getId(), ticket.getSession().getMovie().getName(), ticket.getPrice()};
+        for (Session session : AppData.getInstance().getSessionList()) {
+            Object[] row = {session.getID(), session.getMovie().getName(), session.getData()};
             tableModel.addRow(row);
         }
-        ticketTable.setModel(tableModel);
+        sessionTable.setModel(tableModel);
 
         this.backButton.addActionListener(this::backButtonPerformed);
         this.finishSaleButton.addActionListener(this::finishSaleButtonPerformed);
         this.editSaleButton.addActionListener(this::editSaleButtonPerformed);
         this.addBarProductsButton.addActionListener(this::addBarProductsButtonPerformed);
-        this.addTicketToSaleButton.addActionListener(this::addTicketToSaleButtonPerformed);
+        this.selectSessionButton.addActionListener(this::selectSessionButtonPerformed);
 
     }
 
     private void backButtonPerformed(ActionEvent e){
-        new MainWindow().setVisible(true);
+        new SalesMainWindow().setVisible(true);
         dispose();
     }
 
@@ -56,18 +57,19 @@ public class TicketSalesWindow extends JFrame {
         dispose();
     }
 
-    private void addTicketToSaleButtonPerformed(ActionEvent e){
-        int selectedRow = ticketTable.getSelectedRow();
+    private void selectSessionButtonPerformed(ActionEvent e){
+        int selectedRow = sessionTable.getSelectedRow();
         if (selectedRow != -1) {
-            DefaultTableModel model = (DefaultTableModel) ticketTable.getModel();
-            String ticketId = model.getValueAt(selectedRow, 0).toString();
-            JOptionPane.showMessageDialog(this, "Bilhete " + ticketId + " adicionado à venda.");
+            DefaultTableModel model = (DefaultTableModel) sessionTable.getModel();
+            int sessionId = (int) model.getValueAt(selectedRow, 0);
+            System.out.println(sessionId);
+            new TicketsPerSessionSaleWindow(this, sessionId).setVisible(true);
         } else {
-            JOptionPane.showMessageDialog(this, "Selecione um bilhete para adicionar à venda.");
+            JOptionPane.showMessageDialog(this, "Selecione uma sessão para pesquisar bilhetes.");
         }
     }
 
     public static void main(String[] args){
-        new TicketSalesWindow().setVisible(true);
+        new SessionSelectWindow().setVisible(true);
     }
 }

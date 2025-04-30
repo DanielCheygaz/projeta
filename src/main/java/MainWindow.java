@@ -8,6 +8,7 @@ public class MainWindow extends JFrame{
     private JButton manageStockButton;
     private JButton manageRoomButton;
     private JPanel mainPanel;
+    private JButton statisticsButton;
 
     public MainWindow() throws HeadlessException {
         super("Cinema Projeta");
@@ -28,6 +29,7 @@ public class MainWindow extends JFrame{
         new SessionManagerWindow().setVisible(true);
         setVisible(false);
     }
+
     private void manageStockButtonActionPerformed(ActionEvent e){
         new StockManagerWindow().setVisible(true);
         setVisible(false);
