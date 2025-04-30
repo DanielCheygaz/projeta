@@ -34,7 +34,7 @@ public class MainWindow extends JFrame{
     }
 
     private void manageSalesButtonActionPerformed(ActionEvent e){
-        new SalesWindow().setVisible(true);
+        new SalesMainWindow().setVisible(true);
         setVisible(false);
     }
 

@@ -1,5 +1,3 @@
-import java.util.LinkedList;
-
 public class Stock {
     private Product product;
     private int units;

@@ -18,6 +18,7 @@ public class SessionManagerWindow extends JFrame{
         setContentPane(mainPanel);
         pack();
 
+        sessionsTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         scrollPane.getViewport().setBackground(Color.decode("2894892"));
         String[] columns = {"Filme","Sala","Data","Duração","Descrição"};
 

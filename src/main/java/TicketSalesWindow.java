@@ -42,12 +42,12 @@ public class TicketSalesWindow extends JFrame {
 
     private void finishSaleButtonPerformed(ActionEvent e){
         JOptionPane.showMessageDialog(this, "Venda finalizada com sucesso!");
-        new SalesWindow().setVisible(true);
+        new SalesMainWindow().setVisible(true);
         dispose();
     }
 
     private void editSaleButtonPerformed(ActionEvent e){
-        new EditSaleWindow(this).setVisible(true);
+        new SaleEditWindow(this).setVisible(true);
         dispose();
     }
 
