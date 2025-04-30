@@ -19,7 +19,14 @@ public class MainWindow extends JFrame{
         this.manageStockButton.addActionListener(this::manageStockButtonActionPerformed);
         this.salesButton.addActionListener(this::manageSalesButtonActionPerformed);
         this.manageRoomButton.addActionListener(this::manageRoomButtonActionPerformed);
+        this.statisticsButton.addActionListener(this::statisticsButtonActionPerformed);
     }
+
+    private void statisticsButtonActionPerformed(ActionEvent e){
+        new StatisticsWindow().setVisible(true);
+        setVisible(false);
+    }
+
     private void manageRoomButtonActionPerformed(ActionEvent e){
         new RoomManagerWindow().setVisible(true);
         setVisible(false);

@@ -49,7 +49,8 @@ public class RoomManagerWindow extends JFrame{
     }
 
     private void adicionarSalaButtonActionPerformed(ActionEvent e){
-
+        new RoomCreateWindow().setVisible(true);
+        dispose();
     }
 
     private void backButtonActionPerformed(ActionEvent e){
