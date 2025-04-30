@@ -1,23 +1,26 @@
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class AppData {
     public static AppData instance = null;
-    private static LinkedList<Product> productList = new LinkedList<>();
-    private static LinkedList<Genre> genreList = new LinkedList<>();
-    private static LinkedList<Movie> movieList = new LinkedList<>();
-    private static LinkedList<Room> roomList = new LinkedList<>();
-    private static LinkedList<Session> sessionList = new LinkedList<>();
+    private LinkedList<Product> productList = new LinkedList<>();
+    private LinkedList<Genre> genreList = new LinkedList<>();
+    private LinkedList<Movie> movieList = new LinkedList<>();
+    private LinkedList<Room> roomList = new LinkedList<>();
+    private LinkedList<Session> sessionList = new LinkedList<>();
+    private LinkedList<Stock> stockList = new LinkedList<>();
+    private LinkedList<Ticket> ticketList = new LinkedList<>();
 
     public AppData() {
-        productList.add(new Product("CocaCola",15,1.2));
-        productList.add(new Product("KitKat",12,1.5));
-        productList.add(new Product("Snickers",22,1.5));
-        productList.add(new Product("Água",43,1));
-        productList.add(new Product("Tabaco",100000,10.50));
-        productList.add(new Product("Gelatina",236,341));
+        productList.add(new Product("CocaCola",1.2));
+        productList.add(new Product("KitKat",1.5));
+        productList.add(new Product("Snickers",1.5));
+        productList.add(new Product("Água",1));
+        productList.add(new Product("Tabaco",10.50));
+        productList.add(new Product("Gelatina",341));
+
+        for(Product product: getProductList()){
+            stockList.add(new Stock(product, (int)(Math.random()*101)));
+        }
 
         genreList.add(new Genre("Ação"));
         genreList.add(new Genre("Drama"));
@@ -36,6 +39,10 @@ public class AppData {
         sessionList.add(new Session(new Date(2025,5,12,12,30),movieList.get(1),roomList.get(1)));
         sessionList.add(new Session(new Date(2025,5,12,12,30),movieList.get(2),roomList.get(2)));
 
+        ticketList.add(new Ticket(1,sessionList.get(0),10));
+        ticketList.add(new Ticket(2,sessionList.get(1),15));
+        ticketList.add(new Ticket(3,sessionList.get(2),8));
+        ticketList.add(new Ticket(4,sessionList.get(0),9.50));
     }
 
     public static AppData getInstance() {
@@ -48,23 +55,32 @@ public class AppData {
 
     private static void carregarDados() {}
 
-    public static LinkedList<Product> getProductList() {
+
+    public LinkedList<Stock> getStockList() {
+        return stockList;
+    }
+
+    public LinkedList<Product> getProductList() {
         return productList;
     }
 
-    public static LinkedList<Genre> getGenreList() {
+    public LinkedList<Genre> getGenreList() {
         return genreList;
     }
 
-    public static LinkedList<Movie> getMovieList() {
+    public LinkedList<Movie> getMovieList() {
         return movieList;
     }
 
-    public static LinkedList<Room> getRoomList() {
+    public LinkedList<Room> getRoomList() {
         return roomList;
     }
 
-    public static LinkedList<Session> getSessionList() {
+    public LinkedList<Session> getSessionList() {
         return sessionList;
+    }
+
+    public LinkedList<Ticket> getTicketList() {
+        return ticketList;
     }
 }
