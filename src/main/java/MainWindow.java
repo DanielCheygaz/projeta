@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 
 public class MainWindow extends JFrame{
     private JButton manageSessionsButton;
-    private JButton Gerir;
+    private JButton salesButton;
     private JButton manageStockButton;
     private JButton manageRoomButton;
     private JPanel mainPanel;
@@ -16,6 +16,7 @@ public class MainWindow extends JFrame{
         pack();
         this.manageSessionsButton.addActionListener(this::manageSessionsButtonActionPerformed);
         this.manageStockButton.addActionListener(this::manageStockButtonActionPerformed);
+        this.salesButton.addActionListener(this::manageSalesButtonActionPerformed);
         this.manageRoomButton.addActionListener(this::manageRoomButtonActionPerformed);
     }
     private void manageRoomButtonActionPerformed(ActionEvent e){
@@ -27,9 +28,13 @@ public class MainWindow extends JFrame{
         new SessionManagerWindow().setVisible(true);
         setVisible(false);
     }
-
     private void manageStockButtonActionPerformed(ActionEvent e){
         new StockManagerWindow().setVisible(true);
+        setVisible(false);
+    }
+
+    private void manageSalesButtonActionPerformed(ActionEvent e){
+        new SalesWindow().setVisible(true);
         setVisible(false);
     }
 

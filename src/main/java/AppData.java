@@ -10,6 +10,7 @@ public class AppData {
     private static List<Movie> movieList = new ArrayList<>();
     private static List<Room> roomList = new ArrayList<>();
     private static List<Session> sessionList = new ArrayList<>();
+    private static List<Ticket> ticketList = new ArrayList<>();
 
     public AppData() {
         productList.add(new Product("CocaCola",15,1.2));
@@ -36,6 +37,12 @@ public class AppData {
         sessionList.add(new Session(new Date(2025,5,12,12,30),movieList.get(0),roomList.get(0)));
         sessionList.add(new Session(new Date(2025,5,12,12,30),movieList.get(1),roomList.get(1)));
         sessionList.add(new Session(new Date(2025,5,12,12,30),movieList.get(2),roomList.get(2)));
+
+        ticketList.add(new Ticket(1,sessionList.get(0),10));
+        ticketList.add(new Ticket(2,sessionList.get(1),15));
+        ticketList.add(new Ticket(3,sessionList.get(2),8));
+        ticketList.add(new Ticket(4,sessionList.get(0),9.50));
+
 
     }
 
@@ -68,4 +75,6 @@ public class AppData {
     public static List<Session> getSessionList() {
         return sessionList;
     }
+
+    public static List<Ticket> getTicketList() { return ticketList; }
 }
