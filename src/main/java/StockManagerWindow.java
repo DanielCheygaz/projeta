@@ -7,10 +7,11 @@ public class StockManagerWindow extends JFrame{
     private JTable productsTable;
     private JButton backButton;
     private JPanel mainPanel;
-    private JButton adicionarProdutoButton;
-    private JButton removerProdutoButton;
+    private JButton addProductButton;
+    private JButton removeProdutoButton;
     private JButton editProductButton;
     private JScrollPane scrollPane;
+    private JButton buyProductButton;
 
     public StockManagerWindow(){
         super("Gestor de Stock");
@@ -29,27 +30,57 @@ public class StockManagerWindow extends JFrame{
         productsTable.setModel(tableModel);
         productsTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
+        this.addProductButton.addActionListener(this::addButtonPerformed);
         this.editProductButton.addActionListener(this::editProductButtonPerformed);
+        this.buyProductButton.addActionListener(this::buyProductButtonPerformed);
         this.backButton.addActionListener(this::backButtonPerformed);
     }
 
+    private void addButtonPerformed(ActionEvent e){
+        new ProductAddWindow().setVisible(true);
+        dispose();
+    }
+
     private void editProductButtonPerformed(ActionEvent e){
-        int selectedRow = productsTable.getSelectedRow();
+        int selectedRow = getSelectedRow();
 
         if(selectedRow==-1){
-            new ErrorWindow("Selecione primeiro um produto").setVisible(true);
             return;
         }
 
         Stock stock = AppData.getInstance().getStockList().get(selectedRow);
-        dispose();
         new ProductEditWindow(stock,selectedRow).setVisible(true);
+        dispose();
+    }
+
+    private void buyProductButtonPerformed(ActionEvent e){
+        int selectedRow = getSelectedRow();
+
+        if(selectedRow==-1){
+            return;
+        }
+
+        Stock stock = AppData.getInstance().getStockList().get(selectedRow);
+        new ProductBuyWindow(stock).setVisible(true);
+        dispose();
     }
 
     private void backButtonPerformed(ActionEvent e){
         new MainWindow().setVisible(true);
         dispose();
     }
+
+    private int getSelectedRow(){
+        int selectedRow = productsTable.getSelectedRow();
+
+        if(selectedRow==-1){
+            new ErrorWindow("Selecione primeiro um produto").setVisible(true);
+            return -1;
+        }
+
+        return selectedRow;
+    }
+
     public static void main(String[] args){
         new StockManagerWindow().setVisible(true);
     }

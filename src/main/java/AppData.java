@@ -56,6 +56,9 @@ public class AppData {
     private static void carregarDados() {}
 
 
+    public void addStock(Stock stock){
+        stockList.add(stock);
+    }
     public LinkedList<Stock> getStockList() {
         return stockList;
     }
