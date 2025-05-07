@@ -46,8 +46,21 @@ public class ProductAddWindow extends JFrame{
             return;
         }
 
-        Product product = new Product(productName,Double.valueOf(productPriceString));
-        Stock stock = new Stock(product,(Integer)unitsSpinner.getValue());
+        double price;
+        int units;
+        productPriceString = productPriceString.replace(',','.');
+
+        // verificar que os valores do preço e unidades inseridos contêm apenas números
+        try {
+            price = Double.valueOf(productPriceString);
+            units = Integer.valueOf(unitsSpinner.getValue().toString());
+        }catch(NumberFormatException ex){
+            new ErrorWindow("O preço ou as unidades têm de ser um número." + ex.getMessage()).setVisible(true);
+            return;
+        }
+
+        Product product = new Product(productName, price);
+        Stock stock = new Stock(product,units);
 
         AppData.getInstance().addStock(stock);
 
