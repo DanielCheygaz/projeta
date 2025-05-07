@@ -72,12 +72,10 @@ public class StockManagerWindow extends JFrame{
 
     private int getSelectedRow(){
         int selectedRow = productsTable.getSelectedRow();
-
         if(selectedRow==-1){
             new ErrorWindow("Selecione primeiro um produto").setVisible(true);
             return -1;
         }
-
         return selectedRow;
     }
 
