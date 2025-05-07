@@ -22,6 +22,7 @@ public class ProductAddWindow extends JFrame{
         setContentPane(mainPanel);
         pack();
 
+        // definir o comportamento do spinner
         SpinnerModel spinnerModel = new SpinnerNumberModel(START_VALUE,MIN_VALUE,MAX_VALUE,STEP);
         unitsSpinner.setModel(spinnerModel);
 

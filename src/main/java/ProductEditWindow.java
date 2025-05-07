@@ -26,6 +26,7 @@ public class ProductEditWindow extends JFrame{
 
         textFieldName.setText(product.getName());
 
+        // definir o comportamento do spinner
         SpinnerModel spinnerNumberModel = new SpinnerNumberModel(stock.getUnits(),MIN_VALUE,MAX_VALUE,STEP);
         unitsSpinner.setModel(spinnerNumberModel);
 
@@ -55,6 +56,7 @@ public class ProductEditWindow extends JFrame{
 
         double price;
         int units;
+        // caso a string tenha vírgula, troca-se por ponto para poder fazer a conversão para double
         productPriceString = productPriceString.replace(',','.');
 
         // verificar que os valores do preço e unidades inseridos contêm apenas números

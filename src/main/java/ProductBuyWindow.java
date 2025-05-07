@@ -23,6 +23,7 @@ public class ProductBuyWindow extends JFrame{
         this.stock = stock;
         titleLabel.setText(stock.getProduct().getName());
 
+        // definir o comportamento do spinner
         SpinnerModel spinnerNumberModel = new SpinnerNumberModel(START_VALUE,MIN_VALUE,MAX_VALUE,STEP);
         spinner.setModel(spinnerNumberModel);
 
