@@ -9,8 +9,13 @@ public class ProductEditWindow extends JFrame{
     private JFormattedTextField formattedTextNome;
     private JFormattedTextField formattedTextUnits;
     private JFormattedTextField formattedTextPrice;
+    private JSpinner unitsSpinner;
     private Product product;
     private Stock stock;
+
+    private static final int MIN_VALUE = 0;
+    private static final int MAX_VALUE = 500;
+    private static final int STEP = 1;
 
     public ProductEditWindow(Stock stock, int index) throws HeadlessException {
         super("Editar " + stock.getProduct().getName());
@@ -21,7 +26,10 @@ public class ProductEditWindow extends JFrame{
         this.product = stock.getProduct();
 
         formattedTextNome.setText(product.getName());
-        formattedTextUnits.setText(String.valueOf(stock.getUnits()));
+
+        SpinnerModel spinnerNumberModel = new SpinnerNumberModel(stock.getUnits(),MIN_VALUE,MAX_VALUE,STEP);
+        unitsSpinner.setModel(spinnerNumberModel);
+
         formattedTextPrice.setText(String.valueOf(product.getPrice()));
 
         this.cancelButton.addActionListener(this::cancelButtonPerformed);
