@@ -30,9 +30,15 @@ public class StockManagerWindow extends JFrame{
         productsTable.setModel(tableModel);
         productsTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
+        this.addProductButton.addActionListener(this::addButtonPerformed);
         this.editProductButton.addActionListener(this::editProductButtonPerformed);
         this.buyProductButton.addActionListener(this::buyProductButtonPerformed);
         this.backButton.addActionListener(this::backButtonPerformed);
+    }
+
+    private void addButtonPerformed(ActionEvent e){
+        new ProductAddWindow().setVisible(true);
+        dispose();
     }
 
     private void editProductButtonPerformed(ActionEvent e){
