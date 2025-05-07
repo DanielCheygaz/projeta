@@ -14,4 +14,9 @@ public class Product {
     public double getPrice() {
         return price;
     }
+
+    public void editProduct(String name, double price){
+        this.name = name;
+        this.price = price;
+    }
 }

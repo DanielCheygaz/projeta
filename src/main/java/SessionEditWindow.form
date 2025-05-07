@@ -15,7 +15,7 @@
         <properties>
           <font size="24" style="1"/>
           <foreground color="-1184268"/>
-          <text value="Editar Produto"/>
+          <text value="Editar Sessão"/>
         </properties>
       </component>
       <grid id="5c781" layout-manager="GridLayoutManager" row-count="1" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
@@ -33,17 +33,15 @@
               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value="Nome"/>
+              <text value="Filme"/>
             </properties>
           </component>
-          <component id="a96fb" class="javax.swing.JFormattedTextField" binding="formattedTextNome">
+          <component id="e8d7e" class="javax.swing.JComboBox" binding="comboBoxFilme">
             <constraints>
-              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-                <preferred-size width="150" height="-1"/>
-              </grid>
+              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value=""/>
+              <model/>
             </properties>
           </component>
         </children>
@@ -68,16 +66,18 @@
               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value="Unidades"/>
+              <text value="Data"/>
             </properties>
           </component>
-          <component id="3cdf3" class="javax.swing.JFormattedTextField" binding="formattedTextUnits">
+          <component id="3cdf3" class="javax.swing.JFormattedTextField" binding="formattedTextDate">
             <constraints>
               <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                 <preferred-size width="150" height="-1"/>
               </grid>
             </constraints>
-            <properties/>
+            <properties>
+              <text value=""/>
+            </properties>
           </component>
         </children>
       </grid>
@@ -94,14 +94,12 @@
               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value="Preço Unidade"/>
+              <text value="Sala"/>
             </properties>
           </component>
-          <component id="42d2f" class="javax.swing.JFormattedTextField" binding="formattedTextPrice">
+          <component id="62af8" class="javax.swing.JComboBox" binding="comboBoxSala">
             <constraints>
-              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-                <preferred-size width="150" height="-1"/>
-              </grid>
+              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties/>
           </component>

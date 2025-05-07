@@ -3,12 +3,13 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 
 public class ProductAddWindow extends JFrame{
-    private JFormattedTextField formattedTextNome;
     private JSpinner unitsSpinner;
     private JFormattedTextField formattedTextPrice;
     private JButton cancelButton;
     private JButton saveButton;
     private JPanel mainPanel;
+    private JTextField textFieldName;
+    private JTextField textFieldPrice;
 
     private static final int MIN_VALUE = 0;
     private static final int MAX_VALUE = 500;
@@ -33,15 +34,15 @@ public class ProductAddWindow extends JFrame{
         dispose();
     }
     private void saveButtonPerformed(ActionEvent e){
-        String productName = formattedTextNome.getText();
-        String productPriceString = formattedTextPrice.getText();
+        String productName = textFieldName.getText();
+        String productPriceString = textFieldPrice.getText();
 
         if(productName==null){
             new ErrorWindow("O campo nome não pode estar vazio!").setVisible(true);
             return;
         }
 
-        if(productPriceString ==null){
+        if(productPriceString==null){
             new ErrorWindow("O campo preço não pode estar vazio!").setVisible(true);
             return;
         }

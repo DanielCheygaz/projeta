@@ -63,6 +63,10 @@ public class AppData {
         return stockList;
     }
 
+    public void removeStock(Stock stock){
+        stockList.remove(stock);
+    }
+
     public LinkedList<Product> getProductList() {
         return productList;
     }
