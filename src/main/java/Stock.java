@@ -15,6 +15,15 @@ public class Stock {
         return units;
     }
 
+    public void addUnits(int units){
+        this.units += units;
+    }
+
+    public void editStock(String name, int units, double price){
+        product.editProduct(name,price);
+        this.units = units;
+    }
+
     public void setUnits(int units) {
         this.units = units;
     }

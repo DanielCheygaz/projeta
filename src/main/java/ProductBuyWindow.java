@@ -12,6 +12,7 @@ public class ProductBuyWindow extends JFrame{
     private static final int MAX_VALUE = 500;
     private static final int STEP = 1;
     private static final int START_VALUE = 0;
+    private Stock stock;
 
 
     public ProductBuyWindow(Stock stock) throws HeadlessException {
@@ -19,7 +20,7 @@ public class ProductBuyWindow extends JFrame{
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setContentPane(mainPanel);
         pack();
-
+        this.stock = stock;
         titleLabel.setText(stock.getProduct().getName());
 
         SpinnerModel spinnerNumberModel = new SpinnerNumberModel(START_VALUE,MIN_VALUE,MAX_VALUE,STEP);
@@ -34,6 +35,7 @@ public class ProductBuyWindow extends JFrame{
         dispose();
     }
     private void saveButtonPerformed(ActionEvent e){
+        stock.addUnits(Integer.valueOf(spinner.getValue().toString()));
         new StockManagerWindow().setVisible(true);
         dispose();
     }
