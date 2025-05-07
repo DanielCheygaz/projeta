@@ -24,7 +24,7 @@ public class RoomDetailsWindow extends JFrame {
 
         Object[] row = {
                 room.getRoomNumber(),
-                room.getNumeroLugares(),
+                room.getNumberOfSeats(),
                 room.isImax(),
                 room.isDolbyAtmos()
         };

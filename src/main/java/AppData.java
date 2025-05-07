@@ -30,10 +30,10 @@ public class AppData {
         movieList.add(new Movie("Titanic",123, genreList.get(1)));
         movieList.add(new Movie("Annabelle",123, genreList.get(2)));
 
-        roomList.add(new Room(1,100,true,false));
-        roomList.add(new Room(2,50,true,true));
-        roomList.add(new Room(3,150,false,true));
-        roomList.add(new Room(4,75,false,false));
+        roomList.add(new Room(1,5,5,true,false));
+        roomList.add(new Room(2,10,15,false,false));
+        roomList.add(new Room(3,20,5,false,true));
+        roomList.add(new Room(4,30,10,true,true));
 
         sessionList.add(new Session(1, new Date(2025,5,12,12,30),movieList.get(0),roomList.get(0)));
         sessionList.add(new Session(2, new Date(2025,5,12,12,30),movieList.get(1),roomList.get(1)));
