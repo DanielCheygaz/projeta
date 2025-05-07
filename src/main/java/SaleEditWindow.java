@@ -22,11 +22,13 @@ public class SaleEditWindow extends JFrame{
         setContentPane(mainPanel);
         pack();
         scrollPane.getViewport().setBackground(Color.decode("2894892"));
-        String[] columns = {"Nome do Produto", "Preço"};
+        String[] columns = {"Quantidade", "Nome do Produto", "Preço"};
         DefaultTableModel tableModel = new DefaultTableModel(columns, 0);
+        float i=1;
         for (Product product : AppData.getInstance().getProductList()) {
-            Object[] row = {product.getName(), product.getPrice()};
+            Object[] row = {i, product.getName(), i*product.getPrice()};
             tableModel.addRow(row);
+            i+=1.5;
         }
         barProductsTable.setModel(tableModel);
 

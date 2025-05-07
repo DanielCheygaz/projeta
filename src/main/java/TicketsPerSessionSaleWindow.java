@@ -12,10 +12,11 @@ public class TicketsPerSessionSaleWindow extends JFrame {
     private JButton addBarProductsButton;
     private JButton addTicketButton;
     private JButton backButton;
+    private SeatButton[][] buttons;
 
     private JFrame previousWindow;
 
-    public TicketsPerSessionSaleWindow(JFrame previousWindow, int sessionID) {
+    public TicketsPerSessionSaleWindow(JFrame previousWindow, int sessionID, int numberOfRows, int numberOfColumns) {
         super("Venda de Bilhetes");
         this.previousWindow = previousWindow;
 
@@ -25,16 +26,32 @@ public class TicketsPerSessionSaleWindow extends JFrame {
 
         scrollPane.getViewport().setBackground(Color.decode("2894892"));
 
-        //adicionar lugar para os bilhetes
-        String[] columns = {"ID do Bilhete", "Sala", "Valor do Bilhete"};
-        DefaultTableModel tableModel = new DefaultTableModel(columns, 0);
-        for (Ticket ticket : AppData.getInstance().getTicketList()) {
-            if (ticket.getSession().getID() == sessionID) {
-                Object[] row = {ticket.getId(), ticket.getSession().getRoom().getRoomNumber(), ticket.getPrice()};
-                tableModel.addRow(row);
+        this.buttons = new SeatButton[numberOfRows][numberOfColumns];
+
+        JPanel seatPanel = new JPanel(new GridLayout(numberOfRows, numberOfColumns, 5, 5));
+        for (int row = 0; row < numberOfRows; ++row) {
+            for (int column = 0; column < numberOfColumns; ++column) {
+                buttons[row][column] = new SeatButton(row, column);
+                buttons[row][column].setState(0);
+                //apenas para teste
+                if(buttons[row][column].getColumn() == 2 && buttons[row][column].getRow() == 2) {
+                    buttons[row][column].setState(2);
+                }
+
+                buttons[row][column].addActionListener(e -> {
+                    SeatButton button = (SeatButton) e.getSource();
+                    if (button.getState() == 0) {
+                        button.setState(1);
+                    } else if (button.getState() == 1) {
+                        button.setState(0);
+                    } else if (button.getState() == 2) {
+                        JOptionPane.showMessageDialog(this, "Este lugar já está vendido.");
+                    }
+                });
+                seatPanel.add(buttons[row][column]);
             }
         }
-        ticketTable.setModel(tableModel);
+        scrollPane.setViewportView(seatPanel);
 
         this.backButton.addActionListener(this::backButtonPerformed);
         this.finishSaleButton.addActionListener(this::finishSaleButtonPerformed);
@@ -76,7 +93,7 @@ public class TicketsPerSessionSaleWindow extends JFrame {
     }
 
     public static void main(String[] args) {
-        new TicketsPerSessionSaleWindow(null, 1).setVisible(true);
+        new TicketsPerSessionSaleWindow(null, 1, 1, 1).setVisible(true);
     }
 }
 

@@ -9,8 +9,9 @@ public class RoomCreateWindow extends JFrame{
     private JPanel createPanel;
     private JButton criarSalaButton;
     private JSpinner numeroSala;
-    private JSpinner numeroLugares;
     private JButton cancelButton;
+    private JSpinner numeroColunas;
+    private JSpinner numeroLinhas;
 
     public RoomCreateWindow() throws HeadlessException {
         super("Cinema Projeta");
@@ -29,18 +30,26 @@ public class RoomCreateWindow extends JFrame{
     }
     private void criarSalaButtonActionPerformed(ActionEvent e) {
         int numeroSalaInt = (int) numeroSala.getValue();
-        int numeroLugaresInt = (int) numeroLugares.getValue();
+        int numeroLinhasInt = (int) numeroLinhas.getValue();
+        int numeroColunasInt = (int) numeroColunas.getValue();
+
 
         if(numeroSalaInt <= 0){
             new ErrorWindow("Numero da sala invalido").setVisible(true);
             return;
         }
 
-        if(numeroLugaresInt <= 0){
-            new ErrorWindow("Numero de lugares invalido").setVisible(true);
+        if(numeroColunasInt <= 0){
+            new ErrorWindow("Numero de lugares por fila invalido").setVisible(true);
             return;
         }
-        Room novaSala = new Room(numeroSalaInt,numeroLugaresInt,imaxCheckBox.isSelected(),dolbyAtmosCheckBox.isSelected());
+
+        if(numeroLinhasInt <= 0){
+            new ErrorWindow("Numero de filas invalido").setVisible(true);
+            return;
+        }
+
+        Room novaSala = new Room(numeroSalaInt,numeroColunasInt,numeroLinhasInt,imaxCheckBox.isSelected(),dolbyAtmosCheckBox.isSelected());
         AppData.getInstance().getRoomList().add(novaSala);
         dispose();
         new RoomManagerWindow().setVisible(true);
