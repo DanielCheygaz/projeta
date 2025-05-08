@@ -47,7 +47,7 @@
         </clientProperties>
         <border type="none"/>
         <children>
-          <component id="34d02" class="javax.swing.JTable" binding="productsTable">
+          <component id="34d02" class="javax.swing.JTable" binding="moviesTable">
             <constraints/>
             <properties>
               <autoCreateRowSorter value="false"/>

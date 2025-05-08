@@ -79,6 +79,10 @@ public class AppData {
         return movieList;
     }
 
+    public void removeMovie(Movie movie){
+        movieList.remove(movie);
+    }
+
     public LinkedList<Room> getRoomList() {
         return roomList;
     }
