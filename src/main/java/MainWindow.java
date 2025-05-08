@@ -9,17 +9,25 @@ public class MainWindow extends JFrame{
     private JButton manageRoomButton;
     private JPanel mainPanel;
     private JButton statisticsButton;
+    private JButton manageMoviesButton;
 
     public MainWindow() throws HeadlessException {
         super("Cinema Projeta");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setContentPane(mainPanel);
         pack();
+
+        this.manageMoviesButton.addActionListener(this::manageMoviesButtonPerformed);
         this.manageSessionsButton.addActionListener(this::manageSessionsButtonActionPerformed);
         this.manageStockButton.addActionListener(this::manageStockButtonActionPerformed);
         this.salesButton.addActionListener(this::manageSalesButtonActionPerformed);
         this.manageRoomButton.addActionListener(this::manageRoomButtonActionPerformed);
         this.statisticsButton.addActionListener(this::statisticsButtonActionPerformed);
+    }
+
+    private void manageMoviesButtonPerformed(ActionEvent e){
+        new MovieManagerWindow().setVisible(true);
+        setVisible(false);
     }
 
     private void statisticsButtonActionPerformed(ActionEvent e){

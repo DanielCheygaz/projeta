@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 
 public class SessionEditWindow extends JFrame{
     private JFormattedTextField formattedTextDate;
@@ -18,7 +19,7 @@ public class SessionEditWindow extends JFrame{
         int index = appData.getSessionList().indexOf(session);
         comboBoxFilme.setSelectedItem(session.getMovie());
         for(Movie movie: AppData.getInstance().getMovieList()){
-            comboBoxFilme.addItem(movie);
+            comboBoxFilme.addItem(movie.getName());
         }
 
         formattedTextDate.setText(session.getData().toString());
@@ -27,5 +28,12 @@ public class SessionEditWindow extends JFrame{
         for(Room room: AppData.getInstance().getRoomList()){
             comboBoxSala.addItem(room.getRoomNumber());
         }
+
+        this.cancelButton.addActionListener(this::cancelButtonPerformed);
+    }
+
+    private void cancelButtonPerformed(ActionEvent e){
+        new SessionManagerWindow().setVisible(true);
+        dispose();
     }
 }
