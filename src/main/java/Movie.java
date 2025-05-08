@@ -24,6 +24,8 @@ public class Movie {
         dolbyAtmos = false;
     }
 
+
+
     public Movie(String name, int duration, String description, Genre genre, boolean imax, boolean dolbyAtmos) {
         this.name = name;
         this.duration = duration;
@@ -47,5 +49,13 @@ public class Movie {
 
     public Genre getGenre() {
         return genre;
+    }
+
+    public boolean isImax() {
+        return imax;
+    }
+
+    public boolean isDolbyAtmos() {
+        return dolbyAtmos;
     }
 }
