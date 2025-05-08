@@ -26,6 +26,7 @@
           <grid row="1" column="1" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
+          <background color="-14868447"/>
           <enabled value="true"/>
         </properties>
         <border type="none"/>
@@ -35,6 +36,8 @@
               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
+              <background color="-43520"/>
+              <foreground color="-1184268"/>
               <text value="Nome"/>
             </properties>
           </component>
@@ -45,6 +48,9 @@
               </grid>
             </constraints>
             <properties>
+              <background color="-13553102"/>
+              <caretColor color="-1184268"/>
+              <foreground color="-1184268"/>
               <text value=""/>
             </properties>
           </component>
@@ -62,7 +68,10 @@
         <constraints>
           <grid row="2" column="1" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
-        <properties/>
+        <properties>
+          <background color="-14868447"/>
+          <foreground color="-1184268"/>
+        </properties>
         <border type="none"/>
         <children>
           <component id="a9127" class="javax.swing.JLabel">
@@ -70,6 +79,7 @@
               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
+              <foreground color="-1184268"/>
               <text value="Unidades"/>
             </properties>
           </component>
@@ -77,7 +87,10 @@
             <constraints>
               <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
-            <properties/>
+            <properties>
+              <background color="-13553102"/>
+              <foreground color="-1184268"/>
+            </properties>
           </component>
         </children>
       </grid>
@@ -86,7 +99,9 @@
         <constraints>
           <grid row="3" column="1" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
-        <properties/>
+        <properties>
+          <background color="-14868447"/>
+        </properties>
         <border type="none"/>
         <children>
           <component id="2dc3a" class="javax.swing.JLabel">
@@ -94,6 +109,7 @@
               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
+              <foreground color="-1184268"/>
               <text value="Preço Unidade"/>
             </properties>
           </component>
@@ -103,7 +119,11 @@
                 <preferred-size width="150" height="-1"/>
               </grid>
             </constraints>
-            <properties/>
+            <properties>
+              <background color="-13553102"/>
+              <caretColor color="-1184268"/>
+              <foreground color="-1184268"/>
+            </properties>
           </component>
         </children>
       </grid>

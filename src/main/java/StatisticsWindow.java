@@ -30,7 +30,7 @@ public class StatisticsWindow extends JFrame{
     }
 
     private void backButtonPerformed(ActionEvent e){
-        new SalesMainWindow().setVisible(true);
+        new MainWindow().setVisible(true);
         dispose();
     }
 }

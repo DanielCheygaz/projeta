@@ -57,7 +57,8 @@
               <background color="-14868447"/>
               <enabled value="true"/>
               <foreground color="-1184268"/>
-              <selectionForeground color="-1184268"/>
+              <selectionBackground color="-2635350"/>
+              <selectionForeground color="-13553102"/>
             </properties>
           </component>
         </children>

@@ -16,7 +16,7 @@ public class ProductBuyWindow extends JFrame{
 
 
     public ProductBuyWindow(Stock stock) throws HeadlessException {
-        super("Buy Product");
+        super("Comprar Produto");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setContentPane(mainPanel);
         pack();
