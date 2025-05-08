@@ -25,6 +25,9 @@ public class AppData {
         genreList.add(new Genre("Ação"));
         genreList.add(new Genre("Drama"));
         genreList.add(new Genre("Terror"));
+        genreList.add(new Genre("Suspance"));
+        genreList.add(new Genre("Documentário"));
+        genreList.add(new Genre("Animação"));
 
         movieList.add(new Movie("Avatar",180,"Os gajos azuis à porrada e tal", genreList.get(0),true,true));
         movieList.add(new Movie("Titanic",123, genreList.get(1)));
@@ -73,6 +76,9 @@ public class AppData {
 
     public LinkedList<Genre> getGenreList() {
         return genreList;
+    }
+    public void addGenre(String name){
+        genreList.add(new Genre("name"));
     }
 
     public LinkedList<Movie> getMovieList() {

@@ -32,7 +32,7 @@ public class SessionEditWindow extends JFrame{
         this.cancelButton.addActionListener(this::cancelButtonPerformed);
     }
 
-    public void cancelButtonPerformed(ActionEvent e){
+    private void cancelButtonPerformed(ActionEvent e){
         new SessionManagerWindow().setVisible(true);
         dispose();
     }
