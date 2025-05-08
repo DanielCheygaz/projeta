@@ -40,25 +40,25 @@ public class MovieManagerWindow extends JFrame {
 
         this.addMovieButton.addActionListener(this::addButtonPerformed);
         this.removeMovieButton.addActionListener(this::removeMoviePerformed);
-        this.editMovieButton.addActionListener(this::editProductButtonPerformed);
+        this.editMovieButton.addActionListener(this::editMovieButtonPerformed);
         this.backButton.addActionListener(this::backButtonPerformed);
     }
 
     private void addButtonPerformed(ActionEvent e){
-        new ProductAddWindow().setVisible(true);
+        new MovieAddWindow().setVisible(true);
         dispose();
     }
 
-    private void editProductButtonPerformed(ActionEvent e){
-        int selectedRow = getSelectedRow();
+    private void editMovieButtonPerformed(ActionEvent e){
+        /*int selectedRow = getSelectedRow();
 
         if(selectedRow==-1){
             return;
         }
 
-        Stock stock = AppData.getInstance().getStockList().get(selectedRow);
-        new ProductEditWindow(stock,selectedRow).setVisible(true);
-        dispose();
+        Movie movie = AppData.getInstance().getMovieList().get(selectedRow);
+        new MovieEditWindow(movie).setVisible(true);
+        dispose();*/
     }
 
 
