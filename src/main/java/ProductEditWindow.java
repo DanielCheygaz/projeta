@@ -16,7 +16,7 @@ public class ProductEditWindow extends JFrame{
     private static final int MAX_VALUE = 500;
     private static final int STEP = 1;
 
-    public ProductEditWindow(Stock stock, int index) throws HeadlessException {
+    public ProductEditWindow(Stock stock) throws HeadlessException {
         super("Editar " + stock.getProduct().getName());
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setContentPane(mainPanel);

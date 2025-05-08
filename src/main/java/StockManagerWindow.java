@@ -52,7 +52,7 @@ public class StockManagerWindow extends JFrame{
         }
 
         Stock stock = AppData.getInstance().getStockList().get(selectedRow);
-        new ProductEditWindow(stock,selectedRow).setVisible(true);
+        new ProductEditWindow(stock).setVisible(true);
         dispose();
     }
 
