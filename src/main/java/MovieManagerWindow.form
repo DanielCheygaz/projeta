@@ -102,7 +102,7 @@
             <properties>
               <background color="-6144440"/>
               <foreground color="-1184268"/>
-              <text value="Editar Produto"/>
+              <text value="Editar Filme"/>
             </properties>
           </component>
         </children>
