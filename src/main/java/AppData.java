@@ -9,6 +9,7 @@ public class AppData {
     private LinkedList<Session> sessionList = new LinkedList<>();
     private LinkedList<Stock> stockList = new LinkedList<>();
     private LinkedList<Ticket> ticketList = new LinkedList<>();
+    private LinkedList<Bundle> bundleList = new LinkedList<>();
 
     public AppData() {
         productList.add(new Product("CocaCola",1.2));
@@ -43,6 +44,10 @@ public class AppData {
         ticketList.add(new Ticket(2,sessionList.get(1),15));
         ticketList.add(new Ticket(3,sessionList.get(2),8));
         ticketList.add(new Ticket(4,sessionList.get(0),9.50));
+
+        bundleList.add(new Bundle(1,"Promoção 1",2, new LinkedList<>(Arrays.asList(productList.get(0),productList.get(1))), 2.5));
+        bundleList.add(new Bundle(2,"Promoção 2",3, new LinkedList<>(Arrays.asList(productList.get(2),productList.get(3))), 3.5));
+        bundleList.add(new Bundle(3,"Promoção 3",4, new LinkedList<>(Arrays.asList(productList.get(4),productList.get(5))), 5.5));
     }
 
     public static AppData getInstance() {
@@ -85,5 +90,9 @@ public class AppData {
 
     public LinkedList<Ticket> getTicketList() {
         return ticketList;
+    }
+
+    public LinkedList<Bundle> getBundleList() {
+        return bundleList;
     }
 }

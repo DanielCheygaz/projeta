@@ -1,6 +1,7 @@
 import java.util.LinkedList;
 
 public class Sale {
+    private int id;
     private LinkedList<Product> products;
     private LinkedList<Ticket> tickets;
 
