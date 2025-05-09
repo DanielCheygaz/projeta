@@ -85,6 +85,10 @@ public class AppData {
         return movieList;
     }
 
+    public void addMovie(Movie movie){
+        movieList.add(movie);
+    }
+
     public void removeMovie(Movie movie){
         movieList.remove(movie);
     }
