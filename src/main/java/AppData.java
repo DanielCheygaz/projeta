@@ -62,6 +62,7 @@ public class AppData {
     public void addStock(Stock stock){
         stockList.add(stock);
     }
+
     public LinkedList<Stock> getStockList() {
         return stockList;
     }
