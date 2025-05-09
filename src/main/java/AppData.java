@@ -62,6 +62,7 @@ public class AppData {
     public void addStock(Stock stock){
         stockList.add(stock);
     }
+
     public LinkedList<Stock> getStockList() {
         return stockList;
     }
@@ -83,6 +84,10 @@ public class AppData {
 
     public LinkedList<Movie> getMovieList() {
         return movieList;
+    }
+
+    public void addMovie(Movie movie){
+        movieList.add(movie);
     }
 
     public void removeMovie(Movie movie){

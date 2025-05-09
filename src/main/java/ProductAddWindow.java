@@ -57,7 +57,7 @@ public class ProductAddWindow extends JFrame{
             price = Double.valueOf(productPriceString);
             units = Integer.valueOf(unitsSpinner.getValue().toString());
         }catch(NumberFormatException ex){
-            new ErrorWindow("O preço ou as unidades têm de ser um número." + ex.getMessage()).setVisible(true);
+            new ErrorWindow("O preço/unidades têm de ser um número." + ex.getMessage()).setVisible(true);
             return;
         }
 
