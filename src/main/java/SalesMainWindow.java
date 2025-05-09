@@ -14,10 +14,10 @@ public class SalesMainWindow extends JFrame{
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setContentPane(mainPanel);
         pack();
-        this.manageSalesButton.addActionListener(this::sellTicketButtonPerformed);
+        this.manageSalesButton.addActionListener(this::manageSalesButtonPerformed);
         this.sellTicketButton.addActionListener(this::sellTicketButtonPerformed);
         this.sellBarProductsButton.addActionListener(this::sellBarProductsButtonPerformed);
-        this.editSaleButton.addActionListener(this::sellBarProductsButtonPerformed);
+        this.editSaleButton.addActionListener(this::editSaleButtonPerformed);
         this.backButton.addActionListener(this::backButtonPerformed);
     }
 
@@ -33,6 +33,16 @@ public class SalesMainWindow extends JFrame{
 
     private void sellBarProductsButtonPerformed(ActionEvent e){
         new BarProductsSaleWindow(this).setVisible(true);
+        dispose();
+    }
+
+    private void manageSalesButtonPerformed(ActionEvent e){
+        new SalesManagerWindow().setVisible(true);
+        dispose();
+    }
+
+    private void editSaleButtonPerformed(ActionEvent e){
+        new SaleEditWindow(this).setVisible(true);
         dispose();
     }
 
