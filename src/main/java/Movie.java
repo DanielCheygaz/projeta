@@ -48,4 +48,12 @@ public class Movie {
     public Genre getGenre() {
         return genre;
     }
+
+    public boolean isImax() {
+        return imax;
+    }
+
+    public boolean isDolbyAtmos() {
+        return dolbyAtmos;
+    }
 }

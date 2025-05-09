@@ -26,10 +26,13 @@ public class AppData {
         genreList.add(new Genre("Ação"));
         genreList.add(new Genre("Drama"));
         genreList.add(new Genre("Terror"));
+        genreList.add(new Genre("Suspance"));
+        genreList.add(new Genre("Documentário"));
+        genreList.add(new Genre("Animação"));
 
-        movieList.add(new Movie("Avatar",180,"Os gajos azuis à porrada e tal", genreList.get(0)));
+        movieList.add(new Movie("Avatar",180,"Os gajos azuis à porrada e tal", genreList.get(0),true,true));
         movieList.add(new Movie("Titanic",123, genreList.get(1)));
-        movieList.add(new Movie("Annabelle",123, genreList.get(2)));
+        movieList.add(new Movie("Annabelle",123, "Boooooo", genreList.get(2),true,false));
 
         roomList.add(new Room(1,5,5,true,false));
         roomList.add(new Room(2,10,15,false,false));
@@ -64,8 +67,13 @@ public class AppData {
     public void addStock(Stock stock){
         stockList.add(stock);
     }
+
     public LinkedList<Stock> getStockList() {
         return stockList;
+    }
+
+    public void removeStock(Stock stock){
+        stockList.remove(stock);
     }
 
     public LinkedList<Product> getProductList() {
@@ -75,9 +83,20 @@ public class AppData {
     public LinkedList<Genre> getGenreList() {
         return genreList;
     }
+    public void addGenre(String name){
+        genreList.add(new Genre("name"));
+    }
 
     public LinkedList<Movie> getMovieList() {
         return movieList;
+    }
+
+    public void addMovie(Movie movie){
+        movieList.add(movie);
+    }
+
+    public void removeMovie(Movie movie){
+        movieList.remove(movie);
     }
 
     public LinkedList<Room> getRoomList() {

@@ -34,8 +34,30 @@ public class SessionManagerWindow extends JFrame{
             tableModel.addRow(row);
         }
         sessionsTable.setModel(tableModel);
-
+        this.editSessionButton.addActionListener(this::editSessionButtonPerformed);
         this.backButton.addActionListener(this::backButtonPerformed);
+    }
+
+    private void editSessionButtonPerformed(ActionEvent e){
+        int selectedRow = getSelectedRow();
+        if(selectedRow==-1){
+            return;
+        }
+
+        Session session = AppData.getInstance().getSessionList().get(selectedRow);
+        new SessionEditWindow(session).setVisible(true);
+        dispose();
+    }
+
+    private int getSelectedRow(){
+        int selectedRow = sessionsTable.getSelectedRow();
+
+        if(selectedRow==-1){
+            new ErrorWindow("Selecione primeiro uma sessão").setVisible(true);
+            return -1;
+        }
+
+        return selectedRow;
     }
 
     private void backButtonPerformed(ActionEvent e){

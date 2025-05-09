@@ -3,12 +3,13 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 
 public class ProductAddWindow extends JFrame{
-    private JFormattedTextField formattedTextNome;
     private JSpinner unitsSpinner;
     private JFormattedTextField formattedTextPrice;
     private JButton cancelButton;
     private JButton saveButton;
     private JPanel mainPanel;
+    private JTextField textFieldName;
+    private JTextField textFieldPrice;
 
     private static final int MIN_VALUE = 0;
     private static final int MAX_VALUE = 500;
@@ -21,6 +22,7 @@ public class ProductAddWindow extends JFrame{
         setContentPane(mainPanel);
         pack();
 
+        // definir o comportamento do spinner
         SpinnerModel spinnerModel = new SpinnerNumberModel(START_VALUE,MIN_VALUE,MAX_VALUE,STEP);
         unitsSpinner.setModel(spinnerModel);
 
@@ -33,21 +35,34 @@ public class ProductAddWindow extends JFrame{
         dispose();
     }
     private void saveButtonPerformed(ActionEvent e){
-        String productName = formattedTextNome.getText();
-        String productPriceString = formattedTextPrice.getText();
+        String productName = textFieldName.getText();
+        String productPriceString = textFieldPrice.getText();
 
         if(productName==null){
             new ErrorWindow("O campo nome não pode estar vazio!").setVisible(true);
             return;
         }
 
-        if(productPriceString ==null){
+        if(productPriceString==null){
             new ErrorWindow("O campo preço não pode estar vazio!").setVisible(true);
             return;
         }
 
-        Product product = new Product(productName,Double.valueOf(productPriceString));
-        Stock stock = new Stock(product,(Integer)unitsSpinner.getValue());
+        double price;
+        int units;
+        productPriceString = productPriceString.replace(',','.');
+
+        // verificar que os valores do preço e unidades inseridos contêm apenas números
+        try {
+            price = Double.valueOf(productPriceString);
+            units = Integer.valueOf(unitsSpinner.getValue().toString());
+        }catch(NumberFormatException ex){
+            new ErrorWindow("O preço/unidades têm de ser um número." + ex.getMessage()).setVisible(true);
+            return;
+        }
+
+        Product product = new Product(productName, price);
+        Stock stock = new Stock(product,units);
 
         AppData.getInstance().addStock(stock);
 

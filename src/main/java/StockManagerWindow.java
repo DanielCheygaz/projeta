@@ -8,10 +8,11 @@ public class StockManagerWindow extends JFrame{
     private JButton backButton;
     private JPanel mainPanel;
     private JButton addProductButton;
-    private JButton removeProdutoButton;
+    private JButton removeProductButton;
     private JButton editProductButton;
     private JScrollPane scrollPane;
     private JButton buyProductButton;
+    private DefaultTableModel tableModel;
 
     public StockManagerWindow(){
         super("Gestor de Stock");
@@ -21,7 +22,8 @@ public class StockManagerWindow extends JFrame{
         scrollPane.getViewport().setBackground(Color.decode("2894892"));
         String[] columns = {"Nome do produto","Unidades","Preço Unidade"};
 
-        DefaultTableModel tableModel = new DefaultTableModel(columns,0);
+        tableModel = new DefaultTableModel(columns,0);
+
 
         for(Stock stock: AppData.getInstance().getStockList()){
             Object[] row = {stock.getProduct().getName(),stock.getUnits(),stock.getProduct().getPrice()};
@@ -33,6 +35,7 @@ public class StockManagerWindow extends JFrame{
         this.addProductButton.addActionListener(this::addButtonPerformed);
         this.editProductButton.addActionListener(this::editProductButtonPerformed);
         this.buyProductButton.addActionListener(this::buyProductButtonPerformed);
+        this.removeProductButton.addActionListener(this::removeProductPerformed);
         this.backButton.addActionListener(this::backButtonPerformed);
     }
 
@@ -49,7 +52,7 @@ public class StockManagerWindow extends JFrame{
         }
 
         Stock stock = AppData.getInstance().getStockList().get(selectedRow);
-        new ProductEditWindow(stock,selectedRow).setVisible(true);
+        new ProductEditWindow(stock).setVisible(true);
         dispose();
     }
 
@@ -65,6 +68,18 @@ public class StockManagerWindow extends JFrame{
         dispose();
     }
 
+    private void removeProductPerformed(ActionEvent e){
+        int selectedRow = getSelectedRow();
+
+        if(selectedRow==-1){
+            return;
+        }
+
+        Stock stock = AppData.getInstance().getStockList().get(selectedRow);
+        AppData.getInstance().removeStock(stock);
+        tableModel.removeRow(selectedRow);
+    }
+
     private void backButtonPerformed(ActionEvent e){
         new MainWindow().setVisible(true);
         dispose();
@@ -72,12 +87,10 @@ public class StockManagerWindow extends JFrame{
 
     private int getSelectedRow(){
         int selectedRow = productsTable.getSelectedRow();
-
         if(selectedRow==-1){
             new ErrorWindow("Selecione primeiro um produto").setVisible(true);
             return -1;
         }
-
         return selectedRow;
     }
 
