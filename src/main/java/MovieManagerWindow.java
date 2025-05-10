@@ -50,7 +50,7 @@ public class MovieManagerWindow extends JFrame {
     }
 
     private void editMovieButtonPerformed(ActionEvent e){
-        /*int selectedRow = getSelectedRow();
+        int selectedRow = getSelectedRow();
 
         if(selectedRow==-1){
             return;
@@ -58,7 +58,7 @@ public class MovieManagerWindow extends JFrame {
 
         Movie movie = AppData.getInstance().getMovieList().get(selectedRow);
         new MovieEditWindow(movie).setVisible(true);
-        dispose();*/
+        dispose();
     }
 
 
@@ -82,7 +82,7 @@ public class MovieManagerWindow extends JFrame {
     private int getSelectedRow(){
         int selectedRow = moviesTable.getSelectedRow();
         if(selectedRow==-1){
-            new ErrorWindow("Selecione primeiro um produto").setVisible(true);
+            new ErrorWindow("Selecione primeiro um filme").setVisible(true);
             return -1;
         }
         return selectedRow;

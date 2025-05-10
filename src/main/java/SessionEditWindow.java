@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.text.SimpleDateFormat;
 
 public class SessionEditWindow extends JFrame{
     private JFormattedTextField formattedTextDate;
@@ -22,7 +23,8 @@ public class SessionEditWindow extends JFrame{
             comboBoxFilme.addItem(movie.getName());
         }
 
-        formattedTextDate.setText(session.getData().toString());
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+        formattedTextDate.setText(dateFormat.format(session.getData()));
 
 
         for(Room room: AppData.getInstance().getRoomList()){

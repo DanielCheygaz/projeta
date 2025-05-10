@@ -15,15 +15,6 @@ public class Movie {
         dolbyAtmos = false;
     }
 
-    public Movie(String name, int duration, String description, Genre genre) {
-        this.name = name;
-        this.duration = duration;
-        this.description = description;
-        this.genre = genre;
-        imax = false;
-        dolbyAtmos = false;
-    }
-
     public Movie(String name, int duration, String description, Genre genre, boolean imax, boolean dolbyAtmos) {
         this.name = name;
         this.duration = duration;
@@ -55,5 +46,14 @@ public class Movie {
 
     public boolean isDolbyAtmos() {
         return dolbyAtmos;
+    }
+
+    public void updateMovie(String name, int duration, String description, Genre genre, boolean imax, boolean dolbyAtmos){
+        this.name = name;
+        this.duration = duration;
+        this.description = description;
+        this.genre = genre;
+        this.imax = imax;
+        this.dolbyAtmos = dolbyAtmos;
     }
 }

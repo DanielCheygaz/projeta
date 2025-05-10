@@ -28,6 +28,7 @@ public class MovieAddWindow extends JFrame{
         }
 
         this.saveButton.addActionListener(this::saveButtonPerformed);
+        this.cancelButton.addActionListener(this::cancelButtonPerformed);
         this.comboBoxGenre.addActionListener(this::comboBoxGenrePerformed);
         this.addGenreButton.addActionListener(this::addGenreButtonPerformed);
 
@@ -45,7 +46,7 @@ public class MovieAddWindow extends JFrame{
         try {
             duration = Integer.valueOf(textFieldDuration.getText());
         }catch(NumberFormatException ex){
-            new ErrorWindow("A duração têm de ser um número inteiro." + ex.getMessage()).setVisible(true);
+            new ErrorWindow("A duração tem de ser um número inteiro." + ex.getMessage()).setVisible(true);
             return;
         }
 

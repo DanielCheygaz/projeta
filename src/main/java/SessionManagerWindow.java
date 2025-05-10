@@ -2,6 +2,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.text.SimpleDateFormat;
 
 public class SessionManagerWindow extends JFrame{
     private JButton backButton;
@@ -23,11 +24,12 @@ public class SessionManagerWindow extends JFrame{
         String[] columns = {"Filme","Sala","Data","Duração","Descrição"};
 
         DefaultTableModel tableModel = new DefaultTableModel(columns,0);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
         for(Session session: AppData.getInstance().getSessionList()){
             Object[] row = {
               session.getMovie().getName(),
               session.getRoom().getRoomNumber(),
-              session.getData(),
+              dateFormat.format(session.getData()),
               session.getMovie().getDuration(),
               session.getMovie().getDescription()
             };
