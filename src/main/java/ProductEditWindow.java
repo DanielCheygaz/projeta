@@ -17,7 +17,7 @@ public class ProductEditWindow extends JFrame{
     private static final int STEP = 1;
 
     public ProductEditWindow(Stock stock) throws HeadlessException {
-        super("Editar " + stock.getProduct().getName());
+        super("Editar: " + stock.getProduct().getName());
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setContentPane(mainPanel);
         pack();
