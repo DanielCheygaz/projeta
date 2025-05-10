@@ -28,6 +28,7 @@ public class MovieAddWindow extends JFrame{
         }
 
         this.saveButton.addActionListener(this::saveButtonPerformed);
+        this.cancelButton.addActionListener(this::cancelButtonPerformed);
         this.comboBoxGenre.addActionListener(this::comboBoxGenrePerformed);
         this.addGenreButton.addActionListener(this::addGenreButtonPerformed);
 
