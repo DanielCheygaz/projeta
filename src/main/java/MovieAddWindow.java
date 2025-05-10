@@ -46,7 +46,7 @@ public class MovieAddWindow extends JFrame{
         try {
             duration = Integer.valueOf(textFieldDuration.getText());
         }catch(NumberFormatException ex){
-            new ErrorWindow("A duração têm de ser um número inteiro." + ex.getMessage()).setVisible(true);
+            new ErrorWindow("A duração tem de ser um número inteiro." + ex.getMessage()).setVisible(true);
             return;
         }
 
