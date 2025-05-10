@@ -5,7 +5,9 @@
     <constraints>
       <xy x="20" y="20" width="500" height="400"/>
     </constraints>
-    <properties/>
+    <properties>
+      <background color="-14868447"/>
+    </properties>
     <border type="none"/>
     <children>
       <component id="907e0" class="javax.swing.JLabel" binding="labelError">
@@ -15,6 +17,7 @@
           </grid>
         </constraints>
         <properties>
+          <foreground color="-1184268"/>
           <text value="Label"/>
         </properties>
       </component>
@@ -32,6 +35,8 @@
           </grid>
         </constraints>
         <properties>
+          <background color="-12171449"/>
+          <foreground color="-1184268"/>
           <text value="Ok"/>
         </properties>
       </component>
