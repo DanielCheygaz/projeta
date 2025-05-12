@@ -25,18 +25,34 @@ public class BundleManagerWindow extends JFrame{
         String[] columns = {"ID do Bundle", "Nome do Bundle", "Preço do Bundle", "Produtos no Bundle"};
         DefaultTableModel tableModel = new DefaultTableModel(columns, 0);
         for (Bundle bundle : AppData.getInstance().getBundleList()) {
-            Object[] row = {bundle.getId(), bundle.getName(), bundle.getPrice(), "Pipocas, Bebidas"};
-            tableModel.addRow(row);
+            if(bundle.getId() == 1){
+                Object[] row = {bundle.getId(), bundle.getName(), bundle.getPrice(), "Pipocas"};
+                tableModel.addRow(row);
+            }
+            else if(bundle.getId() == 2){
+                Object[] row = {bundle.getId(), bundle.getName(), bundle.getPrice(), "Gelado"};
+                tableModel.addRow(row);
+            }
+            else if(bundle.getId() == 3){
+                Object[] row = {bundle.getId(), bundle.getName(), bundle.getPrice(), "KitKat"};
+                tableModel.addRow(row);
+            }
+            else{
+                Object[] row = {bundle.getId(), bundle.getName(), bundle.getPrice(), "KitKat"};
+                tableModel.addRow(row);
+            }
+
+
         }
         bundlesTable.setModel(tableModel);
     }
     private void backButtonPerformed(ActionEvent e){
-        new SalesManagerWindow().setVisible(true);
+        new SalesMainWindow().setVisible(true);
         dispose();
     }
 
     private void addBundleButtonPerformed(ActionEvent e){
-        new BundleCreateTicketSelectWindow().setVisible(true);
+        new BundleCreateBarProductsSelectWindow().setVisible(true);
         dispose();
     }
 
@@ -58,7 +74,7 @@ public class BundleManagerWindow extends JFrame{
     }
 
     private void editBundleButtonPerformed(ActionEvent e){
-        new BundleCreateTicketSelectWindow().setVisible(true);
+        new BundleCreateBarProductsSelectWindow().setVisible(true);
         dispose();
     }
 
