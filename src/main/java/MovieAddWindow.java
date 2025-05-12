@@ -21,7 +21,7 @@ public class MovieAddWindow extends JFrame{
         pack();
 
 
-        comboBoxGenre.setName("Categorias");
+        comboBoxGenre.setName("Género");
 
         for(Genre genre: AppData.getInstance().getGenreList()){
             comboBoxGenre.addItem(genre.getName());

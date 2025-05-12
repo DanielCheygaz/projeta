@@ -255,7 +255,7 @@
             <properties>
               <background color="-1184268"/>
               <foreground color="-1184268"/>
-              <text value="Categoria"/>
+              <text value="Género"/>
             </properties>
           </component>
           <component id="8df7d" class="javax.swing.JComboBox" binding="comboBoxGenre">
