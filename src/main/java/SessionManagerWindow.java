@@ -36,8 +36,14 @@ public class SessionManagerWindow extends JFrame{
             tableModel.addRow(row);
         }
         sessionsTable.setModel(tableModel);
+        this.addSessionButton.addActionListener(this::addSessionButtonPerformed);
         this.editSessionButton.addActionListener(this::editSessionButtonPerformed);
         this.backButton.addActionListener(this::backButtonPerformed);
+    }
+
+    private void addSessionButtonPerformed(ActionEvent e){
+        new SessionAddWindow().setVisible(true);
+        dispose();
     }
 
     private void editSessionButtonPerformed(ActionEvent e){
