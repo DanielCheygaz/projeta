@@ -91,6 +91,16 @@
                   <text value="Estatísticas de Produtos Bar"/>
                 </properties>
               </component>
+              <component id="de575" class="javax.swing.JButton" binding="ticketStatisticsButton">
+                <constraints>
+                  <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="7" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <background color="-6144437"/>
+                  <foreground color="-1184268"/>
+                  <text value="Estatísticas de Bilhetes"/>
+                </properties>
+              </component>
             </children>
           </grid>
           <vspacer id="df322">

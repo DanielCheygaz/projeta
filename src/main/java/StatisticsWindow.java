@@ -8,6 +8,7 @@ public class StatisticsWindow extends JFrame{
     private JButton barProductsStatisticsButton;
     private JButton sessionStatisticsButton;
     private JButton backButton;
+    private JButton ticketStatisticsButton;
 
 
     public StatisticsWindow() throws HeadlessException {
@@ -19,6 +20,7 @@ public class StatisticsWindow extends JFrame{
         this.moviesStatisticsButton.addActionListener(this::moviesStatisticsButtonActionPerformed);
         this.barProductsStatisticsButton.addActionListener(this::barProductsStatisticsButtonActionPerformed);
         this.sessionStatisticsButton.addActionListener(this::sessionStatisticsButtonActionPerformed);
+        this.ticketStatisticsButton.addActionListener(this::ticketStatisticsButtonPerformed);
         this.backButton.addActionListener(this::backButtonPerformed);
 
     }
@@ -41,6 +43,10 @@ public class StatisticsWindow extends JFrame{
     private void sessionStatisticsButtonActionPerformed(ActionEvent e){
         new StatisticsSessionWindow().setVisible(true);
         setVisible(false);
+    }
+
+    private void ticketStatisticsButtonPerformed(ActionEvent e){
+        new StatisticsTicketWindow().setVisible(true);
     }
 
 }
