@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -22,15 +23,53 @@ public class BarProductsSaleWindow extends JFrame {
         setContentPane(mainPanel);
         pack();
 
+        // Mantido como estava no seu código original
         scrollPane.getViewport().setBackground(Color.decode("2894892"));
 
         String[] columns = {"Nome do Produto", "Preço"};
         DefaultTableModel tableModel = new DefaultTableModel(columns, 0);
         for (Product product : AppData.getInstance().getProductList()) {
-            Object[] row = {product.getName(), product.getPrice()};
-            tableModel.addRow(row);
+            if(product.getName().equals("KitKat")) {
+                Object[] row = {product.getName(), product.getPrice()-product.getPrice()*0.2};
+                tableModel.addRow(row);
+            }
+            else{
+                Object[] row = {product.getName(), product.getPrice()};
+                tableModel.addRow(row);
+            }
         }
         barProductsTable.setModel(tableModel);
+
+        barProductsTable.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value,
+                                                           boolean isSelected, boolean hasFocus,
+                                                           int row, int column) {
+                Component cell = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+
+                String productName = table.getValueAt(row, 0).toString();
+
+                if (isSelected) {
+                    // Se estiver selecionado, usa as cores de seleção padrão (independente de ser KitKat ou não)
+                    cell.setBackground(table.getSelectionBackground());
+                    cell.setForeground(table.getSelectionForeground());
+                } else if (productName.equals("KitKat")) {
+                    // Se for KitKat e NÃO estiver selecionado, usa laranja claro com texto preto
+                    cell.setBackground(new Color(106, 209, 138));
+                    cell.setForeground(Color.BLACK);
+                } else {
+                    // Todos os outros produtos não selecionados → fundo branco e texto preto
+                    cell.setBackground(Color.WHITE);
+                    cell.setForeground(Color.BLACK);
+                }
+
+                return cell;
+            }
+        });
+
+
+
+
 
         this.backButton.addActionListener(this::backButtonPerformed);
         this.finishSaleButton.addActionListener(this::finishSaleButtonPerformed);
@@ -62,7 +101,6 @@ public class BarProductsSaleWindow extends JFrame {
         }
     }
 
-
     private void backButtonPerformed(ActionEvent e) {
         if (previousWindow != null) {
             previousWindow.setVisible(true);
@@ -74,7 +112,3 @@ public class BarProductsSaleWindow extends JFrame {
         new BarProductsSaleWindow(null).setVisible(true);
     }
 }
-
-
-
-
