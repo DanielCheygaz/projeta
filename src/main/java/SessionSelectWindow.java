@@ -26,7 +26,9 @@ public class SessionSelectWindow extends JFrame {
             Object[] row = {session.getID(), session.getMovie().getName(), session.getData()};
             tableModel.addRow(row);
         }
+
         sessionTable.setModel(tableModel);
+        sessionTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
         this.backButton.addActionListener(this::backButtonPerformed);
         this.finishSaleButton.addActionListener(this::finishSaleButtonPerformed);
