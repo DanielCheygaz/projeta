@@ -26,9 +26,14 @@ public class ReceiptEditWindow extends JFrame{
         DefaultTableModel tableModel = new DefaultTableModel(columns, 0);
         float i=1;
         for (Product product : AppData.getInstance().getProductList()) {
-            Object[] row = {i, product.getName(), i*product.getPrice()};
+            Object[] row = {(int)i, product.getName(), i*product.getPrice()};
             tableModel.addRow(row);
-            i+=1.5;
+            if(i%2 == 0){
+                i+=1;
+            }
+            else{
+                i+=3;
+            }
         }
         barProductsTable.setModel(tableModel);
 

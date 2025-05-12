@@ -5,19 +5,21 @@ public class SalesMainWindow extends JFrame{
     private JPanel mainPanel;
     private JButton sellTicketButton;
     private JButton sellBarProductsButton;
-    private JButton manageSalesButton;
+    private JButton manageBundlesButton;
     private JButton editSaleButton;
     private JButton backButton;
+    private JButton salesHistoryButton;
 
     public SalesMainWindow(){
         super("Gestor de Vendas");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setContentPane(mainPanel);
         pack();
-        this.manageSalesButton.addActionListener(this::manageSalesButtonPerformed);
+        this.manageBundlesButton.addActionListener(this::manageBundlesButtonPerformed);
         this.sellTicketButton.addActionListener(this::sellTicketButtonPerformed);
         this.sellBarProductsButton.addActionListener(this::sellBarProductsButtonPerformed);
         this.editSaleButton.addActionListener(this::editSaleButtonPerformed);
+        this.salesHistoryButton.addActionListener(this::salesHistoryButtonPerformed);
         this.backButton.addActionListener(this::backButtonPerformed);
     }
 
@@ -36,13 +38,18 @@ public class SalesMainWindow extends JFrame{
         dispose();
     }
 
-    private void manageSalesButtonPerformed(ActionEvent e){
-        new SalesManagerWindow().setVisible(true);
+    private void manageBundlesButtonPerformed(ActionEvent e){
+        new BundleManagerWindow().setVisible(true);
         dispose();
     }
 
     private void editSaleButtonPerformed(ActionEvent e){
         new ReceiptEditWindow(this).setVisible(true);
+        dispose();
+    }
+
+    private void salesHistoryButtonPerformed(ActionEvent e){
+        new SalesHistoryWindow().setVisible(true);
         dispose();
     }
 

@@ -26,7 +26,7 @@
             <properties>
               <font size="24" style="1"/>
               <foreground color="-1184268"/>
-              <text value="Produtos do bar menos vendidos"/>
+              <text value="Produtos do bar mais vendidos"/>
             </properties>
           </component>
           <component id="75c43" class="javax.swing.JButton" binding="backButton">
