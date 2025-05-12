@@ -71,6 +71,7 @@
               <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
+              <foreground color="-1184268"/>
               <text value="Quantidade de bilhetes para o bundle"/>
             </properties>
           </component>
@@ -85,6 +86,7 @@
               <grid row="5" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
+              <foreground color="-1184268"/>
               <text value="Desconto a aplicar aos bilhetes (%)"/>
             </properties>
           </component>
