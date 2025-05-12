@@ -3,7 +3,7 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
-public class SaleEditWindow extends JFrame{
+public class ReceiptEditWindow extends JFrame{
     private JPanel mainPanel;
     private JScrollPane scrollPane;
     private JTable barProductsTable;
@@ -14,7 +14,7 @@ public class SaleEditWindow extends JFrame{
 
     private JFrame previousWindow;
 
-    public SaleEditWindow(JFrame previousWindow) {
+    public ReceiptEditWindow(JFrame previousWindow) {
         super("Edição de Venda");
         this.previousWindow = previousWindow;
 
@@ -72,6 +72,6 @@ public class SaleEditWindow extends JFrame{
     }
 
     public static void main(String[] args) {
-        new SaleEditWindow(null).setVisible(true);
+        new ReceiptEditWindow(null).setVisible(true);
     }
 }
