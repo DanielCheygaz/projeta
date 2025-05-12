@@ -4,13 +4,11 @@ import java.awt.event.ActionEvent;
 
 public class StatisticsWindow extends JFrame{
     private JPanel mainPanel;
-    private JLabel produtosStatistics;
-    private JLabel genresStatistics;
-    private JLabel moviesStatistics;
-    private JLabel ticketsStatistics;
-    private JLabel sessionsStatistics;
-    private JLabel roomsStatistics;
+    private JButton moviesStatisticsButton;
+    private JButton barProductsStatisticsButton;
+    private JButton sessionStatisticsButton;
     private JButton backButton;
+
 
     public StatisticsWindow() throws HeadlessException {
         super("Statistics");
@@ -18,13 +16,9 @@ public class StatisticsWindow extends JFrame{
         setContentPane(mainPanel);
         pack();
 
-        produtosStatistics.setText(AppData.getInstance().getProductList().size()+"");
-        genresStatistics.setText(AppData.getInstance().getGenreList().size()+"");
-        moviesStatistics.setText(AppData.getInstance().getMovieList().size()+"");
-        roomsStatistics.setText(AppData.getInstance().getRoomList().size()+"");
-        sessionsStatistics.setText(AppData.getInstance().getSessionList().size()+"");
-        ticketsStatistics.setText(AppData.getInstance().getTicketList().size()+"");
-
+        this.moviesStatisticsButton.addActionListener(this::moviesStatisticsButtonActionPerformed);
+        this.barProductsStatisticsButton.addActionListener(this::barProductsStatisticsButtonActionPerformed);
+        this.sessionStatisticsButton.addActionListener(this::sessionStatisticsButtonActionPerformed);
         this.backButton.addActionListener(this::backButtonPerformed);
 
     }
@@ -33,4 +27,20 @@ public class StatisticsWindow extends JFrame{
         new MainWindow().setVisible(true);
         dispose();
     }
+
+    private void moviesStatisticsButtonActionPerformed(ActionEvent e){
+        new StatisticsMoviesWindow().setVisible(true);
+        setVisible(false);
+    }
+
+    private void barProductsStatisticsButtonActionPerformed(ActionEvent e){
+        new StatisticsBarProductsWindow().setVisible(true);
+        setVisible(false);
+    }
+
+    private void sessionStatisticsButtonActionPerformed(ActionEvent e){
+        new StatisticsSessionWindow().setVisible(true);
+        setVisible(false);
+    }
+
 }
