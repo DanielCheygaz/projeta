@@ -1,5 +1,4 @@
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
@@ -72,7 +71,7 @@ public class TicketsPerSessionSaleWindow extends JFrame {
     }
 
     private void editSaleButtonPerformed(ActionEvent e) {
-        new SaleEditWindow(this).setVisible(true);
+        new ReceiptEditWindow(this).setVisible(true);
         dispose();
     }
 

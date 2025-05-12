@@ -3,7 +3,7 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
-public class SaleFinishWindow extends JFrame {
+public class ReceiptFinishWindow extends JFrame {
     private JPanel mainPanel;
     private JScrollPane scrollPane;
     private JTable barProductsTable;
@@ -11,7 +11,7 @@ public class SaleFinishWindow extends JFrame {
     private JButton backButton;
     private JButton finishSaleButton;
 
-    public SaleFinishWindow() {
+    public ReceiptFinishWindow() {
         super("Finalizar Venda");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setContentPane(mainPanel);
@@ -43,11 +43,11 @@ public class SaleFinishWindow extends JFrame {
     }
 
     private void editSaleButtonPerformed(ActionEvent e) {
-        new SaleEditWindow(this).setVisible(true);
+        new ReceiptEditWindow(this).setVisible(true);
         dispose();
     }
 
     public static void main(String[] args) {
-        new SaleFinishWindow().setVisible(true);
+        new ReceiptFinishWindow().setVisible(true);
     }
 }

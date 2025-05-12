@@ -48,7 +48,7 @@ public class SessionSelectWindow extends JFrame {
     }
 
     private void editSaleButtonPerformed(ActionEvent e){
-        new SaleEditWindow(this).setVisible(true);
+        new ReceiptEditWindow(this).setVisible(true);
         dispose();
     }
 
