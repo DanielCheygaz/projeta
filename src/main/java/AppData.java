@@ -30,7 +30,7 @@ public class AppData {
         genreList.add(new Genre("Documentário"));
         genreList.add(new Genre("Animação"));
 
-        movieList.add(new Movie("Avatar",180,"Os gajos azuis à porrada e tal", genreList.get(0),true,true));
+        movieList.add(new Movie("Avatar",180,"Saving pandora", genreList.get(0),true,true));
         movieList.add(new Movie("Titanic",123, genreList.get(1)));
         movieList.add(new Movie("Annabelle",123, "Boooooo", genreList.get(2),true,false));
 
