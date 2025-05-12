@@ -36,7 +36,19 @@ public class RoomManagerWindow extends JFrame{
         this.showRoomButton.addActionListener(this::verSalaButtonActionPerformed);
         this.backButton.addActionListener(this::backButtonActionPerformed);
         this.adicionarSalaButton.addActionListener(this::adicionarSalaButtonActionPerformed);
+        this.removerSalaButton.addActionListener(this::removerSalaButtonActionPerformed);
     }
+
+    private void removerSalaButtonActionPerformed(ActionEvent e){
+
+        int selectedRow = roomTable.getSelectedRow();
+
+        roomSelected = AppData.getInstance().getRoomList().get(selectedRow);
+        AppData.getInstance().getRoomList().remove(selectedRow);
+        dispose();
+        new RoomManagerWindow().setVisible(true);
+    }
+
 
     private void verSalaButtonActionPerformed(ActionEvent e){
 

@@ -12,6 +12,7 @@ public class TicketsPerSessionSaleWindow extends JFrame {
     private JButton addTicketButton;
     private JButton backButton;
     private SeatButton[][] buttons;
+    private String selectedTicketType;
 
     private JFrame previousWindow;
 
@@ -41,8 +42,16 @@ public class TicketsPerSessionSaleWindow extends JFrame {
                     SeatButton button = (SeatButton) e.getSource();
                     if (button.getState() == 0) {
                         button.setState(1);
+                        //new SelectTicketWindow().setVisible(true);
                     } else if (button.getState() == 1) {
+                        button.setState(3);
+                        //new SelectTicketWindow().setVisible(true);
+                    } else if (button.getState() == 3) {
+                        button.setState(4);
+                        //new SelectTicketWindow().setVisible(true);
+                    } else if (button.getState() == 4) {
                         button.setState(0);
+                        //new SelectTicketWindow().setVisible(true);
                     } else if (button.getState() == 2) {
                         JOptionPane.showMessageDialog(this, "Este lugar já está vendido.");
                     }
@@ -57,6 +66,10 @@ public class TicketsPerSessionSaleWindow extends JFrame {
         this.editSaleButton.addActionListener(this::editSaleButtonPerformed);
         this.addTicketButton.addActionListener(this::addTicketButtonPerformed);
         this.addBarProductsButton.addActionListener(this::addBarProductsButtonPerformed);
+    }
+
+    public void setSelectedTicketType(String ticketType) {
+        this.selectedTicketType = ticketType;
     }
 
     private void backButtonPerformed(ActionEvent e) {

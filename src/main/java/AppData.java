@@ -43,10 +43,10 @@ public class AppData {
         sessionList.add(new Session(2, new Date(2025-1900,05,12,12,30),movieList.get(1),roomList.get(1)));
         sessionList.add(new Session(3, new Date(2025-1900,05,12,12,30),movieList.get(2),roomList.get(2)));
 
-        ticketList.add(new Ticket(1,sessionList.get(0),10));
-        ticketList.add(new Ticket(2,sessionList.get(1),15));
-        ticketList.add(new Ticket(3,sessionList.get(2),8));
-        ticketList.add(new Ticket(4,sessionList.get(0),9.50));
+        ticketList.add(new Ticket(1,sessionList.get(0),10,"estudante"));
+        ticketList.add(new Ticket(2,sessionList.get(1),15,"estudante"));
+        ticketList.add(new Ticket(3,sessionList.get(2),8,"estudante"));
+        ticketList.add(new Ticket(4,sessionList.get(0),9.50,"estudante"));
 
         bundleList.add(new Bundle(1,"Promoção 1",2, new LinkedList<>(Arrays.asList(productList.get(0),productList.get(1))), 2.5));
         bundleList.add(new Bundle(2,"Promoção 2",3, new LinkedList<>(Arrays.asList(productList.get(2),productList.get(3))), 3.5));
