@@ -12,6 +12,7 @@ public class SessionManagerWindow extends JFrame{
     private JButton removeSessionButton;
     private JScrollPane scrollPane;
     private JButton editSessionButton;
+    private DefaultTableModel tableModel;
 
     public SessionManagerWindow(){
         super("Gestor de Sessões");
@@ -23,7 +24,7 @@ public class SessionManagerWindow extends JFrame{
         scrollPane.getViewport().setBackground(Color.decode("2894892"));
         String[] columns = {"ID da Sessão","Filme","Sala","Data","Duração"};
 
-        DefaultTableModel tableModel = new DefaultTableModel(columns,0);
+        tableModel = new DefaultTableModel(columns,0);
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
         for(Session session: AppData.getInstance().getSessionList()){
             Object[] row = {
@@ -38,6 +39,7 @@ public class SessionManagerWindow extends JFrame{
         sessionsTable.setModel(tableModel);
         this.addSessionButton.addActionListener(this::addSessionButtonPerformed);
         this.editSessionButton.addActionListener(this::editSessionButtonPerformed);
+        this.removeSessionButton.addActionListener(this::removeSessionButtonPerformed);
         this.backButton.addActionListener(this::backButtonPerformed);
     }
 
@@ -55,6 +57,17 @@ public class SessionManagerWindow extends JFrame{
         Session session = AppData.getInstance().getSessionList().get(selectedRow);
         new SessionEditWindow(session).setVisible(true);
         dispose();
+    }
+
+    private void removeSessionButtonPerformed(ActionEvent e){
+        int selectedRow = getSelectedRow();
+        if(selectedRow==-1){
+            return;
+        }
+
+        Session session = AppData.getInstance().getSessionList().get(selectedRow);
+        AppData.getInstance().removeSession(session);
+        tableModel.removeRow(selectedRow);
     }
 
     private int getSelectedRow(){
