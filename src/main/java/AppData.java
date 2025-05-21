@@ -117,6 +117,10 @@ public class AppData {
         sessionList.add(session);
     }
 
+    public void removeSession(Session session){
+        sessionList.remove(session);
+    }
+
     public LinkedList<Ticket> getTicketList() {
         return ticketList;
     }
