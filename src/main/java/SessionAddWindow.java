@@ -1,15 +1,18 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.text.SimpleDateFormat;
 
 public class SessionAddWindow extends JFrame{
     private JComboBox comboBoxFilme;
-    private JFormattedTextField formattedTextDate;
     private JComboBox comboBoxSala;
     private JButton cancelButton;
     private JButton saveButton;
     private JPanel mainPanel;
+    private JTextField textFieldDay;
+    private JTextField textFieldMonth;
+    private JTextField textFieldYear;
+    private JTextField textFieldHour;
+    private JTextField textFieldMinute;
 
     public SessionAddWindow() throws HeadlessException {
         super("Adicionar Sessão");
