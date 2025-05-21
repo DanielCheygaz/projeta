@@ -84,8 +84,13 @@ public class AppData {
     public LinkedList<Genre> getGenreList() {
         return genreList;
     }
+
     public void addGenre(Genre genre){
         genreList.add(genre);
+    }
+
+    public void removeGenre(Genre genre){
+        genreList.remove(genre);
     }
 
     public LinkedList<Movie> getMovieList() {
