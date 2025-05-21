@@ -33,7 +33,13 @@ public class GenreManagerWindow extends JFrame{
         genresTable.setModel(tableModel);
         genresTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
+        this.addGenreButton.addActionListener(this::addGenreButtonPerformed);
         this.backButton.addActionListener(this::backButtonPerformed);
+    }
+
+    private void addGenreButtonPerformed(ActionEvent e){
+        new GenreAddWindow().setVisible(true);
+        dispose();
     }
 
     private void backButtonPerformed(ActionEvent e){
