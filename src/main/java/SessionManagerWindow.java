@@ -21,17 +21,17 @@ public class SessionManagerWindow extends JFrame{
 
         sessionsTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         scrollPane.getViewport().setBackground(Color.decode("2894892"));
-        String[] columns = {"Filme","Sala","Data","Duração","Descrição"};
+        String[] columns = {"ID da Sessão","Filme","Sala","Data","Duração"};
 
         DefaultTableModel tableModel = new DefaultTableModel(columns,0);
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
         for(Session session: AppData.getInstance().getSessionList()){
             Object[] row = {
-              session.getMovie().getName(),
-              session.getRoom().getRoomNumber(),
-              dateFormat.format(session.getData()),
-              session.getMovie().getDuration(),
-              session.getMovie().getDescription()
+                session.getID(),
+                session.getMovie().getName(),
+                session.getRoom().getRoomNumber(),
+                dateFormat.format(session.getData()),
+                session.getMovie().getDuration()
             };
             tableModel.addRow(row);
         }
