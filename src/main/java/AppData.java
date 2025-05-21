@@ -11,6 +11,7 @@ public class AppData {
     private LinkedList<Ticket> ticketList = new LinkedList<>();
     private LinkedList<Bundle> bundleList = new LinkedList<>();
 
+    // TODO: meter os "new LinkedList<>()" para dentro do construtor quando removermos os dados estáticos
     public AppData() {
         productList.add(new Product("CocaCola",1.2));
         productList.add(new Product("KitKat",1.5));
