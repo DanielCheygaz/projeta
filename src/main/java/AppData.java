@@ -108,6 +108,10 @@ public class AppData {
         return sessionList;
     }
 
+    public void addSession(Session session){
+        sessionList.add(session);
+    }
+
     public LinkedList<Ticket> getTicketList() {
         return ticketList;
     }
