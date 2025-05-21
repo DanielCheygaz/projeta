@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 public class SessionAddWindow extends JFrame{
     private JComboBox comboBoxMovie;
@@ -50,11 +51,17 @@ public class SessionAddWindow extends JFrame{
 
         // TODO: checkar se a data inserida é válida
         Date date = new Date(year-1900,month,day,hour,min);
+        long currentTime = System.currentTimeMillis();
+        if((date.getTime()-currentTime)<0){
+            new ErrorWindow("Não pode inserir uma data anterior à data de hoje").setVisible(true);
+            return;
+        }
 
         int roomIndex = comboBoxRoom.getSelectedIndex();
         Room room = AppData.getInstance().getRoomList().get(roomIndex);
+        int sessionId = AppData.getInstance().getSessionList().getLast().getID() + 1;
 
-        AppData.getInstance().addSession(new Session(123,date,movie,room));
+        AppData.getInstance().addSession(new Session(sessionId,date,movie,room));
 
         new SessionManagerWindow().setVisible(true);
         dispose();
