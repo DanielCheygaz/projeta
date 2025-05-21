@@ -38,7 +38,8 @@
             <properties>
               <background color="-14868447"/>
               <foreground color="-1184268"/>
-              <selectionForeground color="-1184268"/>
+              <selectionBackground color="-2635350"/>
+              <selectionForeground color="-12171449"/>
             </properties>
           </component>
         </children>
