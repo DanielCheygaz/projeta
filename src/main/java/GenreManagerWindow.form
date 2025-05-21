@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="MovieManagerWindow">
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="GenreManagerWindow">
   <grid id="27dc6" binding="mainPanel" layout-manager="GridLayoutManager" row-count="5" column-count="4" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
@@ -10,17 +10,17 @@
     </properties>
     <border type="none"/>
     <children>
-      <component id="f2c8f" class="javax.swing.JLabel">
+      <component id="93936" class="javax.swing.JLabel">
         <constraints>
           <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <font size="24" style="1"/>
           <foreground color="-1184268"/>
-          <text value="Gestão de Filmes"/>
+          <text value="Gestão de Géneros"/>
         </properties>
       </component>
-      <component id="ba203" class="javax.swing.JButton" binding="backButton">
+      <component id="2f597" class="javax.swing.JButton" binding="backButton">
         <constraints>
           <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
@@ -30,7 +30,7 @@
           <text value="Voltar"/>
         </properties>
       </component>
-      <scrollpane id="bf850" binding="scrollPane">
+      <scrollpane id="12a4a" binding="scrollPane">
         <constraints>
           <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
@@ -49,7 +49,7 @@
         </clientProperties>
         <border type="none"/>
         <children>
-          <component id="34d02" class="javax.swing.JTable" binding="moviesTable">
+          <component id="54212" class="javax.swing.JTable" binding="genresTable">
             <constraints/>
             <properties>
               <autoCreateRowSorter value="false"/>
@@ -63,7 +63,7 @@
           </component>
         </children>
       </scrollpane>
-      <grid id="eb5dd" layout-manager="GridLayoutManager" row-count="3" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+      <grid id="7b654" layout-manager="GridLayoutManager" row-count="2" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="0" left="0" bottom="0" right="0"/>
         <constraints>
           <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
@@ -75,63 +75,53 @@
         </properties>
         <border type="none"/>
         <children>
-          <component id="d3f39" class="javax.swing.JButton" binding="addMovieButton">
+          <component id="bef6e" class="javax.swing.JButton" binding="addGenreButton">
             <constraints>
               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <background color="-6144440"/>
               <foreground color="-1184268"/>
-              <text value="Adicionar Filme"/>
+              <text value="Adicionar Género"/>
             </properties>
           </component>
-          <component id="7e183" class="javax.swing.JButton" binding="removeMovieButton">
+          <component id="81f66" class="javax.swing.JButton" binding="removeGenreButton">
             <constraints>
               <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <background color="-6144440"/>
               <foreground color="-1184268"/>
-              <text value="Remover Filme"/>
+              <text value="Remover Género"/>
             </properties>
           </component>
-          <component id="3969c" class="javax.swing.JButton" binding="editMovieButton">
+          <component id="d0c38" class="javax.swing.JButton" binding="editGenreButton">
             <constraints>
               <grid row="1" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <background color="-6144440"/>
               <foreground color="-1184268"/>
-              <text value="Editar Filme"/>
-            </properties>
-          </component>
-          <component id="79ab5" class="javax.swing.JButton" binding="manageGenresButton">
-            <constraints>
-              <grid row="2" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <background color="-6144440"/>
-              <foreground color="-1184268"/>
-              <text value="Gerir Géneros"/>
+              <text value="Editar Género"/>
             </properties>
           </component>
         </children>
       </grid>
-      <hspacer id="6cd96">
+      <hspacer id="39bbd">
         <constraints>
           <grid row="0" column="3" row-span="4" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
             <minimum-size width="50" height="-1"/>
           </grid>
         </constraints>
       </hspacer>
-      <hspacer id="c65af">
+      <hspacer id="7beb0">
         <constraints>
           <grid row="0" column="0" row-span="4" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
             <minimum-size width="10" height="-1"/>
           </grid>
         </constraints>
       </hspacer>
-      <vspacer id="a8e5">
+      <vspacer id="521ae">
         <constraints>
           <grid row="4" column="2" row-span="1" col-span="2" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false">
             <minimum-size width="-1" height="10"/>

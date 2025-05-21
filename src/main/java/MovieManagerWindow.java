@@ -11,6 +11,7 @@ public class MovieManagerWindow extends JFrame {
     private JButton removeMovieButton;
     private JButton editMovieButton;
     private JPanel mainPanel;
+    private JButton manageGenresButton;
     private DefaultTableModel tableModel;
 
     public MovieManagerWindow() throws HeadlessException {
@@ -38,13 +39,14 @@ public class MovieManagerWindow extends JFrame {
         moviesTable.setModel(tableModel);
         moviesTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
-        this.addMovieButton.addActionListener(this::addButtonPerformed);
+        this.addMovieButton.addActionListener(this::addMovieButtonPerformed);
         this.removeMovieButton.addActionListener(this::removeMoviePerformed);
         this.editMovieButton.addActionListener(this::editMovieButtonPerformed);
+        this.manageGenresButton.addActionListener(this::manageGenresButtonPerformed);
         this.backButton.addActionListener(this::backButtonPerformed);
     }
 
-    private void addButtonPerformed(ActionEvent e){
+    private void addMovieButtonPerformed(ActionEvent e){
         new MovieAddWindow().setVisible(true);
         dispose();
     }
@@ -72,6 +74,11 @@ public class MovieManagerWindow extends JFrame {
         Movie movie = AppData.getInstance().getMovieList().get(selectedRow);
         AppData.getInstance().removeMovie(movie);
         tableModel.removeRow(selectedRow);
+    }
+
+    private void manageGenresButtonPerformed(ActionEvent e){
+        new GenreManagerWindow().setVisible(true);
+        dispose();
     }
 
     private void backButtonPerformed(ActionEvent e){

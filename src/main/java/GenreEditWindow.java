@@ -2,17 +2,22 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
-public class GenreAddWindow extends JFrame{
-    private JPanel mainPanel;
+public class GenreEditWindow extends JFrame{
     private JTextField textFieldName;
     private JButton cancelButton;
     private JButton saveButton;
+    private JPanel mainPanel;
+    private Genre genre;
 
-    public GenreAddWindow() throws HeadlessException {
-        super("Adicionar Categoria");
+    public GenreEditWindow(Genre genre) throws HeadlessException {
+        super("Editar" + genre.getName());
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setContentPane(mainPanel);
         pack();
+
+        this.genre = genre;
+
+        textFieldName.setText(genre.getName());
 
         this.saveButton.addActionListener(this::saveButtonPerformed);
         this.cancelButton.addActionListener(this::cancelButtonPerformed);
@@ -25,8 +30,7 @@ public class GenreAddWindow extends JFrame{
             return;
         }
 
-        Genre genre = new Genre(name);
-        AppData.getInstance().addGenre(genre);
+        genre.setName(name);
 
         new GenreManagerWindow().setVisible(true);
         dispose();
