@@ -11,7 +11,6 @@ public class MovieAddWindow extends JFrame{
     private JRadioButton imaxRadioButton;
     private JRadioButton dolbyAtmosRadioButton;
     private JComboBox comboBoxGenre;
-    private JButton addGenreButton;
     private JTextArea textAreaDescription;
 
     public MovieAddWindow() throws HeadlessException {
@@ -30,7 +29,6 @@ public class MovieAddWindow extends JFrame{
         this.saveButton.addActionListener(this::saveButtonPerformed);
         this.cancelButton.addActionListener(this::cancelButtonPerformed);
         this.comboBoxGenre.addActionListener(this::comboBoxGenrePerformed);
-        this.addGenreButton.addActionListener(this::addGenreButtonPerformed);
 
     }
 
@@ -64,10 +62,6 @@ public class MovieAddWindow extends JFrame{
 
     private void comboBoxGenrePerformed(ActionEvent e){
         comboBoxGenre.repaint();
-    }
-
-    private void addGenreButtonPerformed(ActionEvent e){
-        new GenreAddWindow().setVisible(true);
     }
 
     private void cancelButtonPerformed(ActionEvent e){

@@ -11,7 +11,6 @@ public class MovieEditWindow extends JFrame{
     private JRadioButton imaxRadioButton;
     private JRadioButton dolbyAtmosRadioButton;
     private JComboBox comboBoxGenre;
-    private JButton addGenreButton;
     private JPanel mainPanel;
     private Movie movie;
 
