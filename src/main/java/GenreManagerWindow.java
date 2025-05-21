@@ -35,6 +35,7 @@ public class GenreManagerWindow extends JFrame{
 
         this.addGenreButton.addActionListener(this::addGenreButtonPerformed);
         this.removeGenreButton.addActionListener(this::removeGenreButtonPerformed);
+        this.editGenreButton.addActionListener(this::editGenreButtonPerformed);
         this.backButton.addActionListener(this::backButtonPerformed);
     }
 
@@ -53,6 +54,18 @@ public class GenreManagerWindow extends JFrame{
         Genre genre = AppData.getInstance().getGenreList().get(selectedRow);
         AppData.getInstance().removeGenre(genre);
         tableModel.removeRow(selectedRow);
+    }
+
+    private void editGenreButtonPerformed(ActionEvent e){
+        int selectedRow = genresTable.getSelectedRow();
+        if(selectedRow==-1){
+            new ErrorWindow("Selecione primeiro um género").setVisible(true);
+            return;
+        }
+
+        Genre genre = AppData.getInstance().getGenreList().get(selectedRow);
+        new GenreEditWindow(genre).setVisible(true);
+        dispose();
     }
 
     private void backButtonPerformed(ActionEvent e){
