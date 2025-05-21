@@ -11,6 +11,7 @@ public class MovieManagerWindow extends JFrame {
     private JButton removeMovieButton;
     private JButton editMovieButton;
     private JPanel mainPanel;
+    private JButton manageGenresButton;
     private DefaultTableModel tableModel;
 
     public MovieManagerWindow() throws HeadlessException {
