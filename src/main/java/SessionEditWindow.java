@@ -31,7 +31,13 @@ public class SessionEditWindow extends JFrame{
             comboBoxSala.addItem(room.getRoomNumber());
         }
 
+        this.saveButton.addActionListener(this::saveButtonPerformed);
         this.cancelButton.addActionListener(this::cancelButtonPerformed);
+    }
+
+    // TODO: implementar a função saveButtonPerformed
+    private void saveButtonPerformed(ActionEvent e){
+
     }
 
     private void cancelButtonPerformed(ActionEvent e){

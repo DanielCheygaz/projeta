@@ -50,7 +50,7 @@ public class SessionAddWindow extends JFrame{
         }
 
         // TODO: checkar se a data inserida é válida
-        Date date = new Date(year-1900,month,day,hour,min);
+        Date date = new Date(year-1900,month-1,day,hour,min);
         long currentTime = System.currentTimeMillis();
         if((date.getTime()-currentTime)<0){
             new ErrorWindow("Não pode inserir uma data anterior à data de hoje").setVisible(true);

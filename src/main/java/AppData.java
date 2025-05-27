@@ -40,14 +40,16 @@ public class AppData {
         roomList.add(new Room(3,20,5,false,true));
         roomList.add(new Room(4,30,10,true,true));
 
-        sessionList.add(new Session(1, new Date(2025-1900,05,12,12,30),movieList.get(0),roomList.get(0)));
-        sessionList.add(new Session(2, new Date(2025-1900,05,12,12,30),movieList.get(1),roomList.get(1)));
-        sessionList.add(new Session(3, new Date(2025-1900,05,12,12,30),movieList.get(2),roomList.get(2)));
+        sessionList.add(new Session(1, new Date(2025-1900,05-1,12,12,30),movieList.get(0),roomList.get(0)));
+        sessionList.add(new Session(2, new Date(2025-1900,05-1,13,12,30),movieList.get(1),roomList.get(1)));
+        sessionList.add(new Session(3, new Date(2025-1900,05-1,14,12,30),movieList.get(2),roomList.get(2)));
+        sessionList.add(new Session(4, new Date(2025-1900,05-1,21,12,30),movieList.get(2),roomList.get(2)));
 
         ticketList.add(new Ticket(1,sessionList.get(0),10,"estudante"));
         ticketList.add(new Ticket(2,sessionList.get(1),15,"estudante"));
         ticketList.add(new Ticket(3,sessionList.get(2),8,"estudante"));
         ticketList.add(new Ticket(4,sessionList.get(0),9.50,"estudante"));
+        ticketList.add(new Ticket(4,sessionList.get(3),9.50,"estudante"));
 
         bundleList.add(new Bundle(1,"Combo Pipocas",2, new LinkedList<>(Arrays.asList(productList.get(0),productList.get(1))), 2.5));
         bundleList.add(new Bundle(2,"Promoção Especial",3, new LinkedList<>(Arrays.asList(productList.get(2),productList.get(3))), 3.5));
