@@ -32,7 +32,7 @@ public class StatisticsTicketWindow extends JFrame{
 
         for(Ticket ticket: AppData.getInstance().getTicketList()){
             Calendar c = Calendar.getInstance();
-            c.setTime(ticket.getSession().getData());
+            c.setTime(ticket.getSession().getDate());
             int dayOfWeek = c.get(Calendar.DAY_OF_WEEK)-1;
             int value = (int)tableModel.getValueAt(dayOfWeek,1) + 1;
             tableModel.setValueAt(value,dayOfWeek,1);

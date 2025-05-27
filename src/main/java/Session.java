@@ -2,19 +2,19 @@ import java.util.Date;
 
 public class Session {
     private int id;
-    private Date data;
+    private Date date;
     private Movie movie;
     private Room room;
 
-    public Session(int id, Date data, Movie movie, Room room) {
+    public Session(int id, Date date, Movie movie, Room room) {
         this.id = id;
-        this.data = data;
+        this.date = date;
         this.movie = movie;
         this.room = room;
     }
 
-    public Date getData() {
-        return data;
+    public Date getDate() {
+        return date;
     }
 
     public Movie getMovie() {
@@ -26,4 +26,10 @@ public class Session {
     }
 
     public int getID() { return id; }
+
+    public void updateSession(Date date, Movie movie, Room room){
+        this.date = date;
+        this.movie = movie;
+        this.room = room;
+    }
 }

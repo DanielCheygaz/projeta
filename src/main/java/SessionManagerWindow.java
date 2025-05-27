@@ -31,7 +31,7 @@ public class SessionManagerWindow extends JFrame{
                 session.getID(),
                 session.getMovie().getName(),
                 session.getRoom().getRoomNumber(),
-                dateFormat.format(session.getData()),
+                dateFormat.format(session.getDate()),
                 session.getMovie().getDuration()
             };
             tableModel.addRow(row);
