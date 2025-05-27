@@ -23,7 +23,7 @@ public class SessionSelectWindow extends JFrame {
         String[] columns = {"ID da Sessão", "Nome do filme", "Hora da Sessão"};
         DefaultTableModel tableModel = new DefaultTableModel(columns, 0);
         for (Session session : AppData.getInstance().getSessionList()) {
-            Object[] row = {session.getID(), session.getMovie().getName(), session.getData()};
+            Object[] row = {session.getID(), session.getMovie().getName(), session.getDate()};
             tableModel.addRow(row);
         }
 
