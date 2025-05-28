@@ -37,3 +37,6 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+diagramas.*
+.diagramas.vpp.lck
