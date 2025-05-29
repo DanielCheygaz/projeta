@@ -27,4 +27,12 @@ public class Stock {
     public void setUnits(int units) {
         this.units = units;
     }
+
+    @Override
+    public String toString() {
+        return "Stock{" +
+                "product=" + product.toString() +
+                ", units=" + units +
+                '}';
+    }
 }
