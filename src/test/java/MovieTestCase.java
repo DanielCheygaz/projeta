@@ -56,16 +56,4 @@ public class MovieTestCase {
         assertEquals(newMovie.toString(),movie.toString());
     }
 
-    /*@Test
-    public void testAddGenres(){
-        AppData appData = new AppData.getInstance();
-        LinkedList<Genre> expectedGenreList = new LinkedList<>();
-
-        expectedGenreList.add(genre);
-
-        appData.addGenre(genre);
-
-        assertArrayEquals(expectedGenreList.toArray(), appData.getGenreList().toArray(),"A listas tão partidas!");
-    }*/
-
 }
