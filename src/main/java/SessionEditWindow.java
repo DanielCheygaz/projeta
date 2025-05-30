@@ -52,7 +52,6 @@ public class SessionEditWindow extends JFrame{
         this.cancelButton.addActionListener(this::cancelButtonPerformed);
     }
 
-    // TODO: implementar a função saveButtonPerformed
     private void saveButtonPerformed(ActionEvent e){
         int movieIndex = comboBoxMovie.getSelectedIndex();
         Movie movie = AppData.getInstance().getMovieList().get(movieIndex);
@@ -68,7 +67,6 @@ public class SessionEditWindow extends JFrame{
             return;
         }
 
-        // TODO: checkar se a data inserida é válida
         Date date = new Date(year-1900,month-1,day,hour,min);
         long currentTime = System.currentTimeMillis();
         if((date.getTime()-currentTime)<0){
@@ -78,7 +76,6 @@ public class SessionEditWindow extends JFrame{
 
         int roomIndex = comboBoxRoom.getSelectedIndex();
         Room room = AppData.getInstance().getRoomList().get(roomIndex);
-        int sessionId = AppData.getInstance().getSessionList().getLast().getID() + 1;
 
         session.updateSession(date,movie,room);
 
