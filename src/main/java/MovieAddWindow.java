@@ -39,6 +39,11 @@ public class MovieAddWindow extends JFrame{
             return;
         }
 
+        if(AppData.getInstance().moviesContainTitle(title)){
+            new ErrorWindow("Este filme já existe").setVisible(true);
+            return;
+        }
+
         int duration;
         // verificar que os valores do preço e unidades inseridos contêm apenas números
         try {
