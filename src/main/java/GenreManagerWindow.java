@@ -52,8 +52,21 @@ public class GenreManagerWindow extends JFrame{
         }
 
         Genre genre = AppData.getInstance().getGenreList().get(selectedRow);
+        if(!canBeDeleted(genre)){
+            new ErrorWindow("Este género está associado a um filme!").setVisible(true);
+            return;
+        }
         AppData.getInstance().removeGenre(genre);
         tableModel.removeRow(selectedRow);
+    }
+
+    private boolean canBeDeleted(Genre genre){
+        for(Movie movie : AppData.getInstance().getMovieList()){
+            if(movie.getGenre() == genre){
+                return false;
+            }
+        }
+        return true;
     }
 
     private void editGenreButtonPerformed(ActionEvent e){
