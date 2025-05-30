@@ -3,7 +3,7 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
-public class MovieManagerWindow extends JFrame {
+public class MovieManagerWindow extends JFrame implements ManagerInterface<Movie>{
     private JButton backButton;
     private JScrollPane scrollPane;
     private JTable moviesTable;
@@ -81,7 +81,7 @@ public class MovieManagerWindow extends JFrame {
         tableModel.removeRow(selectedRow);
     }
 
-    private boolean canBeDeleted(Movie movie){
+    public boolean canBeDeleted(Movie movie){
         for(Session session : AppData.getInstance().getSessionList()){
             if(session.getMovie() == movie){
                 return false;

@@ -3,7 +3,7 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
-public class GenreManagerWindow extends JFrame{
+public class GenreManagerWindow extends JFrame implements ManagerInterface<Genre>{
     private JButton backButton;
     private JScrollPane scrollPane;
     private JTable genresTable;
@@ -60,7 +60,7 @@ public class GenreManagerWindow extends JFrame{
         tableModel.removeRow(selectedRow);
     }
 
-    private boolean canBeDeleted(Genre genre){
+    public boolean canBeDeleted(Genre genre){
         for(Movie movie : AppData.getInstance().getMovieList()){
             if(movie.getGenre() == genre){
                 return false;
