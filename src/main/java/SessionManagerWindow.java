@@ -4,7 +4,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.text.SimpleDateFormat;
 
-public class SessionManagerWindow extends JFrame{
+public class SessionManagerWindow extends JFrame implements ManagerInterface<Session> {
     private JButton backButton;
     private JTable sessionsTable;
     private JPanel mainPanel;
@@ -74,7 +74,7 @@ public class SessionManagerWindow extends JFrame{
         tableModel.removeRow(selectedRow);
     }
 
-    private boolean canBeDeleted(Session session){
+    public boolean canBeDeleted(Session session){
         for(Ticket ticket : AppData.getInstance().getTicketList()){
             if(ticket.getSession() == session){
                 return false;
