@@ -66,8 +66,21 @@ public class SessionManagerWindow extends JFrame{
         }
 
         Session session = AppData.getInstance().getSessionList().get(selectedRow);
+        if(!canBeDeleted(session)){
+            new ErrorWindow("Esta sessão está associada a algum bilhete!");
+        }
+
         AppData.getInstance().removeSession(session);
         tableModel.removeRow(selectedRow);
+    }
+
+    private boolean canBeDeleted(Session session){
+        for(Ticket ticket : AppData.getInstance().getTicketList()){
+            if(ticket.getSession() == session){
+                return false;
+            }
+        }
+        return true;
     }
 
     private int getSelectedRow(){
