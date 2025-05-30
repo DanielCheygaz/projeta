@@ -49,7 +49,6 @@ public class SessionAddWindow extends JFrame{
             return;
         }
 
-        // TODO: checkar se a data inserida é válida
         Date date = new Date(year-1900,month-1,day,hour,min);
         long currentTime = System.currentTimeMillis();
         if((date.getTime()-currentTime)<0){

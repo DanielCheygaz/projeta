@@ -107,6 +107,15 @@ public class AppData {
         movieList.remove(movie);
     }
 
+    public boolean moviesContainTitle(String title){
+        for(Movie movie: movieList){
+            if(movie.getName().toUpperCase().compareTo(title.toUpperCase())==0){
+                return true;
+            }
+        }
+        return false;
+    }
+
     public LinkedList<Room> getRoomList() {
         return roomList;
     }

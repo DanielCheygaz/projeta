@@ -72,9 +72,24 @@ public class MovieManagerWindow extends JFrame {
         }
 
         Movie movie = AppData.getInstance().getMovieList().get(selectedRow);
+        if(!canBeDeleted(movie)){
+            new ErrorWindow("Este filme está associado a uma sessão!").setVisible(true);
+            return;
+        }
+
         AppData.getInstance().removeMovie(movie);
         tableModel.removeRow(selectedRow);
     }
+
+    private boolean canBeDeleted(Movie movie){
+        for(Session session : AppData.getInstance().getSessionList()){
+            if(session.getMovie() == movie){
+                return false;
+            }
+        }
+        return true;
+    }
+
 
     private void manageGenresButtonPerformed(ActionEvent e){
         new GenreManagerWindow().setVisible(true);
