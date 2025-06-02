@@ -61,10 +61,9 @@ public class ProductAddWindow extends JFrame{
             return;
         }
 
-        Product product = new Product(productName, price);
-        Stock stock = new Stock(product,units);
+        Product product = new Product(productName, price, units);
 
-        AppData.getInstance().addStock(stock);
+        AppData.getInstance().addProduct(product);
 
         new StockManagerWindow().setVisible(true);
         dispose();

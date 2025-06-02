@@ -50,20 +50,51 @@ public class SessionAddWindow extends JFrame{
         }
 
         Date date = new Date(year-1900,month-1,day,hour,min);
-        long currentTime = System.currentTimeMillis();
-        if((date.getTime()-currentTime)<0){
-            new ErrorWindow("Não pode inserir uma data anterior à data de hoje").setVisible(true);
-            return;
-        }
 
         int roomIndex = comboBoxRoom.getSelectedIndex();
         Room room = AppData.getInstance().getRoomList().get(roomIndex);
+
+        if(!isDateValid(movie.getDuration(), date, room)){
+            return;
+        }
+
+
         int sessionId = AppData.getInstance().getSessionList().getLast().getID() + 1;
 
         AppData.getInstance().addSession(new Session(sessionId,date,movie,room));
 
         new SessionManagerWindow().setVisible(true);
         dispose();
+    }
+
+    private boolean isDateValid(int duration, Date date, Room room){
+        long currentTime = System.currentTimeMillis();
+        if((date.getTime()-currentTime)<0){
+            new ErrorWindow("Não pode inserir uma data anterior à data de hoje").setVisible(true);
+            return false;
+        }
+
+        for(Session session : AppData.getInstance().getSessionList()){
+            if(session.getRoom() == room && !isDateDifferenceValid(session, date)){
+                new ErrorWindow("A data inserida coincide com outra sessão na mesma sala").setVisible(true);
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private boolean isDateDifferenceValid(Session session, Date newDate){
+        long diffMillis = Math.abs(session.getDate().getTime()-newDate.getTime());
+        long diff = TimeUnit.MINUTES.convert(diffMillis, TimeUnit.MILLISECONDS);
+
+        int movieDuration = session.getMovie().getDuration();
+
+        if(diff < movieDuration){
+            return false;
+        }
+
+        return true;
     }
 
     private void cancelButtonPerformed(ActionEvent e){
