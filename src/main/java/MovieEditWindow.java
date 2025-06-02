@@ -46,6 +46,11 @@ public class MovieEditWindow extends JFrame{
             return;
         }
 
+        if(!isTitleValid(title)){
+            new ErrorWindow("Este filme já existe").setVisible(true);
+            return;
+        }
+
         int duration;
         // verificar que os valores do preço e unidades inseridos contêm apenas números
         try {
@@ -70,6 +75,15 @@ public class MovieEditWindow extends JFrame{
 
         new MovieManagerWindow().setVisible(true);
         dispose();
+    }
+
+    private boolean isTitleValid(String title){
+        for(Movie movie: AppData.getInstance().getMovieList()){
+            if(movie.getName().toUpperCase().compareTo(title.toUpperCase())==0 && !this.movie.equals(movie)){
+                return false;
+            }
+        }
+        return true;
     }
 
     private void cancelButtonPerformed(ActionEvent e){

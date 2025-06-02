@@ -39,7 +39,7 @@ public class MovieAddWindow extends JFrame{
             return;
         }
 
-        if(AppData.getInstance().moviesContainTitle(title)){
+        if(!isTitleValid(title)){
             new ErrorWindow("Este filme já existe").setVisible(true);
             return;
         }
@@ -68,6 +68,15 @@ public class MovieAddWindow extends JFrame{
 
         new MovieManagerWindow().setVisible(true);
         dispose();
+    }
+
+    private boolean isTitleValid(String title){
+        for(Movie movie: AppData.getInstance().getMovieList()){
+            if(movie.getName().toUpperCase().compareTo(title.toUpperCase())==0){
+                return false;
+            }
+        }
+        return true;
     }
 
     private void comboBoxGenrePerformed(ActionEvent e){
