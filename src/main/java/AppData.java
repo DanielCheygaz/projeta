@@ -40,10 +40,10 @@ public class AppData {
         roomList.add(new Room(3,20,5,false,true));
         roomList.add(new Room(4,30,10,true,true));
 
-        sessionList.add(new Session(1, new Date(2025-1900,05-1,12,12,30),movieList.get(0),roomList.get(0)));
-        sessionList.add(new Session(2, new Date(2025-1900,05-1,13,12,30),movieList.get(1),roomList.get(1)));
-        sessionList.add(new Session(3, new Date(2025-1900,05-1,14,12,30),movieList.get(2),roomList.get(2)));
-        sessionList.add(new Session(4, new Date(2025-1900,05-1,21,12,30),movieList.get(2),roomList.get(2)));
+        sessionList.add(new Session(1, new Date(2025-1900,06-1,12,12,30),movieList.get(0),roomList.get(0)));
+        sessionList.add(new Session(2, new Date(2025-1900,06-1,13,12,30),movieList.get(1),roomList.get(1)));
+        sessionList.add(new Session(3, new Date(2025-1900,06-1,14,12,30),movieList.get(2),roomList.get(2)));
+        sessionList.add(new Session(4, new Date(2025-1900,06-1,21,12,30),movieList.get(2),roomList.get(2)));
 
         ticketList.add(new Ticket(1,sessionList.get(0),10,"estudante"));
         ticketList.add(new Ticket(2,sessionList.get(1),15,"estudante"));
