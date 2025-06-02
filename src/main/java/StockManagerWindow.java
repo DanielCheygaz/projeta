@@ -25,8 +25,8 @@ public class StockManagerWindow extends JFrame{
         tableModel = new DefaultTableModel(columns,0);
 
 
-        for(Stock stock: AppData.getInstance().getStockList()){
-            Object[] row = {stock.getProduct().getName(),stock.getUnits(),stock.getProduct().getPrice()};
+        for(Product product: AppData.getInstance().getProductList()){
+            Object[] row = {product.getName(),product.getUnits(),product.getPrice()};
             tableModel.addRow(row);
         }
         productsTable.setModel(tableModel);
@@ -51,8 +51,8 @@ public class StockManagerWindow extends JFrame{
             return;
         }
 
-        Stock stock = AppData.getInstance().getStockList().get(selectedRow);
-        new ProductEditWindow(stock).setVisible(true);
+        Product product = AppData.getInstance().getProductList().get(selectedRow);
+        new ProductEditWindow(product).setVisible(true);
         dispose();
     }
 
@@ -63,8 +63,8 @@ public class StockManagerWindow extends JFrame{
             return;
         }
 
-        Stock stock = AppData.getInstance().getStockList().get(selectedRow);
-        new ProductBuyWindow(stock).setVisible(true);
+        Product product = AppData.getInstance().getProductList().get(selectedRow);
+        new ProductBuyWindow(product).setVisible(true);
         dispose();
     }
 
@@ -75,8 +75,8 @@ public class StockManagerWindow extends JFrame{
             return;
         }
 
-        Stock stock = AppData.getInstance().getStockList().get(selectedRow);
-        AppData.getInstance().removeStock(stock);
+        Product product = AppData.getInstance().getProductList().get(selectedRow);
+        AppData.getInstance().removeProduct(product);
         tableModel.removeRow(selectedRow);
     }
 

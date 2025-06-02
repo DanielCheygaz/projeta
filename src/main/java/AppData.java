@@ -7,22 +7,17 @@ public class AppData {
     private LinkedList<Movie> movieList = new LinkedList<>();
     private LinkedList<Room> roomList = new LinkedList<>();
     private LinkedList<Session> sessionList = new LinkedList<>();
-    private LinkedList<Stock> stockList = new LinkedList<>();
     private LinkedList<Ticket> ticketList = new LinkedList<>();
     private LinkedList<Bundle> bundleList = new LinkedList<>();
 
     // TODO: meter os "new LinkedList<>()" para dentro do construtor quando removermos os dados estáticos
     public AppData() {
-        productList.add(new Product("CocaCola",1.2));
-        productList.add(new Product("KitKat",1.5));
-        productList.add(new Product("Snickers",1.5));
-        productList.add(new Product("Água",1));
-        productList.add(new Product("Tabaco",10.50));
-        productList.add(new Product("Gelatina",341));
-
-        for(Product product: getProductList()){
-            stockList.add(new Stock(product, (int)(Math.random()*101)));
-        }
+        productList.add(new Product("CocaCola",1.2,(int)(Math.random()*101)));
+        productList.add(new Product("KitKat",1.5,(int)(Math.random()*101)));
+        productList.add(new Product("Snickers",1.5,(int)(Math.random()*101)));
+        productList.add(new Product("Água",1,(int)(Math.random()*101)));
+        productList.add(new Product("Tabaco",10.50,(int)(Math.random()*101)));
+        productList.add(new Product("Gelatina",341,(int)(Math.random()*101)));
 
         genreList.add(new Genre("Ação"));
         genreList.add(new Genre("Drama"));
@@ -66,21 +61,16 @@ public class AppData {
 
     private static void carregarDados() {}
 
-
-    public void addStock(Stock stock){
-        stockList.add(stock);
-    }
-
-    public LinkedList<Stock> getStockList() {
-        return stockList;
-    }
-
-    public void removeStock(Stock stock){
-        stockList.remove(stock);
-    }
-
     public LinkedList<Product> getProductList() {
         return productList;
+    }
+
+    public void addProduct(Product product){
+        productList.add(product);
+    }
+
+    public void removeProduct(Product product){
+        productList.remove(product);
     }
 
     public LinkedList<Genre> getGenreList() {

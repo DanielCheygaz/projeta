@@ -10,24 +10,22 @@ public class ProductEditWindow extends JFrame{
     private JTextField textFieldName;
     private JTextField textFieldPrice;
     private Product product;
-    private Stock stock;
 
     private static final int MIN_VALUE = 0;
     private static final int MAX_VALUE = 500;
     private static final int STEP = 1;
 
-    public ProductEditWindow(Stock stock) throws HeadlessException {
-        super("Editar: " + stock.getProduct().getName());
+    public ProductEditWindow(Product product) throws HeadlessException {
+        super("Editar: " + product.getName());
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setContentPane(mainPanel);
         pack();
-        this.stock = stock;
-        this.product = stock.getProduct();
+        this.product = product;
 
         textFieldName.setText(product.getName());
 
         // definir o comportamento do spinner
-        SpinnerModel spinnerNumberModel = new SpinnerNumberModel(stock.getUnits(),MIN_VALUE,MAX_VALUE,STEP);
+        SpinnerModel spinnerNumberModel = new SpinnerNumberModel(product.getUnits(),MIN_VALUE,MAX_VALUE,STEP);
         unitsSpinner.setModel(spinnerNumberModel);
 
         textFieldPrice.setText(String.valueOf(product.getPrice()));
@@ -68,7 +66,17 @@ public class ProductEditWindow extends JFrame{
             return;
         }
 
-        stock.editStock(productName,units,price);
+        if(price<=0){
+            new ErrorWindow("O preço tem de ser superior a zero").setVisible(true);
+            return;
+        }
+
+        if(units<0){
+            new ErrorWindow("As unidades não podem ser negativas").setVisible(true);
+            return;
+        }
+
+        product.editProduct(productName,price,units);
         new StockManagerWindow().setVisible(true);
         dispose();
     }

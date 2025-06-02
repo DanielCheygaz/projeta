@@ -12,16 +12,16 @@ public class ProductBuyWindow extends JFrame{
     private static final int MAX_VALUE = 500;
     private static final int STEP = 1;
     private static final int START_VALUE = 0;
-    private Stock stock;
+    private Product product;
 
 
-    public ProductBuyWindow(Stock stock) throws HeadlessException {
+    public ProductBuyWindow(Product product) throws HeadlessException {
         super("Comprar Produto");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setContentPane(mainPanel);
         pack();
-        this.stock = stock;
-        titleLabel.setText(stock.getProduct().getName());
+        this.product = product;
+        titleLabel.setText(product.getName());
 
         // definir o comportamento do spinner
         SpinnerModel spinnerNumberModel = new SpinnerNumberModel(START_VALUE,MIN_VALUE,MAX_VALUE,STEP);
@@ -36,7 +36,7 @@ public class ProductBuyWindow extends JFrame{
         dispose();
     }
     private void saveButtonPerformed(ActionEvent e){
-        stock.addUnits(Integer.valueOf(spinner.getValue().toString()));
+        product.addUnits(Integer.valueOf(spinner.getValue().toString()));
         new StockManagerWindow().setVisible(true);
         dispose();
     }

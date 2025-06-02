@@ -39,8 +39,8 @@ public class BundleCreateBarProductsSelectWindow extends JFrame{
 
         String[] columns = {"Nome do produto","Preço Unidade"};
         DefaultTableModel tableModel = new DefaultTableModel(columns,0);
-        for(Stock stock: AppData.getInstance().getStockList()){
-            Object[] row = {stock.getProduct().getName(),stock.getProduct().getPrice()};
+        for(Product product: AppData.getInstance().getProductList()){
+            Object[] row = {product.getName(), product.getPrice()};
             tableModel.addRow(row);
         }
         productsTable.setModel(tableModel);
