@@ -76,7 +76,7 @@ public class SessionEditWindow extends JFrame{
         int roomIndex = comboBoxRoom.getSelectedIndex();
         Room room = AppData.getInstance().getRoomList().get(roomIndex);
 
-        if(!isDateValid(movie.getDuration(), date, room, session)){
+        if(!isDateValid(date, room, session)){
             return;
         }
 
@@ -86,7 +86,7 @@ public class SessionEditWindow extends JFrame{
         dispose();
     }
 
-    private boolean isDateValid(int duration, Date date, Room room, Session currentSession){
+    private boolean isDateValid(Date date, Room room, Session currentSession){
         long currentTime = System.currentTimeMillis();
         if((date.getTime()-currentTime)<0){
             new ErrorWindow("Não pode inserir uma data anterior à data de hoje").setVisible(true);
