@@ -43,7 +43,6 @@ public class MovieEditWindow extends JFrame{
         String title = textFieldName.getText();
 
         if(!isTitleValid(title)){
-            new ErrorWindow("Este filme já existe").setVisible(true);
             return;
         }
 
@@ -78,9 +77,10 @@ public class MovieEditWindow extends JFrame{
             new ErrorWindow("Tem de introduzir um título").setVisible(true);
             return false;
         }
-        
+
         for(Movie movie: AppData.getInstance().getMovieList()){
             if(movie.getName().toUpperCase().compareTo(title.toUpperCase())==0 && !this.movie.equals(movie)){
+                new ErrorWindow("Já existe um filme com este título").setVisible(true);
                 return false;
             }
         }
