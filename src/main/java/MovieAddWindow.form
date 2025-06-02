@@ -81,7 +81,7 @@
             <properties>
               <background color="-1184268"/>
               <foreground color="-1184268"/>
-              <text value="Duração"/>
+              <text value="Duração (minutos)"/>
             </properties>
           </component>
           <component id="aab55" class="javax.swing.JTextField" binding="textFieldDuration">
