@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 public class SessionEditWindow extends JFrame{
     private JButton cancelButton;
@@ -14,8 +15,8 @@ public class SessionEditWindow extends JFrame{
     private JTextField textFieldYear;
     private JTextField textFieldHour;
     private JTextField textFieldMinute;
-    private AppData appData;
-    private Session session;
+    private final AppData appData;
+    private final Session session;
 
     public SessionEditWindow(Session session) throws HeadlessException {
         super("Edit Session");
@@ -68,19 +69,47 @@ public class SessionEditWindow extends JFrame{
         }
 
         Date date = new Date(year-1900,month-1,day,hour,min);
-        long currentTime = System.currentTimeMillis();
-        if((date.getTime()-currentTime)<0){
-            new ErrorWindow("Não pode inserir uma data anterior à data de hoje").setVisible(true);
-            return;
-        }
 
         int roomIndex = comboBoxRoom.getSelectedIndex();
         Room room = AppData.getInstance().getRoomList().get(roomIndex);
+
+        if(!isDateValid(movie.getDuration(), date, room, session)){
+            return;
+        }
 
         session.updateSession(date,movie,room);
 
         new SessionManagerWindow().setVisible(true);
         dispose();
+    }
+
+    private boolean isDateValid(int duration, Date date, Room room, Session currentSession){
+        long currentTime = System.currentTimeMillis();
+        if((date.getTime()-currentTime)<0){
+            new ErrorWindow("Não pode inserir uma data anterior à data de hoje").setVisible(true);
+            return false;
+        }
+
+        for(Session session : AppData.getInstance().getSessionList()){
+            if(session.equals(currentSession)){
+                continue;
+            }
+            if(session.getRoom() == room && !isDateDifferenceValid(session, date)){
+                new ErrorWindow("A data inserida coincide com outra sessão na mesma sala").setVisible(true);
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private boolean isDateDifferenceValid(Session session, Date newDate){
+        long diffMillis = Math.abs(session.getDate().getTime()-newDate.getTime());
+        long diff = TimeUnit.MINUTES.convert(diffMillis, TimeUnit.MILLISECONDS);
+
+        int movieDuration = session.getMovie().getDuration();
+
+        return diff >= movieDuration;
     }
 
     private void cancelButtonPerformed(ActionEvent e){
