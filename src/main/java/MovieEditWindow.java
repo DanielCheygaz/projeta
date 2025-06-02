@@ -41,8 +41,8 @@ public class MovieEditWindow extends JFrame{
 
     private void saveButtonPerformed(ActionEvent e){
         String title = textFieldName.getText();
-        if(title.isBlank()){
-            new ErrorWindow("Tem de introduzir um título").setVisible(true);
+
+        if(!isTitleValid(title)){
             return;
         }
 
@@ -70,6 +70,21 @@ public class MovieEditWindow extends JFrame{
 
         new MovieManagerWindow().setVisible(true);
         dispose();
+    }
+
+    private boolean isTitleValid(String title){
+        if(title.isBlank()){
+            new ErrorWindow("Tem de introduzir um título").setVisible(true);
+            return false;
+        }
+
+        for(Movie movie: AppData.getInstance().getMovieList()){
+            if(movie.getName().toUpperCase().compareTo(title.toUpperCase())==0 && !this.movie.equals(movie)){
+                new ErrorWindow("Já existe um filme com este título").setVisible(true);
+                return false;
+            }
+        }
+        return true;
     }
 
     private void cancelButtonPerformed(ActionEvent e){
