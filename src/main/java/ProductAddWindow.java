@@ -38,8 +38,7 @@ public class ProductAddWindow extends JFrame{
         String productName = textFieldName.getText();
         String productPriceString = textFieldPrice.getText();
 
-        if(productName==null){
-            new ErrorWindow("O campo nome não pode estar vazio!").setVisible(true);
+        if(!isNameValid(productName)){
             return;
         }
 
@@ -67,5 +66,19 @@ public class ProductAddWindow extends JFrame{
 
         new StockManagerWindow().setVisible(true);
         dispose();
+    }
+
+    private boolean isNameValid(String productName){
+        if(productName==null){
+            new ErrorWindow("O campo nome não pode estar vazio!").setVisible(true);
+            return false;
+        }
+        for(Product product: AppData.getInstance().getProductList()){
+            if(product.getName().toUpperCase().compareTo(productName.toUpperCase())==0){
+                new ErrorWindow("Já existe um produto com este nome!").setVisible(true);
+                return false;
+            }
+        }
+        return true;
     }
 }
