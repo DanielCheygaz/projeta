@@ -34,8 +34,11 @@ public class SessionEditWindow extends JFrame{
         comboBoxMovie.setSelectedIndex(movieIndex); // deixar selecionado o filme que está associado à sessão
 
         Date sessionDate = session.getDate();
-        int day = sessionDate.getDate(), month = sessionDate.getMonth()+1, year = sessionDate.getYear()+1900,
-                hour = sessionDate.getHours(), minute = sessionDate.getMinutes();
+        int day = sessionDate.getDate();
+        int month = sessionDate.getMonth()+1;
+        int year = sessionDate.getYear()+1900;
+        int hour = sessionDate.getHours();
+        int minute = sessionDate.getMinutes();
 
         textFieldDay.setText(Integer.toString(day));
         textFieldMonth.setText(Integer.toString(month));
@@ -58,11 +61,11 @@ public class SessionEditWindow extends JFrame{
         Movie movie = AppData.getInstance().getMovieList().get(movieIndex);
         int day,month,year,hour,min;
         try{
-            day = Integer.valueOf(textFieldDay.getText());
-            month = Integer.valueOf(textFieldMonth.getText());
-            year = Integer.valueOf(textFieldYear.getText());
-            hour = Integer.valueOf(textFieldHour.getText());
-            min = Integer.valueOf(textFieldMinute.getText());
+            day = Integer.parseInt(textFieldDay.getText());
+            month = Integer.parseInt(textFieldMonth.getText());
+            year = Integer.parseInt(textFieldYear.getText());
+            hour = Integer.parseInt(textFieldHour.getText());
+            min = Integer.parseInt(textFieldMinute.getText());
         }catch (NumberFormatException ex){
             new ErrorWindow("Apenas pode inserir números nas datas").setVisible(true);
             return;
