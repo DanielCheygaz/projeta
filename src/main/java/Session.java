@@ -1,7 +1,7 @@
 import java.util.Date;
 
 public class Session {
-    private int id;
+    private final int id;
     private Date date;
     private Movie movie;
     private Room room;
