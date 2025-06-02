@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 public class SessionEditWindow extends JFrame{
     private JButton cancelButton;
@@ -14,8 +15,8 @@ public class SessionEditWindow extends JFrame{
     private JTextField textFieldYear;
     private JTextField textFieldHour;
     private JTextField textFieldMinute;
-    private AppData appData;
-    private Session session;
+    private final AppData appData;
+    private final Session session;
 
     public SessionEditWindow(Session session) throws HeadlessException {
         super("Edit Session");
@@ -33,8 +34,11 @@ public class SessionEditWindow extends JFrame{
         comboBoxMovie.setSelectedIndex(movieIndex); // deixar selecionado o filme que está associado à sessão
 
         Date sessionDate = session.getDate();
-        int day = sessionDate.getDate(), month = sessionDate.getMonth()+1, year = sessionDate.getYear()+1900,
-                hour = sessionDate.getHours(), minute = sessionDate.getMinutes();
+        int day = sessionDate.getDate();
+        int month = sessionDate.getMonth()+1;
+        int year = sessionDate.getYear()+1900;
+        int hour = sessionDate.getHours();
+        int minute = sessionDate.getMinutes();
 
         textFieldDay.setText(Integer.toString(day));
         textFieldMonth.setText(Integer.toString(month));
@@ -57,30 +61,58 @@ public class SessionEditWindow extends JFrame{
         Movie movie = AppData.getInstance().getMovieList().get(movieIndex);
         int day,month,year,hour,min;
         try{
-            day = Integer.valueOf(textFieldDay.getText());
-            month = Integer.valueOf(textFieldMonth.getText());
-            year = Integer.valueOf(textFieldYear.getText());
-            hour = Integer.valueOf(textFieldHour.getText());
-            min = Integer.valueOf(textFieldMinute.getText());
+            day = Integer.parseInt(textFieldDay.getText());
+            month = Integer.parseInt(textFieldMonth.getText());
+            year = Integer.parseInt(textFieldYear.getText());
+            hour = Integer.parseInt(textFieldHour.getText());
+            min = Integer.parseInt(textFieldMinute.getText());
         }catch (NumberFormatException ex){
             new ErrorWindow("Apenas pode inserir números nas datas").setVisible(true);
             return;
         }
 
         Date date = new Date(year-1900,month-1,day,hour,min);
-        long currentTime = System.currentTimeMillis();
-        if((date.getTime()-currentTime)<0){
-            new ErrorWindow("Não pode inserir uma data anterior à data de hoje").setVisible(true);
-            return;
-        }
 
         int roomIndex = comboBoxRoom.getSelectedIndex();
         Room room = AppData.getInstance().getRoomList().get(roomIndex);
+
+        if(!isDateValid(movie.getDuration(), date, room, session)){
+            return;
+        }
 
         session.updateSession(date,movie,room);
 
         new SessionManagerWindow().setVisible(true);
         dispose();
+    }
+
+    private boolean isDateValid(int duration, Date date, Room room, Session currentSession){
+        long currentTime = System.currentTimeMillis();
+        if((date.getTime()-currentTime)<0){
+            new ErrorWindow("Não pode inserir uma data anterior à data de hoje").setVisible(true);
+            return false;
+        }
+
+        for(Session session : AppData.getInstance().getSessionList()){
+            if(session.equals(currentSession)){
+                continue;
+            }
+            if(session.getRoom() == room && !isDateDifferenceValid(session, date)){
+                new ErrorWindow("A data inserida coincide com outra sessão na mesma sala").setVisible(true);
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private boolean isDateDifferenceValid(Session session, Date newDate){
+        long diffMillis = Math.abs(session.getDate().getTime()-newDate.getTime());
+        long diff = TimeUnit.MINUTES.convert(diffMillis, TimeUnit.MILLISECONDS);
+
+        int movieDuration = session.getMovie().getDuration();
+
+        return diff >= movieDuration;
     }
 
     private void cancelButtonPerformed(ActionEvent e){
