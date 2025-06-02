@@ -53,6 +53,11 @@ public class MovieAddWindow extends JFrame{
             return;
         }
 
+        if(duration<=0){
+            new ErrorWindow("A duração tem de ser superior a zero").setVisible(true);
+            return;
+        }
+
         int genreIndex = comboBoxGenre.getSelectedIndex();
         Genre genre = AppData.getInstance().getGenreList().get(genreIndex);
         String description = textAreaDescription.getText();
