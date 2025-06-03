@@ -59,20 +59,22 @@ public class SessionSelectWindow extends JFrame {
         dispose();
     }
 
-    private void openSelectedSessionButtonPerformed(ActionEvent e){
-        Session selectedSession = sessionTable.getSelectedRow() != -1 ? AppData.getInstance().getSessionList().get(sessionTable.getSelectedRow()) : null;
-        int selectedRow = selectedSession.getID();
-        int numberOfRows = selectedSession.getRoom().getNumberRows();
-        int numberOfColumns = selectedSession.getRoom().getNumberColumns();
+    private void openSelectedSessionButtonPerformed(ActionEvent e) {
+        int selectedRow = sessionTable.getSelectedRow();
         if (selectedRow != -1) {
-            DefaultTableModel model = (DefaultTableModel) sessionTable.getModel();
-            int sessionId = (int) model.getValueAt(selectedRow, 0);
-            System.out.println(sessionId);
-            new TicketsPerSessionSaleWindow(this, sessionId, numberOfRows, numberOfColumns).setVisible(true);
+            int sessionId = (int) sessionTable.getValueAt(selectedRow, 0);
+            Session selectedSession = AppData.getInstance().getSessionList()
+                    .stream().filter(s -> s.getID() == sessionId).findFirst().orElse(null);
+
+            if (selectedSession != null) {
+                new TicketsPerSessionSaleWindow(selectedSession).showWindow();
+                dispose();
+            }
         } else {
             JOptionPane.showMessageDialog(this, "Selecione uma sessão para pesquisar bilhetes.");
         }
     }
+
 
     public static void main(String[] args){
         new SessionSelectWindow().setVisible(true);
