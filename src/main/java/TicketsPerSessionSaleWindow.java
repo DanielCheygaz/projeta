@@ -95,13 +95,19 @@ public class TicketsPerSessionSaleWindow extends JFrame {
 
     private void addTicketButtonPerformed(ActionEvent e) {
         int selectedRow = ticketTable.getSelectedRow();
-        if (selectedRow != -1) {
-            JOptionPane.showMessageDialog(this, "Bilhetes adicionados com sucesso");
-            previousWindow.setVisible(true);
-            dispose();
-        } else {
+
+        if(!isTicketSelectionValid(selectedRow)){
             new ErrorWindow("Selecione um bilhete para adicionar à venda.").setVisible(true);
+            return;
         }
+
+        JOptionPane.showMessageDialog(this, "Bilhetes adicionados com sucesso");
+        previousWindow.setVisible(true);
+        dispose();
+    }
+
+    private boolean isTicketSelectionValid(int selectedRow){
+        return selectedRow != -1;
     }
 
     public static void main(String[] args) {
