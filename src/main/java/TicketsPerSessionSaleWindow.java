@@ -1,118 +1,81 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TicketsPerSessionSaleWindow extends JFrame {
-    private JPanel mainPanel;
-    private JScrollPane scrollPane;
-    private JTable ticketTable;
-    private JButton editSaleButton;
-    private JButton finishSaleButton;
-    private JButton addBarProductsButton;
-    private JButton addTicketButton;
-    private JButton backButton;
-    private SeatButton[][] buttons;
-    private String selectedTicketType;
+    private Session session;
+    private JPanel seatPanel;
+    private JButton confirmButton;
+    private List<Seat> selectedSeats = new ArrayList<>();
 
-    private JFrame previousWindow;
+    public TicketsPerSessionSaleWindow(Session session) {
+        this.session = session;
 
-    public TicketsPerSessionSaleWindow(JFrame previousWindow, int sessionID, int numberOfRows, int numberOfColumns) {
-        super("Venda de Bilhetes");
-        this.previousWindow = previousWindow;
+        setTitle("Venda de Bilhetes - Sessão " + session.getID());
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setSize(800, 600);
+        setLocationRelativeTo(null);
 
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setContentPane(mainPanel);
-        pack();
+        Room room = session.getRoom();
+        initComponents(room.getNumberRows(), room.getNumberColumns());
+    }
 
-        scrollPane.getViewport().setBackground(Color.decode("2894892"));
+    public void showWindow() {
+        setVisible(true);
+    }
 
-        this.buttons = new SeatButton[numberOfRows][numberOfColumns];
+    private void initComponents(int rows, int cols) {
+        seatPanel = new JPanel(new GridLayout(rows, cols, 5, 5));
 
-        JPanel seatPanel = new JPanel(new GridLayout(numberOfRows, numberOfColumns, 5, 5));
-        for (int row = 0; row < numberOfRows; ++row) {
-            for (int column = 0; column < numberOfColumns; ++column) {
-                buttons[row][column] = new SeatButton(row, column);
-                buttons[row][column].setState(0);
-                //apenas para teste
-                if(buttons[row][column].getColumn() == 2 && buttons[row][column].getRow() == 2) {
-                    buttons[row][column].setState(2);
+        for (int r = 0; r < rows; r++) {
+            for (int c = 0; c < cols; c++) {
+                Seat seat = new Seat(r, c);
+                SeatButton button = new SeatButton(seat);
+
+                if (session.isSeatOccupied(seat)) {
+                    button.setEnabled(false);
+                    button.setBackground(Color.RED);
+                } else {
+                    button.addActionListener(e -> toggleSeatSelection(button));
                 }
 
-                buttons[row][column].addActionListener(e -> {
-                    SeatButton button = (SeatButton) e.getSource();
-                    if (button.getState() == 0) {
-                        button.setState(1);
-                        //new SelectTicketWindow().setVisible(true);
-                    } else if (button.getState() == 1) {
-                        button.setState(3);
-                        //new SelectTicketWindow().setVisible(true);
-                    } else if (button.getState() == 3) {
-                        button.setState(4);
-                        //new SelectTicketWindow().setVisible(true);
-                    } else if (button.getState() == 4) {
-                        button.setState(0);
-                        //new SelectTicketWindow().setVisible(true);
-                    } else if (button.getState() == 2) {
-                        JOptionPane.showMessageDialog(this, "Este lugar já está vendido.");
-                    }
-                });
-                seatPanel.add(buttons[row][column]);
+                seatPanel.add(button);
             }
         }
-        scrollPane.setViewportView(seatPanel);
 
-        this.backButton.addActionListener(this::backButtonPerformed);
-        this.finishSaleButton.addActionListener(this::finishSaleButtonPerformed);
-        this.editSaleButton.addActionListener(this::editSaleButtonPerformed);
-        this.addTicketButton.addActionListener(this::addTicketButtonPerformed);
-        this.addBarProductsButton.addActionListener(this::addBarProductsButtonPerformed);
+        confirmButton = new JButton("Confirmar Venda");
+        confirmButton.addActionListener(this::confirmSale);
+
+        setLayout(new BorderLayout());
+        add(new JScrollPane(seatPanel), BorderLayout.CENTER);
+        add(confirmButton, BorderLayout.SOUTH);
     }
 
-    public void setSelectedTicketType(String ticketType) {
-        this.selectedTicketType = ticketType;
+    private void toggleSeatSelection(SeatButton button) {
+        Seat seat = button.getSeat();
+
+        if (selectedSeats.contains(seat)) {
+            selectedSeats.remove(seat);
+            button.setBackground(null);
+        } else {
+            selectedSeats.add(seat);
+            button.setBackground(Color.GREEN);
+        }
     }
 
-    private void backButtonPerformed(ActionEvent e) {
-        previousWindow.setVisible(true);
-        dispose();
-    }
-
-    private void finishSaleButtonPerformed(ActionEvent e) {
-        JOptionPane.showMessageDialog(this, "Venda finalizada com sucesso!");
-        previousWindow.setVisible(true);
-        dispose();
-    }
-
-    private void editSaleButtonPerformed(ActionEvent e) {
-        new ReceiptEditWindow(this).setVisible(true);
-        dispose();
-    }
-
-    private void addBarProductsButtonPerformed(ActionEvent e) {
-        new BarProductsSaleWindow(this).setVisible(true);
-        dispose();
-    }
-
-    private void addTicketButtonPerformed(ActionEvent e) {
-        int selectedRow = ticketTable.getSelectedRow();
-
-        if(!isTicketSelectionValid(selectedRow)){
-            new ErrorWindow("Selecione um bilhete para adicionar à venda.").setVisible(true);
+    private void confirmSale(ActionEvent e) {
+        if (selectedSeats.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Nenhum lugar selecionado.");
             return;
         }
 
-        JOptionPane.showMessageDialog(this, "Bilhetes adicionados com sucesso");
-        previousWindow.setVisible(true);
+        for (Seat seat : selectedSeats) {
+            session.occupySeat(seat);
+        }
+
+        JOptionPane.showMessageDialog(this, "Venda realizada com sucesso!");
         dispose();
     }
-
-    private boolean isTicketSelectionValid(int selectedRow){
-        return selectedRow != -1;
-    }
-
-    public static void main(String[] args) {
-        new TicketsPerSessionSaleWindow(null, 1, 1, 1).setVisible(true);
-    }
 }
-
-
