@@ -10,7 +10,7 @@ public class SessionSelectWindow extends JFrame {
     private JButton finishSaleButton;
     private JButton editSaleButton;
     private JButton backButton;
-    private JButton selectSessionButton;
+    private JButton openSelectedSessionButton;
     private JScrollPane scrollPane;
 
     public SessionSelectWindow() {
@@ -34,7 +34,7 @@ public class SessionSelectWindow extends JFrame {
         this.finishSaleButton.addActionListener(this::finishSaleButtonPerformed);
         this.editSaleButton.addActionListener(this::editSaleButtonPerformed);
         this.addBarProductsButton.addActionListener(this::addBarProductsButtonPerformed);
-        this.selectSessionButton.addActionListener(this::selectSessionButtonPerformed);
+        this.openSelectedSessionButton.addActionListener(this::openSelectedSessionButtonPerformed);
 
     }
 
@@ -59,7 +59,7 @@ public class SessionSelectWindow extends JFrame {
         dispose();
     }
 
-    private void selectSessionButtonPerformed(ActionEvent e){
+    private void openSelectedSessionButtonPerformed(ActionEvent e){
         Session selectedSession = sessionTable.getSelectedRow() != -1 ? AppData.getInstance().getSessionList().get(sessionTable.getSelectedRow()) : null;
         int selectedRow = selectedSession.getID();
         int numberOfRows = selectedSession.getRoom().getNumberRows();
