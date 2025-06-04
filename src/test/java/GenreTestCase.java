@@ -12,12 +12,13 @@ public class GenreTestCase {
     }
 
     @Test
-    public void testGetName(){
+    public void testConstructor(){
         assertEquals("Ficção Científica", genre.getName());
     }
 
     @Test
     public void testSetName(){
+        assertThrows(IllegalArgumentException.class, ()->{genre.setName("");}, "IllegalArgumentException expected");
         genre.setName("Drama");
         assertEquals("Drama", genre.getName());
     }
