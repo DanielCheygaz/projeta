@@ -9,22 +9,13 @@ public class StockTestCase {
 
     @BeforeEach
     public void setUp(){
-        units = (int)(Math.random()*101);
-        product = new Product("Coca Cola", 1.2, units);
+        product = new Product("Coca Cola", 1.2, 15);
     }
 
     @Test
-    public void testGetProductName(){
+    public void testConstructor(){
         assertEquals("Coca Cola", product.getName());
-    }
-
-    @Test
-    public void testGetProductPrice(){
         assertEquals(1.2,product.getPrice());
-    }
-
-    @Test
-    public void testGetUnits(){
         assertEquals(units, product.getUnits());
     }
 
@@ -36,9 +27,13 @@ public class StockTestCase {
 
     @Test
     public void testEditStock(){
-        Product newProduct = new Product("Pipocas", 1.5, 10);
-        product.editProduct("Pipocas",1.5, 10);
-        assertEquals(newProduct.toString(),product.toString());
+        String name = "Pipocas";
+        double price = 1.5;
+        int units = 12;
+        product.editProduct(name, price, units);
+        assertEquals(name,product.getName());
+        assertEquals(price,product.getPrice());
+        assertEquals(units,product.getUnits());
     }
 
 }

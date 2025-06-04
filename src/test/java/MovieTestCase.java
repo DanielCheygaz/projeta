@@ -14,32 +14,12 @@ public class MovieTestCase {
     }
 
     @Test
-    public void testGetName(){
+    public void testConstructor(){
         assertEquals("Avatar", movie.getName());
-    }
-
-    @Test
-    public void testGetDuration(){
         assertEquals(180, movie.getDuration());
-    }
-
-    @Test
-    public void testGetGenre(){
         assertEquals(genre,movie.getGenre());
-    }
-
-    @Test
-    public void testGetDescription(){
         assertEquals("Saving pandora", movie.getDescription());
-    }
-
-    @Test
-    public void testIsImax(){
         assertEquals(true, movie.isImax());
-    }
-
-    @Test
-    public void testIsDolbyAtmos(){
         assertEquals(true, movie.isDolbyAtmos());
     }
 

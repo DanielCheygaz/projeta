@@ -10,6 +10,9 @@ public class Genre {
     }
 
     public void setName(String name) {
+        if(name.isBlank()){
+            throw new IllegalArgumentException("O nome não pode estar vazio");
+        }
         this.name = name;
     }
 }
