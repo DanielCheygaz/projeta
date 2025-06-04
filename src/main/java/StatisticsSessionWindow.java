@@ -9,7 +9,7 @@ public class StatisticsSessionWindow extends JFrame{
     private JTable salesTable;
 
     public StatisticsSessionWindow(){
-        setTitle("Estatísticas de Filmes");
+        setTitle("Estatísticas de Sessões");
         setContentPane(mainPanel);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pack();

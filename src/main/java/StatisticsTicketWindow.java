@@ -1,6 +1,7 @@
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.util.Calendar;
 
 public class StatisticsTicketWindow extends JFrame{
@@ -37,5 +38,12 @@ public class StatisticsTicketWindow extends JFrame{
             int value = (int)tableModel.getValueAt(dayOfWeek,1) + 1;
             tableModel.setValueAt(value,dayOfWeek,1);
         }
+
+        backButton.addActionListener(this::backButtonActionPerformed);
+
+    }
+    private void backButtonActionPerformed(ActionEvent e) {
+        new StatisticsWindow().setVisible(true);
+        setVisible(false);
     }
 }

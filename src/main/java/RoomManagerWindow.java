@@ -43,12 +43,29 @@ public class RoomManagerWindow extends JFrame{
 
         int selectedRow = roomTable.getSelectedRow();
 
+        if(selectedRow==-1){
+            new ErrorWindow("Selecione primeiro uma sala").setVisible(true);
+            return;
+        }
         roomSelected = AppData.getInstance().getRoomList().get(selectedRow);
+
+        if(!canBeDeleted(roomSelected)){
+            new ErrorWindow("Esta sala está associado a uma sessao!").setVisible(true);
+            return;
+        }
         AppData.getInstance().getRoomList().remove(selectedRow);
         dispose();
         new RoomManagerWindow().setVisible(true);
     }
 
+    public boolean canBeDeleted(Room room){
+        for(Session session : AppData.getInstance().getSessionList()){
+            if(session.getRoom() == room){
+                return false;
+            }
+        }
+        return true;
+    }
 
     private void verSalaButtonActionPerformed(ActionEvent e){
 
@@ -72,10 +89,7 @@ public class RoomManagerWindow extends JFrame{
 
 
 
-    private void backButtonPerformed(ActionEvent e){
-        new MainWindow().setVisible(true);
-        dispose();
-    }
+
 
     public static void main(String[] args){
         new RoomManagerWindow().setVisible(true);
