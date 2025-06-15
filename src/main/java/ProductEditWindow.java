@@ -10,16 +10,19 @@ public class ProductEditWindow extends JFrame{
     private JTextField textFieldName;
     private JTextField textFieldPrice;
     private Product product;
+    private StockManagerWindow previousWindow;
 
     private static final int MIN_VALUE = 0;
-    private static final int MAX_VALUE = 500;
+    private static final int MAX_VALUE = 5000;
     private static final int STEP = 1;
 
-    public ProductEditWindow(Product product) throws HeadlessException {
+    public ProductEditWindow(StockManagerWindow previousWindow, Product product) throws HeadlessException {
         super("Editar: " + product.getName());
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setContentPane(mainPanel);
         pack();
+
+        this.previousWindow = previousWindow;
         this.product = product;
 
         textFieldName.setText(product.getName());
@@ -34,7 +37,7 @@ public class ProductEditWindow extends JFrame{
         this.saveButton.addActionListener(this::saveButtonPerformed);
     }
     private void cancelButtonPerformed(ActionEvent e){
-        new StockManagerWindow().setVisible(true);
+        previousWindow.setVisible(true);
         dispose();
     }
 
@@ -76,7 +79,9 @@ public class ProductEditWindow extends JFrame{
         }
 
         product.editProduct(productName,price,units);
-        new StockManagerWindow().setVisible(true);
+
+        previousWindow.refreshData();
+        previousWindow.setVisible(true);
         dispose();
     }
 

@@ -10,17 +10,20 @@ public class ProductAddWindow extends JFrame{
     private JPanel mainPanel;
     private JTextField textFieldName;
     private JTextField textFieldPrice;
+    private StockManagerWindow previousWindow;
 
     private static final int MIN_VALUE = 0;
-    private static final int MAX_VALUE = 500;
+    private static final int MAX_VALUE = 5000;
     private static final int STEP = 1;
     private static final int START_VALUE = 0;
 
-    public ProductAddWindow() throws HeadlessException {
+    public ProductAddWindow(StockManagerWindow previousWindow) throws HeadlessException {
         super("Adicionar Produto");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setContentPane(mainPanel);
         pack();
+
+        this.previousWindow = previousWindow;
 
         // definir o comportamento do spinner
         SpinnerModel spinnerModel = new SpinnerNumberModel(START_VALUE,MIN_VALUE,MAX_VALUE,STEP);
@@ -31,7 +34,7 @@ public class ProductAddWindow extends JFrame{
     }
 
     private void cancelButtonPerformed(ActionEvent e){
-        new StockManagerWindow().setVisible(true);
+        previousWindow.setVisible(true);
         dispose();
     }
     private void saveButtonPerformed(ActionEvent e){
@@ -64,7 +67,8 @@ public class ProductAddWindow extends JFrame{
 
         AppData.getInstance().addProduct(product);
 
-        new StockManagerWindow().setVisible(true);
+        previousWindow.refreshData();
+        previousWindow.setVisible(true);
         dispose();
     }
 

@@ -46,7 +46,7 @@ public class MainWindow extends JFrame{
     }
 
     private void manageStockButtonActionPerformed(ActionEvent e){
-        new StockManagerWindow().setVisible(true);
+        new StockManagerWindow(this).setVisible(true);
         setVisible(false);
     }
 
