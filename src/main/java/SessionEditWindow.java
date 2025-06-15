@@ -17,12 +17,15 @@ public class SessionEditWindow extends JFrame{
     private JTextField textFieldMinute;
     private final AppData appData;
     private final Session session;
+    private SessionManagerWindow previousWindow;
 
-    public SessionEditWindow(Session session) throws HeadlessException {
+    public SessionEditWindow(SessionManagerWindow previousWindow, Session session) throws HeadlessException {
         super("Edit Session");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setContentPane(mainPanel);
         pack();
+
+        this.previousWindow = previousWindow;
         this.session = session;
         appData = AppData.getInstance();
 
@@ -82,7 +85,8 @@ public class SessionEditWindow extends JFrame{
 
         session.updateSession(date,movie,room);
 
-        new SessionManagerWindow().setVisible(true);
+        previousWindow.refreshData();
+        previousWindow.setVisible(true);
         dispose();
     }
 
@@ -116,7 +120,7 @@ public class SessionEditWindow extends JFrame{
     }
 
     private void cancelButtonPerformed(ActionEvent e){
-        new SessionManagerWindow().setVisible(true);
+        previousWindow.setVisible(true);
         dispose();
     }
 }

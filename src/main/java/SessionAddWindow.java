@@ -15,12 +15,15 @@ public class SessionAddWindow extends JFrame{
     private JTextField textFieldYear;
     private JTextField textFieldHour;
     private JTextField textFieldMinute;
+    private SessionManagerWindow previousWindow;
 
-    public SessionAddWindow() throws HeadlessException {
+    public SessionAddWindow(SessionManagerWindow previousWindow) throws HeadlessException {
         super("Adicionar Sessão");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setContentPane(mainPanel);
         pack();
+
+        this.previousWindow = previousWindow;
 
         for(Movie movie: AppData.getInstance().getMovieList()){
             comboBoxMovie.addItem(movie.getName());
@@ -62,7 +65,8 @@ public class SessionAddWindow extends JFrame{
 
         AppData.getInstance().addSession(new Session(sessionId,date,movie,room));
 
-        new SessionManagerWindow().setVisible(true);
+        previousWindow.refreshData();
+        previousWindow.setVisible(true);
         dispose();
     }
 
@@ -97,7 +101,7 @@ public class SessionAddWindow extends JFrame{
     }
 
     private void cancelButtonPerformed(ActionEvent e){
-        new SessionManagerWindow().setVisible(true);
+        previousWindow.setVisible(true);
         dispose();
     }
 }

@@ -41,7 +41,7 @@ public class MainWindow extends JFrame{
     }
 
     private void manageSessionsButtonActionPerformed(ActionEvent e){
-        new SessionManagerWindow().setVisible(true);
+        new SessionManagerWindow(this).setVisible(true);
         setVisible(false);
     }
 
