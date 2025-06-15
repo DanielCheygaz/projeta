@@ -88,11 +88,6 @@ public class StockManagerWindow extends JFrame{
         tableModel.removeRow(selectedRow);
     }
 
-    private void backButtonPerformed(ActionEvent e){
-        new MainWindow().setVisible(true);
-        dispose();
-    }
-
     private int getSelectedRow(){
         int selectedRow = productsTable.getSelectedRow();
         if(selectedRow==-1){
@@ -100,6 +95,11 @@ public class StockManagerWindow extends JFrame{
             return -1;
         }
         return selectedRow;
+    }
+
+    private void backButtonPerformed(ActionEvent e){
+        previousWindow.setVisible(true);
+        dispose();
     }
 
 }
