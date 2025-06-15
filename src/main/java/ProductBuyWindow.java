@@ -39,9 +39,16 @@ public class ProductBuyWindow extends JFrame{
         dispose();
     }
     private void saveButtonPerformed(ActionEvent e){
-        product.addUnits(Integer.valueOf(spinner.getValue().toString()));
+        int units = Integer.valueOf(spinner.getValue().toString());
+        boolean isValidNumber = units > 0;
+
+        if(!isValidNumber){
+            new ErrorWindow("O número mínimo de unidades a comprar é 1!").setVisible(true);
+            return;
+        }
+
+        product.addUnits(units);
         previousWindow.refreshData();
-        previousWindow.setVisible(true);
         dispose();
     }
 }

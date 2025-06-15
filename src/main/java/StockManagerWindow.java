@@ -66,14 +66,15 @@ public class StockManagerWindow extends JFrame{
 
     private void buyProductButtonPerformed(ActionEvent e){
         int selectedRow = getSelectedRow();
+        boolean isProductSelected = selectedRow != -1;
 
-        if(selectedRow==-1){
+        if(!isProductSelected){
+            new ErrorWindow("Selecione primeiro um produto").setVisible(true);
             return;
         }
 
         Product product = AppData.getInstance().getProductList().get(selectedRow);
         new ProductBuyWindow(this, product).setVisible(true);
-        setVisible(false);
     }
 
     private void removeProductPerformed(ActionEvent e){
@@ -89,12 +90,7 @@ public class StockManagerWindow extends JFrame{
     }
 
     private int getSelectedRow(){
-        int selectedRow = productsTable.getSelectedRow();
-        if(selectedRow==-1){
-            new ErrorWindow("Selecione primeiro um produto").setVisible(true);
-            return -1;
-        }
-        return selectedRow;
+        return productsTable.getSelectedRow();
     }
 
     private void backButtonPerformed(ActionEvent e){

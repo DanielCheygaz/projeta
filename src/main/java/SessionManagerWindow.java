@@ -57,7 +57,6 @@ public class SessionManagerWindow extends JFrame implements ManagerInterface<Ses
 
     private void addSessionButtonPerformed(ActionEvent e){
         new SessionAddWindow(this).setVisible(true);
-        setVisible(false);
     }
 
     private void editSessionButtonPerformed(ActionEvent e){
@@ -68,7 +67,6 @@ public class SessionManagerWindow extends JFrame implements ManagerInterface<Ses
 
         Session session = AppData.getInstance().getSessionList().get(selectedRow);
         new SessionEditWindow(this, session).setVisible(true);
-        setVisible(false);
     }
 
     private void removeSessionButtonPerformed(ActionEvent e){
@@ -108,7 +106,7 @@ public class SessionManagerWindow extends JFrame implements ManagerInterface<Ses
 
     private void backButtonPerformed(ActionEvent e){
         previousWindow.setVisible(true);
-        setVisible(false);
+        dispose();
     }
 
     public static void main(String[] args){

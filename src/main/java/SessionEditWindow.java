@@ -86,7 +86,6 @@ public class SessionEditWindow extends JFrame{
         session.updateSession(date,movie,room);
 
         previousWindow.refreshData();
-        previousWindow.setVisible(true);
         dispose();
     }
 
@@ -120,7 +119,6 @@ public class SessionEditWindow extends JFrame{
     }
 
     private void cancelButtonPerformed(ActionEvent e){
-        previousWindow.setVisible(true);
         dispose();
     }
 }

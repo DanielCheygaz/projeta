@@ -57,7 +57,8 @@ public class SessionAddWindow extends JFrame{
         int roomIndex = comboBoxRoom.getSelectedIndex();
         Room room = AppData.getInstance().getRoomList().get(roomIndex);
 
-        if(!isDateValid(date, room)){
+        boolean dateVerified = isDateValid(date, room);
+        if(!dateVerified){
             return;
         }
 
@@ -66,7 +67,6 @@ public class SessionAddWindow extends JFrame{
         AppData.getInstance().addSession(new Session(sessionId,date,movie,room));
 
         previousWindow.refreshData();
-        previousWindow.setVisible(true);
         dispose();
     }
 
@@ -101,7 +101,6 @@ public class SessionAddWindow extends JFrame{
     }
 
     private void cancelButtonPerformed(ActionEvent e){
-        previousWindow.setVisible(true);
         dispose();
     }
 }
