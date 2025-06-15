@@ -18,7 +18,7 @@ public class SessionManagerWindow extends JFrame implements ManagerInterface<Ses
     private SimpleDateFormat dateFormat;
     private JFrame previousWindow;
 
-    public SessionManagerWindow(JFrame previousWindow){
+    public SessionManagerWindow(MainWindow previousWindow){
         super("Gestor de Sessões");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setContentPane(mainPanel);
@@ -26,8 +26,8 @@ public class SessionManagerWindow extends JFrame implements ManagerInterface<Ses
 
         this.previousWindow = previousWindow;
 
-        sessionsTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         scrollPane.getViewport().setBackground(Color.decode("2894892"));
+        sessionsTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         String[] columns = {"ID da Sessão","Filme","Sala","Data","Duração"};
         this.columns = columns;
 
