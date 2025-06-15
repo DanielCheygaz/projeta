@@ -9,18 +9,21 @@ public class ProductBuyWindow extends JFrame{
     private JSpinner spinner;
     private JLabel titleLabel;
     private static final int MIN_VALUE = 0;
-    private static final int MAX_VALUE = 500;
+    private static final int MAX_VALUE = 5000;
     private static final int STEP = 1;
     private static final int START_VALUE = 0;
     private Product product;
+    private StockManagerWindow previousWindow;
 
-
-    public ProductBuyWindow(Product product) throws HeadlessException {
+    public ProductBuyWindow(StockManagerWindow previousWindow, Product product) throws HeadlessException {
         super("Comprar Produto");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setContentPane(mainPanel);
         pack();
+
+        this.previousWindow = previousWindow;
         this.product = product;
+
         titleLabel.setText(product.getName());
 
         // definir o comportamento do spinner
@@ -32,12 +35,13 @@ public class ProductBuyWindow extends JFrame{
     }
 
     private void cancelButtonPerformed(ActionEvent e){
-        new StockManagerWindow().setVisible(true);
+        previousWindow.setVisible(true);
         dispose();
     }
     private void saveButtonPerformed(ActionEvent e){
         product.addUnits(Integer.valueOf(spinner.getValue().toString()));
-        new StockManagerWindow().setVisible(true);
+        previousWindow.refreshData();
+        previousWindow.setVisible(true);
         dispose();
     }
 }

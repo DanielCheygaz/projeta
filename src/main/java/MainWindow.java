@@ -26,7 +26,7 @@ public class MainWindow extends JFrame{
     }
 
     private void manageMoviesButtonPerformed(ActionEvent e){
-        new MovieManagerWindow().setVisible(true);
+        new MovieManagerWindow(this).setVisible(true);
         setVisible(false);
     }
 
@@ -41,12 +41,12 @@ public class MainWindow extends JFrame{
     }
 
     private void manageSessionsButtonActionPerformed(ActionEvent e){
-        new SessionManagerWindow().setVisible(true);
+        new SessionManagerWindow(this).setVisible(true);
         setVisible(false);
     }
 
     private void manageStockButtonActionPerformed(ActionEvent e){
-        new StockManagerWindow().setVisible(true);
+        new StockManagerWindow(this).setVisible(true);
         setVisible(false);
     }
 

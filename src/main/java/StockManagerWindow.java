@@ -13,24 +13,23 @@ public class StockManagerWindow extends JFrame{
     private JScrollPane scrollPane;
     private JButton buyProductButton;
     private DefaultTableModel tableModel;
+    private MainWindow previousWindow;
+    private String[] columns;
 
-    public StockManagerWindow(){
+    public StockManagerWindow(MainWindow previousWindow){
         super("Gestor de Stock");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setContentPane(mainPanel);
         pack();
+
+        this.previousWindow = previousWindow;
+
         scrollPane.getViewport().setBackground(Color.decode("2894892"));
-        String[] columns = {"Nome do produto","Unidades","Preço Unidade"};
-
-        tableModel = new DefaultTableModel(columns,0);
-
-
-        for(Product product: AppData.getInstance().getProductList()){
-            Object[] row = {product.getName(),product.getUnits(),product.getPrice()};
-            tableModel.addRow(row);
-        }
-        productsTable.setModel(tableModel);
         productsTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        String[] columns = {"Nome do produto","Unidades","Preço Unidade"};
+        this.columns = columns;
+
+        refreshData();
 
         this.addProductButton.addActionListener(this::addButtonPerformed);
         this.editProductButton.addActionListener(this::editProductButtonPerformed);
@@ -39,9 +38,18 @@ public class StockManagerWindow extends JFrame{
         this.backButton.addActionListener(this::backButtonPerformed);
     }
 
+    public void refreshData(){
+        tableModel = new DefaultTableModel(columns,0);
+        for(Product product: AppData.getInstance().getProductList()){
+            Object[] row = {product.getName(),product.getUnits(),product.getPrice()};
+            tableModel.addRow(row);
+        }
+        productsTable.setModel(tableModel);
+    }
+
     private void addButtonPerformed(ActionEvent e){
-        new ProductAddWindow().setVisible(true);
-        dispose();
+        new ProductAddWindow(this).setVisible(true);
+        setVisible(false);
     }
 
     private void editProductButtonPerformed(ActionEvent e){
@@ -52,8 +60,8 @@ public class StockManagerWindow extends JFrame{
         }
 
         Product product = AppData.getInstance().getProductList().get(selectedRow);
-        new ProductEditWindow(product).setVisible(true);
-        dispose();
+        new ProductEditWindow(this, product).setVisible(true);
+        setVisible(false);
     }
 
     private void buyProductButtonPerformed(ActionEvent e){
@@ -64,8 +72,8 @@ public class StockManagerWindow extends JFrame{
         }
 
         Product product = AppData.getInstance().getProductList().get(selectedRow);
-        new ProductBuyWindow(product).setVisible(true);
-        dispose();
+        new ProductBuyWindow(this, product).setVisible(true);
+        setVisible(false);
     }
 
     private void removeProductPerformed(ActionEvent e){
@@ -80,11 +88,6 @@ public class StockManagerWindow extends JFrame{
         tableModel.removeRow(selectedRow);
     }
 
-    private void backButtonPerformed(ActionEvent e){
-        new MainWindow().setVisible(true);
-        dispose();
-    }
-
     private int getSelectedRow(){
         int selectedRow = productsTable.getSelectedRow();
         if(selectedRow==-1){
@@ -94,7 +97,9 @@ public class StockManagerWindow extends JFrame{
         return selectedRow;
     }
 
-    public static void main(String[] args){
-        new StockManagerWindow().setVisible(true);
+    private void backButtonPerformed(ActionEvent e){
+        previousWindow.setVisible(true);
+        dispose();
     }
+
 }

@@ -2,6 +2,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.WindowEvent;
 import java.text.SimpleDateFormat;
 
 public class SessionManagerWindow extends JFrame implements ManagerInterface<Session> {
@@ -12,40 +13,51 @@ public class SessionManagerWindow extends JFrame implements ManagerInterface<Ses
     private JButton removeSessionButton;
     private JScrollPane scrollPane;
     private JButton editSessionButton;
+    private String[] columns;
     private DefaultTableModel tableModel;
+    private SimpleDateFormat dateFormat;
+    private JFrame previousWindow;
 
-    public SessionManagerWindow(){
+    public SessionManagerWindow(MainWindow previousWindow){
         super("Gestor de Sessões");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setContentPane(mainPanel);
         pack();
 
-        sessionsTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        scrollPane.getViewport().setBackground(Color.decode("2894892"));
-        String[] columns = {"ID da Sessão","Filme","Sala","Data","Duração"};
+        this.previousWindow = previousWindow;
 
-        tableModel = new DefaultTableModel(columns,0);
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
-        for(Session session: AppData.getInstance().getSessionList()){
-            Object[] row = {
-                session.getID(),
-                session.getMovie().getName(),
-                session.getRoom().getRoomNumber(),
-                dateFormat.format(session.getDate()),
-                session.getMovie().getDuration()
-            };
-            tableModel.addRow(row);
-        }
-        sessionsTable.setModel(tableModel);
+        scrollPane.getViewport().setBackground(Color.decode("2894892"));
+        sessionsTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        String[] columns = {"ID da Sessão","Filme","Sala","Data","Duração"};
+        this.columns = columns;
+
+        dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+        refreshData();
+
         this.addSessionButton.addActionListener(this::addSessionButtonPerformed);
         this.editSessionButton.addActionListener(this::editSessionButtonPerformed);
         this.removeSessionButton.addActionListener(this::removeSessionButtonPerformed);
         this.backButton.addActionListener(this::backButtonPerformed);
     }
 
+    public void refreshData(){
+        tableModel = new DefaultTableModel(columns,0);
+        for(Session session: AppData.getInstance().getSessionList()){
+            Object[] row = {
+                    session.getID(),
+                    session.getMovie().getName(),
+                    session.getRoom().getRoomNumber(),
+                    dateFormat.format(session.getDate()),
+                    session.getMovie().getDuration()
+            };
+            tableModel.addRow(row);
+        }
+        sessionsTable.setModel(tableModel);
+    }
+
     private void addSessionButtonPerformed(ActionEvent e){
-        new SessionAddWindow().setVisible(true);
-        dispose();
+        new SessionAddWindow(this).setVisible(true);
+        setVisible(false);
     }
 
     private void editSessionButtonPerformed(ActionEvent e){
@@ -55,8 +67,8 @@ public class SessionManagerWindow extends JFrame implements ManagerInterface<Ses
         }
 
         Session session = AppData.getInstance().getSessionList().get(selectedRow);
-        new SessionEditWindow(session).setVisible(true);
-        dispose();
+        new SessionEditWindow(this, session).setVisible(true);
+        setVisible(false);
     }
 
     private void removeSessionButtonPerformed(ActionEvent e){
@@ -95,11 +107,11 @@ public class SessionManagerWindow extends JFrame implements ManagerInterface<Ses
     }
 
     private void backButtonPerformed(ActionEvent e){
-        new MainWindow().setVisible(true);
-        dispose();
+        previousWindow.setVisible(true);
+        setVisible(false);
     }
 
     public static void main(String[] args){
-        new SessionManagerWindow().setVisible(true);
+        new SessionManagerWindow(new MainWindow()).setVisible(true);
     }
 }

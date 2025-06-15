@@ -13,12 +13,15 @@ public class MovieEditWindow extends JFrame{
     private JComboBox comboBoxGenre;
     private JPanel mainPanel;
     private Movie movie;
+    private MovieManagerWindow previousWindow;
 
-    public MovieEditWindow(Movie movie) throws HeadlessException {
+    public MovieEditWindow(MovieManagerWindow previousWindow,Movie movie) throws HeadlessException {
         super("Editar: " + movie.getName());
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setContentPane(mainPanel);
         pack();
+
+        this.previousWindow = previousWindow;
 
         this.movie = movie;
 
@@ -68,7 +71,8 @@ public class MovieEditWindow extends JFrame{
 
         movie.updateMovie(title,duration,description,genre,imax,dolbyAtmos);
 
-        new MovieManagerWindow().setVisible(true);
+        previousWindow.refreshData();
+        previousWindow.setVisible(true);
         dispose();
     }
 
@@ -88,7 +92,7 @@ public class MovieEditWindow extends JFrame{
     }
 
     private void cancelButtonPerformed(ActionEvent e){
-        new MovieManagerWindow().setVisible(true);
+        previousWindow.setVisible(true);
         dispose();
     }
 }

@@ -8,13 +8,15 @@ public class GenreEditWindow extends JFrame{
     private JButton saveButton;
     private JPanel mainPanel;
     private Genre genre;
+    private GenreManagerWindow previousWindow;
 
-    public GenreEditWindow(Genre genre) throws HeadlessException {
+    public GenreEditWindow(GenreManagerWindow previousWindow, Genre genre) throws HeadlessException {
         super("Editar" + genre.getName());
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setContentPane(mainPanel);
         pack();
 
+        this.previousWindow = previousWindow;
         this.genre = genre;
 
         textFieldName.setText(genre.getName());
@@ -32,12 +34,13 @@ public class GenreEditWindow extends JFrame{
 
         genre.setName(name);
 
-        new GenreManagerWindow().setVisible(true);
+        previousWindow.refreshData();
+        previousWindow.setVisible(true);
         dispose();
     }
 
     private void cancelButtonPerformed(ActionEvent e){
-        new GenreManagerWindow().setVisible(true);
+        previousWindow.setVisible(true);
         dispose();
     }
 }
