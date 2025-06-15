@@ -26,7 +26,7 @@ public class MainWindow extends JFrame{
     }
 
     private void manageMoviesButtonPerformed(ActionEvent e){
-        new MovieManagerWindow().setVisible(true);
+        new MovieManagerWindow(this).setVisible(true);
         setVisible(false);
     }
 

@@ -12,16 +12,31 @@ public class GenreManagerWindow extends JFrame implements ManagerInterface<Genre
     private JButton editGenreButton;
     private JPanel mainPanel;
     private DefaultTableModel tableModel;
+    private MovieManagerWindow previousWindow;
+    private String[] columns;
 
-    public GenreManagerWindow() throws HeadlessException {
+    public GenreManagerWindow(MovieManagerWindow previousWindow) throws HeadlessException {
         super("Gestão de Géneros");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setContentPane(mainPanel);
         pack();
 
-        scrollPane.getViewport().setBackground(Color.decode("2894892"));
-        String[] columns = {"Nome"};
+        this.previousWindow = previousWindow;
 
+        scrollPane.getViewport().setBackground(Color.decode("2894892"));
+        genresTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        String[] columns = {"Nome"};
+        this.columns = columns;
+
+        refreshData();
+
+        this.addGenreButton.addActionListener(this::addGenreButtonPerformed);
+        this.removeGenreButton.addActionListener(this::removeGenreButtonPerformed);
+        this.editGenreButton.addActionListener(this::editGenreButtonPerformed);
+        this.backButton.addActionListener(this::backButtonPerformed);
+    }
+
+    public void refreshData(){
         tableModel = new DefaultTableModel(columns,0);
 
         for(Genre genre: AppData.getInstance().getGenreList()){
@@ -31,17 +46,11 @@ public class GenreManagerWindow extends JFrame implements ManagerInterface<Genre
             tableModel.addRow(row);
         }
         genresTable.setModel(tableModel);
-        genresTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-
-        this.addGenreButton.addActionListener(this::addGenreButtonPerformed);
-        this.removeGenreButton.addActionListener(this::removeGenreButtonPerformed);
-        this.editGenreButton.addActionListener(this::editGenreButtonPerformed);
-        this.backButton.addActionListener(this::backButtonPerformed);
     }
 
     private void addGenreButtonPerformed(ActionEvent e){
-        new GenreAddWindow().setVisible(true);
-        dispose();
+        new GenreAddWindow(this).setVisible(true);
+        setVisible(false);
     }
 
     private void removeGenreButtonPerformed(ActionEvent e){
@@ -77,16 +86,12 @@ public class GenreManagerWindow extends JFrame implements ManagerInterface<Genre
         }
 
         Genre genre = AppData.getInstance().getGenreList().get(selectedRow);
-        new GenreEditWindow(genre).setVisible(true);
-        dispose();
+        new GenreEditWindow(this, genre).setVisible(true);
+        setVisible(false);
     }
 
     private void backButtonPerformed(ActionEvent e){
-        new MovieManagerWindow().setVisible(true);
+        previousWindow.setVisible(true);
         dispose();
-    }
-
-    public static void main(String[] args){
-        new GenreManagerWindow().setVisible(true);
     }
 }

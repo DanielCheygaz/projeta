@@ -12,13 +12,15 @@ public class MovieAddWindow extends JFrame{
     private JRadioButton dolbyAtmosRadioButton;
     private JComboBox comboBoxGenre;
     private JTextArea textAreaDescription;
+    private MovieManagerWindow previousWindow;
 
-    public MovieAddWindow() throws HeadlessException {
+    public MovieAddWindow(MovieManagerWindow previousWindow) throws HeadlessException {
         super("Adicionar Filme");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setContentPane(mainPanel);
         pack();
 
+        this.previousWindow = previousWindow;
 
         comboBoxGenre.setName("Género");
 
@@ -61,7 +63,8 @@ public class MovieAddWindow extends JFrame{
 
         AppData.getInstance().addMovie(new Movie(title,duration,description,genre,imax,dolbyAtmos));
 
-        new MovieManagerWindow().setVisible(true);
+        previousWindow.refreshData();
+        previousWindow.setVisible(true);
         dispose();
     }
 
@@ -85,11 +88,7 @@ public class MovieAddWindow extends JFrame{
     }
 
     private void cancelButtonPerformed(ActionEvent e){
-        new MovieManagerWindow().setVisible(true);
+        previousWindow.setVisible(true);
         dispose();
-    }
-
-    public static void main(String[] args){
-        new MovieAddWindow().setVisible(true);
     }
 }

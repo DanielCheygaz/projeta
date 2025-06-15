@@ -11,20 +11,34 @@ public class MovieManagerWindow extends JFrame implements ManagerInterface<Movie
     private JButton removeMovieButton;
     private JButton editMovieButton;
     private JPanel mainPanel;
+    private String[] columns;
     private JButton manageGenresButton;
     private DefaultTableModel tableModel;
+    private MainWindow previousWindow;
 
-    public MovieManagerWindow() throws HeadlessException {
+    public MovieManagerWindow(MainWindow previousWindow) throws HeadlessException {
         super("Gestor de Filmes");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setContentPane(mainPanel);
         pack();
 
+        this.previousWindow = previousWindow;
+
         scrollPane.getViewport().setBackground(Color.decode("2894892"));
+        moviesTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         String[] columns = {"Nome","Duração","Género", "Descrição","IMAX","Dolby Atmos"};
+        this.columns = columns;
+        refreshData();
 
+        this.addMovieButton.addActionListener(this::addMovieButtonPerformed);
+        this.removeMovieButton.addActionListener(this::removeMoviePerformed);
+        this.editMovieButton.addActionListener(this::editMovieButtonPerformed);
+        this.manageGenresButton.addActionListener(this::manageGenresButtonPerformed);
+        this.backButton.addActionListener(this::backButtonPerformed);
+    }
+
+    public void refreshData(){
         tableModel = new DefaultTableModel(columns,0);
-
         for(Movie movie: AppData.getInstance().getMovieList()){
             Object[] row = {
                     movie.getName(),
@@ -37,18 +51,11 @@ public class MovieManagerWindow extends JFrame implements ManagerInterface<Movie
             tableModel.addRow(row);
         }
         moviesTable.setModel(tableModel);
-        moviesTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-
-        this.addMovieButton.addActionListener(this::addMovieButtonPerformed);
-        this.removeMovieButton.addActionListener(this::removeMoviePerformed);
-        this.editMovieButton.addActionListener(this::editMovieButtonPerformed);
-        this.manageGenresButton.addActionListener(this::manageGenresButtonPerformed);
-        this.backButton.addActionListener(this::backButtonPerformed);
     }
 
     private void addMovieButtonPerformed(ActionEvent e){
-        new MovieAddWindow().setVisible(true);
-        dispose();
+        new MovieAddWindow(this).setVisible(true);
+        setVisible(false);
     }
 
     private void editMovieButtonPerformed(ActionEvent e){
@@ -59,8 +66,8 @@ public class MovieManagerWindow extends JFrame implements ManagerInterface<Movie
         }
 
         Movie movie = AppData.getInstance().getMovieList().get(selectedRow);
-        new MovieEditWindow(movie).setVisible(true);
-        dispose();
+        new MovieEditWindow(this, movie).setVisible(true);
+        setVisible(false);
     }
 
 
@@ -92,13 +99,13 @@ public class MovieManagerWindow extends JFrame implements ManagerInterface<Movie
 
 
     private void manageGenresButtonPerformed(ActionEvent e){
-        new GenreManagerWindow().setVisible(true);
-        dispose();
+        new GenreManagerWindow(this).setVisible(true);
+        setVisible(false);
     }
 
     private void backButtonPerformed(ActionEvent e){
-        new MainWindow().setVisible(true);
         dispose();
+        previousWindow.setVisible(true);
     }
 
     private int getSelectedRow(){
@@ -108,9 +115,5 @@ public class MovieManagerWindow extends JFrame implements ManagerInterface<Movie
             return -1;
         }
         return selectedRow;
-    }
-
-    public static void main(String[] args){
-        new MovieManagerWindow().setVisible(true);
     }
 }
