@@ -71,6 +71,10 @@ public class RoomManagerWindow extends JFrame{
 
         int selectedRow = roomTable.getSelectedRow();
 
+        if(selectedRow==-1){
+            new ErrorWindow("Selecione primeiro uma sala").setVisible(true);
+            return;
+        }
         roomSelected = AppData.getInstance().getRoomList().get(selectedRow);
         dispose();
         new RoomDetailsWindow(roomSelected).setVisible(true);
