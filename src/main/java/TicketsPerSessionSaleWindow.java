@@ -1,29 +1,26 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.util.ArrayList;
 import java.util.List;
 
 public class TicketsPerSessionSaleWindow extends JFrame {
     private Session session;
     private JPanel seatPanel;
     private JButton confirmButton;
-    private List<Seat> selectedSeats = new ArrayList<>();
+    private JButton cancelButton;
+    private List<Seat> selectedSeats = new java.util.ArrayList<>();
+    private JFrame previousWindow;
 
-    public TicketsPerSessionSaleWindow(Session session) {
+    public TicketsPerSessionSaleWindow(Session session, JFrame previousWindow) {
         this.session = session;
+        this.previousWindow = previousWindow;
 
         setTitle("Venda de Bilhetes - Sessão " + session.getID());
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(800, 600);
-        setLocationRelativeTo(null);
+        setLocationRelativeTo(null); // centraliza a janela
 
-        Room room = session.getRoom();
-        initComponents(room.getNumberRows(), room.getNumberColumns());
-    }
-
-    public void showWindow() {
-        setVisible(true);
+        initComponents(session.getRoom().getNumberRows(), session.getRoom().getNumberColumns());
     }
 
     private void initComponents(int rows, int cols) {
@@ -45,8 +42,16 @@ public class TicketsPerSessionSaleWindow extends JFrame {
             }
         }
 
-        confirmButton = new JButton("Confirmar Venda");
-        confirmButton.addActionListener(this::confirmSale);
+        confirmButton = new JButton("Adicionar Bilhetes");
+        confirmButton.addActionListener(this::confirmTickets);
+
+        cancelButton = new JButton("Cancelar");
+        cancelButton.addActionListener(e -> {
+            if(previousWindow != null) {
+                previousWindow.setVisible(true);
+            }
+            dispose();
+        });
 
         setLayout(new BorderLayout());
         add(new JScrollPane(seatPanel), BorderLayout.CENTER);
@@ -65,7 +70,7 @@ public class TicketsPerSessionSaleWindow extends JFrame {
         }
     }
 
-    private void confirmSale(ActionEvent e) {
+    private void confirmTickets(ActionEvent e) {
         if (selectedSeats.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Nenhum lugar selecionado.");
             return;
@@ -75,7 +80,8 @@ public class TicketsPerSessionSaleWindow extends JFrame {
             session.occupySeat(seat);
         }
 
-        JOptionPane.showMessageDialog(this, "Venda realizada com sucesso!");
+        JOptionPane.showMessageDialog(this, "Bilhetes adicionados com sucesso!");
+        new SessionSelectWindow(this).setVisible(true);
         dispose();
     }
 }
