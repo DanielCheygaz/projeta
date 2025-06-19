@@ -9,8 +9,7 @@ public class SalesMainWindow extends JFrame{
     private JButton editSaleButton;
     private JButton backButton;
     private JButton salesHistoryButton;
-
-    public SalesMainWindow(){
+    public SalesMainWindow() {
         super("Gestor de Vendas");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setContentPane(mainPanel);
@@ -29,8 +28,8 @@ public class SalesMainWindow extends JFrame{
     }
 
     private void sellTicketButtonPerformed(ActionEvent e){
-        new SessionSelectWindow().setVisible(true);
-        dispose();
+        new SessionSelectWindow(this).setVisible(true);
+        setVisible(false);
     }
 
     private void sellBarProductsButtonPerformed(ActionEvent e){

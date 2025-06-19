@@ -12,9 +12,11 @@ public class SessionSelectWindow extends JFrame {
     private JButton backButton;
     private JButton openSelectedSessionButton;
     private JScrollPane scrollPane;
+    private JFrame previousWindow;
 
-    public SessionSelectWindow() {
+    public SessionSelectWindow(JFrame previousWindow) {
         super("Venda de Bilhetes");
+        this.previousWindow = previousWindow;
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setContentPane(mainPanel);
         pack();
@@ -31,6 +33,8 @@ public class SessionSelectWindow extends JFrame {
         sessionTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
         this.backButton.addActionListener(this::backButtonPerformed);
+
+
         this.finishSaleButton.addActionListener(this::finishSaleButtonPerformed);
         this.editSaleButton.addActionListener(this::editSaleButtonPerformed);
         this.addBarProductsButton.addActionListener(this::addBarProductsButtonPerformed);
@@ -39,13 +43,18 @@ public class SessionSelectWindow extends JFrame {
     }
 
     private void backButtonPerformed(ActionEvent e){
-        new SalesMainWindow().setVisible(true);
+        if(previousWindow != null) {
+            previousWindow.setVisible(true);
+        } else {
+            new SalesMainWindow().setVisible(true);
+        }
         dispose();
     }
 
     private void finishSaleButtonPerformed(ActionEvent e){
+        // Here you would typically finalize the sale, e.g., save to a database or print a receipt.
+
         JOptionPane.showMessageDialog(this, "Venda finalizada com sucesso!");
-        new SalesMainWindow().setVisible(true);
         dispose();
     }
 
@@ -67,16 +76,11 @@ public class SessionSelectWindow extends JFrame {
                     .stream().filter(s -> s.getID() == sessionId).findFirst().orElse(null);
 
             if (selectedSession != null) {
-                new TicketsPerSessionSaleWindow(selectedSession).showWindow();
-                dispose();
+                new TicketsPerSessionSaleWindow(selectedSession, this).setVisible(true);
+                setVisible(false);
             }
         } else {
             JOptionPane.showMessageDialog(this, "Selecione uma sessão para pesquisar bilhetes.");
         }
-    }
-
-
-    public static void main(String[] args){
-        new SessionSelectWindow().setVisible(true);
     }
 }

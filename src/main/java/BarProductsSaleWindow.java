@@ -79,7 +79,6 @@ public class BarProductsSaleWindow extends JFrame {
 
     private void finishSaleButtonPerformed(ActionEvent e) {
         JOptionPane.showMessageDialog(this, "Venda finalizada com sucesso!");
-        new SalesMainWindow().setVisible(true);
         dispose();
     }
 
