@@ -47,6 +47,7 @@ public class StatisticsWindow extends JFrame{
 
     private void ticketStatisticsButtonPerformed(ActionEvent e){
         new StatisticsTicketWindow().setVisible(true);
+        setVisible(false);
     }
 
 }
