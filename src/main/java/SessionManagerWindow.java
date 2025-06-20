@@ -109,7 +109,4 @@ public class SessionManagerWindow extends JFrame implements ManagerInterface<Ses
         dispose();
     }
 
-    public static void main(String[] args){
-        new SessionManagerWindow(new MainWindow()).setVisible(true);
-    }
 }
