@@ -12,6 +12,7 @@ public class SessionSelectWindow extends JFrame {
     private JButton backButton;
     private JButton openSelectedSessionButton;
     private JScrollPane scrollPane;
+    private Ticket currentTicket = null;
     private JFrame previousWindow;
 
     public SessionSelectWindow(JFrame previousWindow) {
@@ -52,9 +53,34 @@ public class SessionSelectWindow extends JFrame {
     }
 
     private void finishSaleButtonPerformed(ActionEvent e){
+
+
+        int selectedRow = sessionTable.getSelectedRow();
+
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Selecione uma sessão antes de finalizar a venda.");
+            return;
+        }
+
+        int sessionId = (int) sessionTable.getValueAt(selectedRow, 0);
+        Session selectedSession = AppData.getInstance().getSessionList()
+                .stream().filter(s -> s.getID() == sessionId).findFirst().orElse(null);
+
+        if (selectedSession != null) {
+            // Simular venda de bilhete
+            int newTicketId = AppData.getInstance().getTicketList().size() + 1;
+            currentTicket = new Ticket(newTicketId, selectedSession, 10.0, "estudante");
+            AppData.getInstance().addTicket(currentTicket);
+
+            JOptionPane.showMessageDialog(this, "Venda finalizada com sucesso!\nBilhete ID: " + newTicketId);
+
+        } else {
+            JOptionPane.showMessageDialog(this, "Erro: sessão não encontrada.");
+        }
+        new SalesMainWindow().setVisible(true);
+
         // Here you would typically finalize the sale, e.g., save to a database or print a receipt.
 
-        JOptionPane.showMessageDialog(this, "Venda finalizada com sucesso!");
         dispose();
     }
 
@@ -64,7 +90,31 @@ public class SessionSelectWindow extends JFrame {
     }
 
     private void addBarProductsButtonPerformed(ActionEvent e){
-        new BarProductsSaleWindow(this).setVisible(true);
+
+        int selectedRow = sessionTable.getSelectedRow();
+
+        if (selectedRow != -1) {
+            // Sessão selecionada → criar ticket com sessão
+            int sessionId = (int) sessionTable.getValueAt(selectedRow, 0);
+            Session selectedSession = AppData.getInstance().getSessionList()
+                    .stream().filter(s -> s.getID() == sessionId).findFirst().orElse(null);
+
+            if (selectedSession != null) {
+                int newTicketId = AppData.getInstance().getTicketList().size() + 1;
+                currentTicket = new Ticket(newTicketId, selectedSession, 10.0, "Normal");
+                AppData.getInstance().addTicket(currentTicket);
+            } else {
+                JOptionPane.showMessageDialog(this, "Erro: sessão não encontrada.");
+                return;
+            }
+        } else {
+            // Nenhuma sessão selecionada → ticket sem sessão
+            int newTicketId = AppData.getInstance().getTicketList().size() + 1;
+            currentTicket = new Ticket(newTicketId, null, 0.0, "Bar");
+            AppData.getInstance().addTicket(currentTicket);
+        }
+
+        new BarProductsSaleWindow(this, currentTicket).setVisible(true);
         dispose();
     }
 
@@ -76,7 +126,9 @@ public class SessionSelectWindow extends JFrame {
                     .stream().filter(s -> s.getID() == sessionId).findFirst().orElse(null);
 
             if (selectedSession != null) {
+
                 new TicketsPerSessionSaleWindow(selectedSession, this).setVisible(true);
+
                 setVisible(false);
             }
         } else {

@@ -3,6 +3,8 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BarProductsSaleWindow extends JFrame {
     private JPanel mainPanel;
@@ -12,12 +14,15 @@ public class BarProductsSaleWindow extends JFrame {
     private JButton finishSaleButton;
     private JButton backButton;
     private JButton addBarProductToSale;
-
     private JFrame previousWindow;
+    private Ticket currentTicket;
 
-    public BarProductsSaleWindow(JFrame previousWindow) {
+    private java.util.List<Product> currentSaleProducts = new ArrayList<>();
+
+    public BarProductsSaleWindow(JFrame previousWindow, Ticket ticket) {
         super("Venda de Produtos de Bar");
         this.previousWindow = previousWindow;
+        this.currentTicket = ticket;
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setContentPane(mainPanel);
@@ -76,9 +81,37 @@ public class BarProductsSaleWindow extends JFrame {
         this.editSaleButton.addActionListener(this::editSaleButtonPerformed);
         this.addBarProductToSale.addActionListener(this::addBarProductToSalePerformed);
     }
-
+    private double calcularTotalProdutos() {
+        double total = 0;
+        for (Product p : currentSaleProducts) {
+            total += p.getPrice() * p.getUnits();
+        }
+        return total;
+    }
     private void finishSaleButtonPerformed(ActionEvent e) {
+        if (currentSaleProducts.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Nenhum produto foi adicionado à venda.");
+            return;
+        }
+
+
+        if (currentTicket == null) {
+            // Criar ticket só para produtos de bar, se não veio de uma sessão
+            currentTicket = new Ticket(
+                    AppData.getInstance().getTicketList().size() + 1,
+                    null,
+                    calcularTotalProdutos(),
+                    "bar"
+            );
+            AppData.getInstance().addTicket(currentTicket);
+        }
+
+        for (Product product : currentSaleProducts) {
+            currentTicket.addBarProduct(product);
+        }
+
         JOptionPane.showMessageDialog(this, "Venda finalizada com sucesso!");
+        new MainWindow().setVisible(true);
         dispose();
     }
 
@@ -94,6 +127,12 @@ public class BarProductsSaleWindow extends JFrame {
             String productName = (String) model.getValueAt(selectedRow, 0);
             double productPrice = (double) model.getValueAt(selectedRow, 1);
 
+
+
+            Product selectedProduct = new Product(productName, productPrice, 1);
+            currentSaleProducts.add(selectedProduct);
+            AppData.getInstance().addSoldProduct(selectedProduct);
+
             JOptionPane.showMessageDialog(this, "Produto adicionado à venda: " + productName + " - Preço: " + productPrice);
         } else {
             JOptionPane.showMessageDialog(this, "Selecione um produto para adicionar à venda.");
@@ -107,7 +146,8 @@ public class BarProductsSaleWindow extends JFrame {
         dispose();
     }
 
+
     public static void main(String[] args) {
-        new BarProductsSaleWindow(null).setVisible(true);
+        new BarProductsSaleWindow(null,null).setVisible(true);
     }
 }

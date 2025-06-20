@@ -55,7 +55,6 @@ public class MovieManagerWindow extends JFrame implements ManagerInterface<Movie
 
     private void addMovieButtonPerformed(ActionEvent e){
         new MovieAddWindow(this).setVisible(true);
-        setVisible(false);
     }
 
     private void editMovieButtonPerformed(ActionEvent e){

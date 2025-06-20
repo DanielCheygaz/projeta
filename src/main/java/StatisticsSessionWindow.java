@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import javax.swing.table.DefaultTableModel;
+import java.util.List;
 
 public class StatisticsSessionWindow extends JFrame{
     private JPanel mainPanel;
@@ -21,11 +22,13 @@ public class StatisticsSessionWindow extends JFrame{
         DefaultTableModel tableModel = new DefaultTableModel(columns, 0);
 
         // Sample data for the table
-        tableModel.addRow(new Object[]{"2", "89%"});
-        tableModel.addRow(new Object[]{"1", "75%"});
-        tableModel.addRow(new Object[]{"4", "50%"});
-        tableModel.addRow(new Object[]{"3", "25%"});
-        tableModel.addRow(new Object[]{"5", "10%"});
+        List<SessionStats> stats = AppData.getInstance().getSessionOccupancyStats();
+        for (SessionStats stat : stats) {
+            tableModel.addRow(new Object[]{
+                    stat.getSessionId(),
+                    String.format("%.2f%%", stat.getOccupancyRate())
+            });
+        }
 
         salesTable.setModel(tableModel);
         scrollPane.setViewportView(salesTable);

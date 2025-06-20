@@ -64,7 +64,6 @@ public class MovieAddWindow extends JFrame{
         AppData.getInstance().addMovie(new Movie(title,duration,description,genre,imax,dolbyAtmos));
 
         previousWindow.refreshData();
-        previousWindow.setVisible(true);
         dispose();
     }
 
@@ -88,7 +87,6 @@ public class MovieAddWindow extends JFrame{
     }
 
     private void cancelButtonPerformed(ActionEvent e){
-        previousWindow.setVisible(true);
         dispose();
     }
 }

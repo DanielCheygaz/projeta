@@ -44,11 +44,77 @@ public class AppData {
         ticketList.add(new Ticket(2,sessionList.get(1),15,"estudante"));
         ticketList.add(new Ticket(3,sessionList.get(2),8,"estudante"));
         ticketList.add(new Ticket(4,sessionList.get(0),9.50,"estudante"));
-        ticketList.add(new Ticket(4,sessionList.get(3),9.50,"estudante"));
+        ticketList.add(new Ticket(5,sessionList.get(3),9.50,"estudante"));
 
         bundleList.add(new Bundle(1,"Combo Pipocas",2, new LinkedList<>(Arrays.asList(productList.get(0),productList.get(1))), 2.5));
         bundleList.add(new Bundle(2,"Promoção Especial",3, new LinkedList<>(Arrays.asList(productList.get(2),productList.get(3))), 3.5));
         bundleList.add(new Bundle(3,"Bundle de chocolate",4, new LinkedList<>(Arrays.asList(productList.get(4),productList.get(5))), 5.5));
+
+
+    }
+
+    public void addTicket(Ticket ticket) {
+        ticketList.add(ticket);
+    }
+
+    public List<GenreStats> getTopSellingGenres() {
+        Map<String, Integer> genreCount = new HashMap<>();
+        int totalTickets = 0;
+
+        // Iterar sobre todos os bilhetes vendidos
+        for (Ticket ticket : ticketList) {
+            Session session = ticket.getSession(); // Obter a sessão associada
+            if (session != null) {
+                Movie movie = session.getMovie(); // Obter o filme da sessão
+                if (movie != null) {
+                    Genre genre = movie.getGenre(); // Obter o género do filme
+                    if (genre != null) {
+                        String genreName = genre.getName();
+                        genreCount.put(genreName, genreCount.getOrDefault(genreName, 0) + 1);
+                        totalTickets++;
+                    }
+                }
+            }
+        }
+
+        // Criar a lista de estatísticas com percentagem
+        List<GenreStats> stats = new ArrayList<>();
+        for (Map.Entry<String, Integer> entry : genreCount.entrySet()) {
+            double percentage = totalTickets > 0 ? (entry.getValue() * 100.0) / totalTickets : 0.0;
+            stats.add(new GenreStats(entry.getKey(), percentage));
+        }
+
+        // Ordenar por percentagem descendente (opcional)
+        stats.sort((a, b) -> Double.compare(b.getPercentage(), a.getPercentage()));
+
+        return stats;
+    }
+
+    public List<SessionStats> getSessionOccupancyStats() {
+        List<SessionStats> stats = new ArrayList<>();
+
+        for (Session session : sessionList) {
+            int totalSeats = session.getRoom().getNumberRows() * session.getRoom().getNumberColumns();
+            int occupied = session.getOccupiedSeats().size();
+            double occupancyRate = totalSeats > 0 ? (occupied * 100.0) / totalSeats : 0.0;
+
+            stats.add(new SessionStats(session.getID(), occupancyRate));
+        }
+
+        // Ordena por taxa de ocupação (opcional)
+        stats.sort((a, b) -> Double.compare(b.getOccupancyRate(), a.getOccupancyRate()));
+
+        return stats;
+    }
+
+    private LinkedList<Product> soldProducts = new LinkedList<>();
+
+    public void addSoldProduct(Product product) {
+        soldProducts.add(product);
+    }
+
+    public LinkedList<Product> getSoldProducts() {
+        return soldProducts;
     }
 
     public static AppData getInstance() {
