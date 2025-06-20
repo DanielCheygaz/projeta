@@ -32,7 +32,7 @@ public class SalesMainWindow extends JFrame{
     }
 
     private void sellTicketButtonPerformed(ActionEvent e){
-        new SessionSelectWindow().setVisible(true);
+        new SessionSelectWindow(this).setVisible(true);
 
         dispose();
 

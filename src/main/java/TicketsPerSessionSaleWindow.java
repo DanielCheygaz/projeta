@@ -91,7 +91,7 @@ public class TicketsPerSessionSaleWindow extends JFrame {
         JOptionPane.showMessageDialog(this, "Bilhetes adicionados com sucesso!");
         new SessionSelectWindow(this).setVisible(true);
         dispose();
-        new SessionSelectWindow().setVisible(true);
+        new SessionSelectWindow(this).setVisible(true);
 
     }
 }
