@@ -69,7 +69,7 @@ public class SessionSelectWindow extends JFrame {
         if (selectedSession != null) {
             // Simular venda de bilhete
             int newTicketId = AppData.getInstance().getTicketList().size() + 1;
-            currentTicket = new Ticket(newTicketId, selectedSession, 10.0, "normal");
+            currentTicket = new Ticket(newTicketId, selectedSession, 10.0, "estudante");
             AppData.getInstance().addTicket(currentTicket);
 
             JOptionPane.showMessageDialog(this, "Venda finalizada com sucesso!\nBilhete ID: " + newTicketId);
@@ -81,8 +81,6 @@ public class SessionSelectWindow extends JFrame {
 
         // Here you would typically finalize the sale, e.g., save to a database or print a receipt.
 
-        JOptionPane.showMessageDialog(this, "Venda finalizada com sucesso!");
-
         dispose();
     }
 
@@ -93,14 +91,31 @@ public class SessionSelectWindow extends JFrame {
 
     private void addBarProductsButtonPerformed(ActionEvent e){
 
-        if (currentTicket != null) {
-            new BarProductsSaleWindow(this, currentTicket).setVisible(true);
-            dispose();
-        } else {
-            new BarProductsSaleWindow(this,null).setVisible(true);
-            dispose();
+        int selectedRow = sessionTable.getSelectedRow();
 
+        if (selectedRow != -1) {
+            // Sessão selecionada → criar ticket com sessão
+            int sessionId = (int) sessionTable.getValueAt(selectedRow, 0);
+            Session selectedSession = AppData.getInstance().getSessionList()
+                    .stream().filter(s -> s.getID() == sessionId).findFirst().orElse(null);
+
+            if (selectedSession != null) {
+                int newTicketId = AppData.getInstance().getTicketList().size() + 1;
+                currentTicket = new Ticket(newTicketId, selectedSession, 10.0, "Normal");
+                AppData.getInstance().addTicket(currentTicket);
+            } else {
+                JOptionPane.showMessageDialog(this, "Erro: sessão não encontrada.");
+                return;
+            }
+        } else {
+            // Nenhuma sessão selecionada → ticket sem sessão
+            int newTicketId = AppData.getInstance().getTicketList().size() + 1;
+            currentTicket = new Ticket(newTicketId, null, 0.0, "Bar");
+            AppData.getInstance().addTicket(currentTicket);
         }
+
+        new BarProductsSaleWindow(this, currentTicket).setVisible(true);
+        dispose();
     }
 
     private void openSelectedSessionButtonPerformed(ActionEvent e) {
