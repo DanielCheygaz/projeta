@@ -73,9 +73,19 @@ public class TicketsPerSessionSaleWindow extends JFrame {
 
         for (Seat seat : selectedSeats) {
             session.occupySeat(seat);
+            // Criar ticket
+            int newTicketId = AppData.getInstance().getTicketList().size() + 1;
+
+            // Preço e tipo podem ser parametrizados depois
+            Ticket ticket = new Ticket(newTicketId, session, 10.0, "normal");
+
+            // Adicionar bilhete ao AppData
+            AppData.getInstance().addTicket(ticket);
         }
 
         JOptionPane.showMessageDialog(this, "Venda realizada com sucesso!");
         dispose();
+        new SessionSelectWindow().setVisible(true);
+
     }
 }

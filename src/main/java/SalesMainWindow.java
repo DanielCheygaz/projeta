@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 
 public class SalesMainWindow extends JFrame{
     private JPanel mainPanel;
@@ -9,6 +10,7 @@ public class SalesMainWindow extends JFrame{
     private JButton editSaleButton;
     private JButton backButton;
     private JButton salesHistoryButton;
+    private AppData appData;
 
     public SalesMainWindow(){
         super("Gestor de Vendas");
@@ -30,6 +32,7 @@ public class SalesMainWindow extends JFrame{
 
     private void sellTicketButtonPerformed(ActionEvent e){
         new SessionSelectWindow().setVisible(true);
+
         dispose();
     }
 

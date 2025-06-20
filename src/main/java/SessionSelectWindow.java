@@ -44,7 +44,30 @@ public class SessionSelectWindow extends JFrame {
     }
 
     private void finishSaleButtonPerformed(ActionEvent e){
-        JOptionPane.showMessageDialog(this, "Venda finalizada com sucesso!");
+
+        int selectedRow = sessionTable.getSelectedRow();
+
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Selecione uma sessão antes de finalizar a venda.");
+            return;
+        }
+
+        int sessionId = (int) sessionTable.getValueAt(selectedRow, 0);
+        Session selectedSession = AppData.getInstance().getSessionList()
+                .stream().filter(s -> s.getID() == sessionId).findFirst().orElse(null);
+
+        if (selectedSession != null) {
+            // Simular venda de bilhete
+            int newTicketId = AppData.getInstance().getTicketList().size() + 1;
+            Ticket ticket = new Ticket(newTicketId, selectedSession, 10.0, "normal");
+            AppData.getInstance().addTicket(ticket);
+
+            JOptionPane.showMessageDialog(this, "Venda finalizada com sucesso!\nBilhete ID: " + newTicketId);
+
+
+        } else {
+            JOptionPane.showMessageDialog(this, "Erro: sessão não encontrada.");
+        }
         new SalesMainWindow().setVisible(true);
         dispose();
     }
@@ -68,7 +91,7 @@ public class SessionSelectWindow extends JFrame {
 
             if (selectedSession != null) {
                 new TicketsPerSessionSaleWindow(selectedSession).showWindow();
-                dispose();
+                setVisible(false);
             }
         } else {
             JOptionPane.showMessageDialog(this, "Selecione uma sessão para pesquisar bilhetes.");

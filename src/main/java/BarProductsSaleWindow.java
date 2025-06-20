@@ -3,6 +3,8 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BarProductsSaleWindow extends JFrame {
     private JPanel mainPanel;
@@ -12,12 +14,16 @@ public class BarProductsSaleWindow extends JFrame {
     private JButton finishSaleButton;
     private JButton backButton;
     private JButton addBarProductToSale;
-
     private JFrame previousWindow;
+
+
+
+    private java.util.List<Product> currentSaleProducts = new ArrayList<>();
 
     public BarProductsSaleWindow(JFrame previousWindow) {
         super("Venda de Produtos de Bar");
         this.previousWindow = previousWindow;
+
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setContentPane(mainPanel);
@@ -76,9 +82,37 @@ public class BarProductsSaleWindow extends JFrame {
         this.editSaleButton.addActionListener(this::editSaleButtonPerformed);
         this.addBarProductToSale.addActionListener(this::addBarProductToSalePerformed);
     }
-
+    private double calcularTotalProdutos() {
+        double total = 0;
+        for (Product p : currentSaleProducts) {
+            total += p.getPrice() * p.getUnits();
+        }
+        return total;
+    }
     private void finishSaleButtonPerformed(ActionEvent e) {
-        JOptionPane.showMessageDialog(this, "Venda finalizada com sucesso!");
+        if (currentSaleProducts.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Nenhum produto foi adicionado à venda.");
+            return;
+        }
+
+
+        // Criar ticket de venda de bar
+        Ticket barTicket = new Ticket(
+                AppData.getInstance().getTicketList().size() + 1,
+                null,  // Sem sessão, porque é só produtos de bar
+                calcularTotalProdutos(),
+                "bar"
+        );
+
+        for (Product product : currentSaleProducts) {
+            barTicket.addBarProduct(product);
+        }
+
+        // Guardar na lista de tickets
+        AppData.getInstance().addTicket(barTicket);
+
+        JOptionPane.showMessageDialog(this, "Venda de bar finalizada com sucesso!");
+
         new SalesMainWindow().setVisible(true);
         dispose();
     }
@@ -95,6 +129,12 @@ public class BarProductsSaleWindow extends JFrame {
             String productName = (String) model.getValueAt(selectedRow, 0);
             double productPrice = (double) model.getValueAt(selectedRow, 1);
 
+
+
+            Product selectedProduct = new Product(productName, productPrice, 1);
+            currentSaleProducts.add(selectedProduct);
+            AppData.getInstance().addSoldProduct(selectedProduct);
+
             JOptionPane.showMessageDialog(this, "Produto adicionado à venda: " + productName + " - Preço: " + productPrice);
         } else {
             JOptionPane.showMessageDialog(this, "Selecione um produto para adicionar à venda.");
@@ -107,6 +147,7 @@ public class BarProductsSaleWindow extends JFrame {
         }
         dispose();
     }
+
 
     public static void main(String[] args) {
         new BarProductsSaleWindow(null).setVisible(true);
