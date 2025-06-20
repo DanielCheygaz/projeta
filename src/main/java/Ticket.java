@@ -14,7 +14,7 @@ public class Ticket {
         this.id = id;
         this.session = session;
         this.price = price;
-        this.ticketType = "Normal";
+        this.ticketType = "normal";
         this.timestamp = LocalDateTime.now();
     }
 
@@ -67,6 +67,10 @@ public class Ticket {
     }
 
     public double getPrice() {
-        return price;
+        double total = price;
+        for (Product p : barProducts) {
+            total += p.getPrice();
+        }
+        return total;
     }
 }

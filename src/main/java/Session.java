@@ -16,6 +16,7 @@ public class Session {
         this.room = room;
     }
 
+
     public Date getDate() {
         return date;
     }

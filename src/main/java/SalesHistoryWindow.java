@@ -25,10 +25,15 @@ public class SalesHistoryWindow extends JFrame{
 
         for (Ticket ticket : AppData.getInstance().getTicketList()) {
             String id = String.format("%03d", ticket.getId());
-            String data = ticket.getTimestamp().toLocalDate().toString(); // só a data
-            String total = String.format("%.2f€", ticket.getPrice());
+            String data = ticket.getTimestamp().toLocalDate().toString();
 
-            tableModel.addRow(new Object[]{id, data, total});
+            double total = ticket.getPrice(); // valor base (bilhete)
+
+
+
+            String totalStr = String.format("%.2f€", total);
+
+            tableModel.addRow(new Object[]{id, data, totalStr});
         }
 
         salesTable.setModel(tableModel);
@@ -36,6 +41,7 @@ public class SalesHistoryWindow extends JFrame{
     }
 
     private void backButtonActionPerformed(ActionEvent e) {
+        new SalesMainWindow().setVisible(true);
         setVisible(false);
     }
 
@@ -46,17 +52,44 @@ public class SalesHistoryWindow extends JFrame{
             return;
         }
 
-        String id = salesTable.getValueAt(selectedRow, 0).toString();
-        String data = salesTable.getValueAt(selectedRow, 1).toString();
-        String total = salesTable.getValueAt(selectedRow, 2).toString();
+        String idStr = salesTable.getValueAt(selectedRow, 0).toString();
+        int ticketId = Integer.parseInt(idStr); // assume IDs únicos
 
-        String message = "Detalhes da Venda:\n\n" +
-                "ID: " + id + "\n" +
-                "Data: " + data + "\n" +
-                "Total: " + total + "\n\n" +
-                "Produtos:\n- Bilhete Sessão 1\n- Pipocas Médias\n- Bebida Grande";
+        Ticket selectedTicket = null;
+        for (Ticket t : AppData.getInstance().getTicketList()) {
+            if (t.getId() == ticketId) {
+                selectedTicket = t;
+                break;
+            }
+        }
 
-        JOptionPane.showMessageDialog(this, message);
+        if (selectedTicket == null) {
+            JOptionPane.showMessageDialog(this, "Erro: bilhete não encontrado.");
+            return;
+        }
+
+        StringBuilder message = new StringBuilder("Detalhes da Venda:\n\n");
+        message.append("ID: ").append(String.format("%03d", selectedTicket.getId())).append("\n");
+        message.append("Data: ").append(selectedTicket.getTimestamp().toLocalDate()).append("\n");
+        message.append("Total: ").append(String.format("%.2f€", selectedTicket.getPrice())).append("\n\n");
+
+        message.append("Tipo de Bilhete: ").append(selectedTicket.getTicketType()).append("\n");
+
+        if (selectedTicket.getSession() != null) {
+            message.append("Sessão: ").append(selectedTicket.getSession().getMovie().getName())
+                    .append(" - ").append(selectedTicket.getSession().getDate()).append("\n");
+        }
+
+        message.append("\nProdutos de Bar:\n");
+        if (selectedTicket.getBarProducts().isEmpty()) {
+            message.append("Nenhum produto de bar.\n");
+        } else {
+            for (Product p : selectedTicket.getBarProducts()) {
+                message.append("- ").append(p.getName()).append(" (").append(String.format("%.2f€", p.getPrice())).append(")\n");
+            }
+        }
+
+        JOptionPane.showMessageDialog(this, message.toString());
     }
 
     public static void main(String[] args) {
