@@ -15,15 +15,14 @@ public class BarProductsSaleWindow extends JFrame {
     private JButton backButton;
     private JButton addBarProductToSale;
     private JFrame previousWindow;
-
-
+    private Ticket currentTicket;
 
     private java.util.List<Product> currentSaleProducts = new ArrayList<>();
 
-    public BarProductsSaleWindow(JFrame previousWindow) {
+    public BarProductsSaleWindow(JFrame previousWindow, Ticket ticket) {
         super("Venda de Produtos de Bar");
         this.previousWindow = previousWindow;
-
+        this.currentTicket = ticket;
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setContentPane(mainPanel);
@@ -96,23 +95,22 @@ public class BarProductsSaleWindow extends JFrame {
         }
 
 
-        // Criar ticket de venda de bar
-        Ticket barTicket = new Ticket(
-                AppData.getInstance().getTicketList().size() + 1,
-                null,  // Sem sessão, porque é só produtos de bar
-                calcularTotalProdutos(),
-                "bar"
-        );
-
-        for (Product product : currentSaleProducts) {
-            barTicket.addBarProduct(product);
+        if (currentTicket == null) {
+            // Criar ticket só para produtos de bar, se não veio de uma sessão
+            currentTicket = new Ticket(
+                    AppData.getInstance().getTicketList().size() + 1,
+                    null,
+                    calcularTotalProdutos(),
+                    "bar"
+            );
+            AppData.getInstance().addTicket(currentTicket);
         }
 
-        // Guardar na lista de tickets
-        AppData.getInstance().addTicket(barTicket);
+        for (Product product : currentSaleProducts) {
+            currentTicket.addBarProduct(product);
+        }
 
-        JOptionPane.showMessageDialog(this, "Venda de bar finalizada com sucesso!");
-
+        JOptionPane.showMessageDialog(this, "Venda finalizada com sucesso!");
         new SalesMainWindow().setVisible(true);
         dispose();
     }
@@ -150,6 +148,6 @@ public class BarProductsSaleWindow extends JFrame {
 
 
     public static void main(String[] args) {
-        new BarProductsSaleWindow(null).setVisible(true);
+        new BarProductsSaleWindow(null,null).setVisible(true);
     }
 }

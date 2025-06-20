@@ -12,6 +12,7 @@ public class SessionSelectWindow extends JFrame {
     private JButton backButton;
     private JButton openSelectedSessionButton;
     private JScrollPane scrollPane;
+    private Ticket currentTicket = null;
 
     public SessionSelectWindow() {
         super("Venda de Bilhetes");
@@ -59,8 +60,8 @@ public class SessionSelectWindow extends JFrame {
         if (selectedSession != null) {
             // Simular venda de bilhete
             int newTicketId = AppData.getInstance().getTicketList().size() + 1;
-            Ticket ticket = new Ticket(newTicketId, selectedSession, 10.0, "normal");
-            AppData.getInstance().addTicket(ticket);
+            currentTicket = new Ticket(newTicketId, selectedSession, 10.0, "normal");
+            AppData.getInstance().addTicket(currentTicket);
 
             JOptionPane.showMessageDialog(this, "Venda finalizada com sucesso!\nBilhete ID: " + newTicketId);
 
@@ -78,8 +79,15 @@ public class SessionSelectWindow extends JFrame {
     }
 
     private void addBarProductsButtonPerformed(ActionEvent e){
-        new BarProductsSaleWindow(this).setVisible(true);
-        dispose();
+
+        if (currentTicket != null) {
+            new BarProductsSaleWindow(this, currentTicket).setVisible(true);
+            dispose();
+        } else {
+            new BarProductsSaleWindow(this,null).setVisible(true);
+            dispose();
+
+        }
     }
 
     private void openSelectedSessionButtonPerformed(ActionEvent e) {

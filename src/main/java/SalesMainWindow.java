@@ -37,7 +37,7 @@ public class SalesMainWindow extends JFrame{
     }
 
     private void sellBarProductsButtonPerformed(ActionEvent e){
-        new BarProductsSaleWindow(this).setVisible(true);
+        new BarProductsSaleWindow(this,null).setVisible(true);
         dispose();
     }
 
@@ -50,6 +50,7 @@ public class SalesMainWindow extends JFrame{
         new ReceiptEditWindow(this).setVisible(true);
         dispose();
     }
+
 
     private void salesHistoryButtonPerformed(ActionEvent e){
         new SalesHistoryWindow().setVisible(true);
