@@ -33,7 +33,6 @@ public class SalesMainWindow extends JFrame{
 
     private void sellTicketButtonPerformed(ActionEvent e){
         new SessionSelectWindow(this).setVisible(true);
-
         dispose();
 
     }
@@ -44,7 +43,7 @@ public class SalesMainWindow extends JFrame{
     }
 
     private void manageBundlesButtonPerformed(ActionEvent e){
-        new BundleManagerWindow().setVisible(true);
+        new BundleManagerWindow(this).setVisible(true);
         dispose();
     }
 

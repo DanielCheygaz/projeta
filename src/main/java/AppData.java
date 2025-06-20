@@ -9,6 +9,7 @@ public class AppData {
     private LinkedList<Session> sessionList = new LinkedList<>();
     private LinkedList<Ticket> ticketList = new LinkedList<>();
     private LinkedList<Bundle> bundleList = new LinkedList<>();
+    private Sale activeSale = null;
 
     // TODO: meter os "new LinkedList<>()" para dentro do construtor quando removermos os dados estáticos
     public AppData() {
@@ -46,9 +47,7 @@ public class AppData {
         ticketList.add(new Ticket(4,sessionList.get(0),9.50,"estudante"));
         ticketList.add(new Ticket(5,sessionList.get(3),9.50,"estudante"));
 
-        bundleList.add(new Bundle(1,"Combo Pipocas",2, new LinkedList<>(Arrays.asList(productList.get(0),productList.get(1))), 2.5));
-        bundleList.add(new Bundle(2,"Promoção Especial",3, new LinkedList<>(Arrays.asList(productList.get(2),productList.get(3))), 3.5));
-        bundleList.add(new Bundle(3,"Bundle de chocolate",4, new LinkedList<>(Arrays.asList(productList.get(4),productList.get(5))), 5.5));
+
 
 
     }
@@ -185,5 +184,13 @@ public class AppData {
 
     public LinkedList<Bundle> getBundleList() {
         return bundleList;
+    }
+
+    public Sale getActiveSale() {
+        return activeSale;
+    }
+
+    public void startSale(){
+        this.activeSale = new Sale();
     }
 }

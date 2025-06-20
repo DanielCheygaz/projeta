@@ -2,8 +2,9 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.util.LinkedList;
 
-public class BundleCreateBarProductsSelectWindow extends JFrame{
+public class BundleCreateBarProductsSelectWindow extends JFrame {
     private JPanel mainPanel;
     private JButton backButton;
     private JScrollPane scrollPaneProducts;
@@ -13,11 +14,13 @@ public class BundleCreateBarProductsSelectWindow extends JFrame{
     private JButton finishBundleButton;
     private JTable addedProductsTable;
     private JScrollPane scrollPaneAddedProducts;
+    private JFrame previousWindow;
 
-    public BundleCreateBarProductsSelectWindow(){
+    public BundleCreateBarProductsSelectWindow(JFrame previousWindow) {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setContentPane(mainPanel);
         pack();
+        this.previousWindow = previousWindow;
         backButton.addActionListener(this::backButtonPerformed);
         addProductButton.addActionListener(this::addProductButtonPerformed);
         removeProdutoButton.addActionListener(this::removeProductButtonPerformed);
@@ -36,18 +39,21 @@ public class BundleCreateBarProductsSelectWindow extends JFrame{
         DefaultTableModel addedTableModel = new DefaultTableModel(addedColumns, 0);
         addedProductsTable.setModel(addedTableModel);
 
-
-        String[] columns = {"Nome do produto","Preço Unidade"};
-        DefaultTableModel tableModel = new DefaultTableModel(columns,0);
-        for(Product product: AppData.getInstance().getProductList()){
+        String[] columns = {"Nome do produto", "Preço Unidade"};
+        DefaultTableModel tableModel = new DefaultTableModel(columns, 0);
+        for (Product product : AppData.getInstance().getProductList()) {
             Object[] row = {product.getName(), product.getPrice()};
             tableModel.addRow(row);
         }
         productsTable.setModel(tableModel);
     }
 
-    private void backButtonPerformed(ActionEvent e){
-        new BundleManagerWindow().setVisible(true);
+    private void backButtonPerformed(ActionEvent e) {
+        if (previousWindow == null) {
+            new MainWindow().setVisible(true);
+        } else {
+            previousWindow.setVisible(true);
+        }
         dispose();
     }
 
@@ -58,27 +64,23 @@ public class BundleCreateBarProductsSelectWindow extends JFrame{
             DefaultTableModel sourceModel = (DefaultTableModel) productsTable.getModel();
             DefaultTableModel destModel = (DefaultTableModel) addedProductsTable.getModel();
 
-            // Obter dados do produto selecionado
             String nomeProduto = (String) sourceModel.getValueAt(selectedRow, 0);
             double precoOriginal = (double) sourceModel.getValueAt(selectedRow, 1);
 
-            // Abrir janela para selecionar unidades e desconto
             UnitsAndDiscountSelectWindow detailsWindow = new UnitsAndDiscountSelectWindow(this);
             detailsWindow.setVisible(true);
             int unidades = detailsWindow.getSelectedUnits();
             double desconto = detailsWindow.getSelectedDiscount();
 
-            // Calcular preço com desconto e total
             double precoComDesconto = precoOriginal * (1 - desconto / 100.0);
             double total = precoComDesconto * unidades;
 
-            // Adicionar à tabela de produtos adicionados
             Object[] row = {
                     nomeProduto,
                     unidades,
                     desconto,
-                    String.format("%.2f", precoComDesconto),
-                    String.format("%.2f", total)
+                    precoComDesconto, // Adiciona o Double diretamente
+                    total // Adiciona o Double diretamente
             };
             destModel.addRow(row);
 
@@ -86,9 +88,6 @@ public class BundleCreateBarProductsSelectWindow extends JFrame{
             JOptionPane.showMessageDialog(this, "Por favor, selecione um produto para adicionar.");
         }
     }
-
-
-
 
     private void removeProductButtonPerformed(ActionEvent e) {
         int selectedRow = addedProductsTable.getSelectedRow();
@@ -101,13 +100,35 @@ public class BundleCreateBarProductsSelectWindow extends JFrame{
         }
     }
 
+    private void finishBundleButtonPerformed(ActionEvent e) {
+        DefaultTableModel model = (DefaultTableModel) addedProductsTable.getModel();
+        if (model.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(this, "Adicione pelo menos um produto ao bundle.");
+            return;
+        }
 
-    private void finishBundleButtonPerformed(ActionEvent e){
-        new BundleManagerWindow().setVisible(true);
+        String nome = JOptionPane.showInputDialog(this, "Nome do Bundle:");
+        if (nome == null || nome.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Nome inválido.");
+            return;
+        }
+
+        LinkedList<Product> produtosComDesconto = new LinkedList<>();
+        for (int i = 0; i < model.getRowCount(); i++) {
+            String nomeProduto = (String) model.getValueAt(i, 0);
+            int unidades = (int) model.getValueAt(i, 1);
+            double precoComDesconto = (Double) model.getValueAt(i, 3);
+
+            Product p = new Product(nomeProduto, precoComDesconto, unidades);
+            produtosComDesconto.add(p);
+        }
+
+        int novoId = AppData.getInstance().getBundleList().size() + 1;
+        Bundle novoBundle = new Bundle(novoId, nome, produtosComDesconto);
+        AppData.getInstance().getBundleList().add(novoBundle);
+
+        JOptionPane.showMessageDialog(this, "Bundle criado com sucesso!");
+        if (previousWindow != null) previousWindow.setVisible(true);
         dispose();
-    }
-
-    public static void main(String[] args) {
-        new BundleCreateBarProductsSelectWindow().setVisible(true);
     }
 }

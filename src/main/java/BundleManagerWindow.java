@@ -2,8 +2,9 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.util.stream.Collectors;
 
-public class BundleManagerWindow extends JFrame{
+public class BundleManagerWindow extends JFrame {
     private JPanel mainPanel;
     private JButton backButton;
     private JScrollPane scrollPane;
@@ -11,59 +12,60 @@ public class BundleManagerWindow extends JFrame{
     private JButton addBundleButton;
     private JButton removeBundleButton;
     private JButton editBundleButton;
-    public BundleManagerWindow() {
+    private JFrame previousWindow;
+
+    public BundleManagerWindow(JFrame previousWindow) {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        this.previousWindow = previousWindow;
         setContentPane(mainPanel);
         pack();
+
         backButton.addActionListener(this::backButtonPerformed);
         addBundleButton.addActionListener(this::addBundleButtonPerformed);
         removeBundleButton.addActionListener(this::removeBundleButtonPerformed);
         editBundleButton.addActionListener(this::editBundleButtonPerformed);
 
         scrollPane.getViewport().setBackground(Color.decode("2894892"));
-        String[] columns = {"ID do Bundle", "Nome do Bundle", "Preço do Bundle", "Produtos no Bundle"};
+
+        loadBundles();
+    }
+
+    private void loadBundles() {
+        String[] columns = {"ID do Bundle", "Nome do Bundle", "Produtos no Bundle"};
         DefaultTableModel tableModel = new DefaultTableModel(columns, 0);
+
         for (Bundle bundle : AppData.getInstance().getBundleList()) {
-            if(bundle.getId() == 1){
-                Object[] row = {bundle.getId(), bundle.getName(), bundle.getPrice(), "Pipocas"};
-                tableModel.addRow(row);
-            }
-            else if(bundle.getId() == 2){
-                Object[] row = {bundle.getId(), bundle.getName(), bundle.getPrice(), "Gelado"};
-                tableModel.addRow(row);
-            }
-            else if(bundle.getId() == 3){
-                Object[] row = {bundle.getId(), bundle.getName(), bundle.getPrice(), "KitKat"};
-                tableModel.addRow(row);
-            }
-            else{
-                Object[] row = {bundle.getId(), bundle.getName(), bundle.getPrice(), "KitKat"};
-                tableModel.addRow(row);
-            }
-
-
+            String produtosStr = bundle.getProducts().stream()
+                    .map(Product::getName)
+                    .collect(Collectors.joining(", "));
+            Object[] row = {bundle.getId(), bundle.getName(), produtosStr};
+            tableModel.addRow(row);
         }
+
         bundlesTable.setModel(tableModel);
     }
-    private void backButtonPerformed(ActionEvent e){
-        new SalesMainWindow().setVisible(true);
+
+    private void backButtonPerformed(ActionEvent e) {
+        if (previousWindow == null) {
+            new MainWindow().setVisible(true);
+        } else {
+            previousWindow.setVisible(true);
+        }
         dispose();
     }
 
-    private void addBundleButtonPerformed(ActionEvent e){
-        new BundleCreateBarProductsSelectWindow().setVisible(true);
+    private void addBundleButtonPerformed(ActionEvent e) {
+        new BundleCreateBarProductsSelectWindow(this).setVisible(true);
         dispose();
     }
 
-    private void removeBundleButtonPerformed(ActionEvent e){
+    private void removeBundleButtonPerformed(ActionEvent e) {
         int selectedRow = bundlesTable.getSelectedRow();
         if (selectedRow != -1) {
             DefaultTableModel model = (DefaultTableModel) bundlesTable.getModel();
-
             int bundleId = (int) model.getValueAt(selectedRow, 0);
 
             AppData.getInstance().getBundleList().removeIf(bundle -> bundle.getId() == bundleId);
-
             model.removeRow(selectedRow);
 
             JOptionPane.showMessageDialog(this, "Bundle removido com sucesso!");
@@ -72,12 +74,9 @@ public class BundleManagerWindow extends JFrame{
         }
     }
 
-    private void editBundleButtonPerformed(ActionEvent e){
-        new BundleCreateBarProductsSelectWindow().setVisible(true);
-        dispose();
+    private void editBundleButtonPerformed(ActionEvent e) {
+        // Nota: atualmente reabre a criação de bundle, mas não carrega os dados existentes.
+        // Para editar bundles reais, seria necessário passar os dados do bundle selecionado.
+        JOptionPane.showMessageDialog(this, "Funcionalidade de edição ainda não implementada.");
     }
-
 }
-
-
-

@@ -80,7 +80,7 @@
             <properties>
               <background color="-6144437"/>
               <foreground color="-1184268"/>
-              <text value="Gerir Vendas"/>
+              <text value="Gerir Bundles"/>
             </properties>
           </component>
           <component id="e1bcf" class="javax.swing.JButton" binding="editSaleButton">
