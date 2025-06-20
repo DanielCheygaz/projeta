@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.table.DefaultTableModel;
 
 public class StatisticsBarProductsWindow extends JFrame{
@@ -8,7 +10,7 @@ public class StatisticsBarProductsWindow extends JFrame{
     private JScrollPane scrollPane;
     private JTable salesTable;
 
-    public StatisticsBarProductsWindow(){
+        public StatisticsBarProductsWindow(){
         setTitle("Estatísticas de Produtoes de Bar");
         setContentPane(mainPanel);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -22,17 +24,23 @@ public class StatisticsBarProductsWindow extends JFrame{
         String[] columns = {"Nome do Produto", "Quantidade", "Preço Total"};
         DefaultTableModel tableModel = new DefaultTableModel(columns, 0);
 
-// Adiciona os produtos com preços unitários fictícios:
-        tableModel.addRow(new Object[]{"Cerveja", 68, 68 * 1.5});
-        tableModel.addRow(new Object[]{"Skittles", 56, 56 * 0.9});
-        tableModel.addRow(new Object[]{"Pipocas Salgadas", 48, 48 * 1});
-        tableModel.addRow(new Object[]{"Gelatina", 39, 39 * 0.6});
-        tableModel.addRow(new Object[]{"Tabaco", 35, 35 * 4.5});
-        tableModel.addRow(new Object[]{"Snickers", 20, 20 * 1.0});
+            Map<String, Product> stats = new HashMap<>();
+
+            for (Product sold : AppData.getInstance().getSoldProducts()) {
+                String name = sold.getName();
+                if (stats.containsKey(name)) {
+                    Product existing = stats.get(name);
+                    existing.addUnits(sold.getUnits());  // soma unidades vendidas
+                } else {
+                    stats.put(name, new Product(name, sold.getPrice(), sold.getUnits()));
+                }
+            }
 
 
-
-
+            for (Product p : stats.values()) {
+                double total = p.getUnits() * p.getPrice();
+                tableModel.addRow(new Object[]{p.getName(), p.getUnits(), String.format("€%.2f", total)});
+            }
 
 
 

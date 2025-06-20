@@ -31,12 +31,27 @@ public class StatisticsTicketWindow extends JFrame{
         ticketsByDayTable.setModel(tableModel);
         scrollPane.setViewportView(ticketsByDayTable);
 
-        for(Ticket ticket: AppData.getInstance().getTicketList()){
+        for (Ticket ticket : AppData.getInstance().getTicketList()) {
             Calendar c = Calendar.getInstance();
-            c.setTime(ticket.getSession().getDate());
-            int dayOfWeek = c.get(Calendar.DAY_OF_WEEK)-1;
-            int value = (int)tableModel.getValueAt(dayOfWeek,1) + 1;
-            tableModel.setValueAt(value,dayOfWeek,1);
+            c.setTime(java.sql.Timestamp.valueOf(ticket.getTimestamp())); // Data da compra
+
+            int dayOfWeek = c.get(Calendar.DAY_OF_WEEK); // DOM = 1, ..., SÁB = 7
+
+            int rowIndex = switch (dayOfWeek) {
+                case Calendar.SUNDAY -> 0;
+                case Calendar.MONDAY -> 1;
+                case Calendar.TUESDAY -> 2;
+                case Calendar.WEDNESDAY -> 3;
+                case Calendar.THURSDAY -> 4;
+                case Calendar.FRIDAY -> 5;
+                case Calendar.SATURDAY -> 6;
+                default -> -1;
+            };
+
+            if (rowIndex != -1) {
+                int value = (int) tableModel.getValueAt(rowIndex, 1) + 1;
+                tableModel.setValueAt(value, rowIndex, 1);
+            }
         }
 
         backButton.addActionListener(this::backButtonActionPerformed);

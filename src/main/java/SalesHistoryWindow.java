@@ -23,10 +23,13 @@ public class SalesHistoryWindow extends JFrame{
         String[] columns = {"ID", "Data", "Total"};
         DefaultTableModel tableModel = new DefaultTableModel(columns, 0);
 
-        // Sample data for the table
-        tableModel.addRow(new Object[]{"001", "2025-05-08", "15.90€"});
-        tableModel.addRow(new Object[]{"002", "2025-05-07", "22.50€"});
-        tableModel.addRow(new Object[]{"003", "2025-05-06", "9.80€"});
+        for (Ticket ticket : AppData.getInstance().getTicketList()) {
+            String id = String.format("%03d", ticket.getId());
+            String data = ticket.getTimestamp().toLocalDate().toString(); // só a data
+            String total = String.format("%.2f€", ticket.getPrice());
+
+            tableModel.addRow(new Object[]{id, data, total});
+        }
 
         salesTable.setModel(tableModel);
         scrollPane.setViewportView(salesTable);

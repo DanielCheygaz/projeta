@@ -32,7 +32,7 @@ public class ReceiptFinishWindow extends JFrame {
     }
 
     private void backButtonPerformed(ActionEvent e) {
-        new BarProductsSaleWindow(this).setVisible(true);
+        new BarProductsSaleWindow(this,null).setVisible(true);
         dispose();
     }
 

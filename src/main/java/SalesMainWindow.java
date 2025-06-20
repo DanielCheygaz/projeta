@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 
 public class SalesMainWindow extends JFrame{
     private JPanel mainPanel;
@@ -9,7 +10,10 @@ public class SalesMainWindow extends JFrame{
     private JButton editSaleButton;
     private JButton backButton;
     private JButton salesHistoryButton;
+    private AppData appData;
+
     public SalesMainWindow() {
+
         super("Gestor de Vendas");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setContentPane(mainPanel);
@@ -28,12 +32,14 @@ public class SalesMainWindow extends JFrame{
     }
 
     private void sellTicketButtonPerformed(ActionEvent e){
-        new SessionSelectWindow(this).setVisible(true);
-        setVisible(false);
+        new SessionSelectWindow().setVisible(true);
+
+        dispose();
+
     }
 
     private void sellBarProductsButtonPerformed(ActionEvent e){
-        new BarProductsSaleWindow(this).setVisible(true);
+        new BarProductsSaleWindow(this,null).setVisible(true);
         dispose();
     }
 
@@ -46,6 +52,7 @@ public class SalesMainWindow extends JFrame{
         new ReceiptEditWindow(this).setVisible(true);
         dispose();
     }
+
 
     private void salesHistoryButtonPerformed(ActionEvent e){
         new SalesHistoryWindow().setVisible(true);
