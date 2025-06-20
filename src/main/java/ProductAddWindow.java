@@ -4,7 +4,6 @@ import java.awt.event.ActionEvent;
 
 public class ProductAddWindow extends JFrame{
     private JSpinner unitsSpinner;
-    private JFormattedTextField formattedTextPrice;
     private JButton cancelButton;
     private JButton saveButton;
     private JPanel mainPanel;
