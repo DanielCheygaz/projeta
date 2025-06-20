@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.util.*;
 import java.util.List;
 
 public class TicketsPerSessionSaleWindow extends JFrame {
@@ -8,7 +9,8 @@ public class TicketsPerSessionSaleWindow extends JFrame {
     private JPanel seatPanel;
     private JButton confirmButton;
     private JButton cancelButton;
-    private List<Seat> selectedSeats = new java.util.ArrayList<>();
+    private List<Seat> selectedSeats = new ArrayList<>();
+    private Map<Seat, String> seatTypes = new HashMap<>();
     private JFrame previousWindow;
 
     public TicketsPerSessionSaleWindow(Session session, JFrame previousWindow) {
@@ -18,7 +20,7 @@ public class TicketsPerSessionSaleWindow extends JFrame {
         setTitle("Venda de Bilhetes - Sessão " + session.getID());
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(800, 600);
-        setLocationRelativeTo(null); // centraliza a janela
+        setLocationRelativeTo(null);
 
         initComponents(session.getRoom().getNumberRows(), session.getRoom().getNumberColumns());
     }
@@ -47,7 +49,7 @@ public class TicketsPerSessionSaleWindow extends JFrame {
 
         cancelButton = new JButton("Cancelar");
         cancelButton.addActionListener(e -> {
-            if(previousWindow != null) {
+            if (previousWindow != null) {
                 previousWindow.setVisible(true);
             }
             dispose();
@@ -55,14 +57,18 @@ public class TicketsPerSessionSaleWindow extends JFrame {
 
         setLayout(new BorderLayout());
         add(new JScrollPane(seatPanel), BorderLayout.CENTER);
-        add(confirmButton, BorderLayout.SOUTH);
+
+        JPanel bottomPanel = new JPanel();
+        bottomPanel.add(confirmButton);
+        bottomPanel.add(cancelButton);
+        add(bottomPanel, BorderLayout.SOUTH);
     }
 
     private void toggleSeatSelection(SeatButton button) {
         Seat seat = button.getSeat();
-
         if (selectedSeats.contains(seat)) {
             selectedSeats.remove(seat);
+            seatTypes.remove(seat);
             button.setBackground(null);
         } else {
             selectedSeats.add(seat);
@@ -76,22 +82,47 @@ public class TicketsPerSessionSaleWindow extends JFrame {
             return;
         }
 
-        for (Seat seat : selectedSeats) {
-            session.occupySeat(seat);
-            // Criar ticket
-            int newTicketId = AppData.getInstance().getTicketList().size() + 1;
-
-            // Preço e tipo podem ser parametrizados depois
-            Ticket ticket = new Ticket(newTicketId, session, 10.0, "normal");
-
-            // Adicionar bilhete ao AppData
-            AppData.getInstance().addTicket(ticket);
+        AppData appData = AppData.getInstance();
+        if (appData.getActiveSale() == null) {
+            appData.startSale();
         }
 
-        JOptionPane.showMessageDialog(this, "Bilhetes adicionados com sucesso!");
-        new SessionSelectWindow(this).setVisible(true);
-        dispose();
-        new SessionSelectWindow(this).setVisible(true);
+        Sale currentSale = appData.getActiveSale();
 
+        for (Seat seat : selectedSeats) {
+            // Pergunta o tipo se ainda não tiver sido escolhido
+            String tipoSelecionado = seatTypes.get(seat);
+            if (tipoSelecionado == null) {
+                String[] tipos = {"normal", "estudante", "idoso"};
+                tipoSelecionado = (String) JOptionPane.showInputDialog(
+                        this,
+                        "Escolha o tipo de bilhete para o lugar " + seat.toString(),
+                        "Tipo de Bilhete",
+                        JOptionPane.PLAIN_MESSAGE,
+                        null,
+                        tipos,
+                        "normal"
+                );
+
+                if (tipoSelecionado == null) continue; // cancelado
+                seatTypes.put(seat, tipoSelecionado);
+            }
+
+            double preco = switch (tipoSelecionado) {
+                case "estudante" -> 7.0;
+                case "idoso" -> 6.0;
+                default -> 10.0;
+            };
+
+            session.occupySeat(seat);
+            int ticketId = appData.getTicketList().size() + 1;
+            Ticket ticket = new Ticket(ticketId, session, preco, tipoSelecionado);
+            appData.addTicket(ticket);
+            currentSale.addLine(new SaleLine(ticket));
+        }
+
+        JOptionPane.showMessageDialog(this, "Bilhetes adicionados à fatura com sucesso!");
+        previousWindow.setVisible(true);
+        dispose();
     }
 }

@@ -18,6 +18,8 @@ public class Ticket {
         this.timestamp = LocalDateTime.now();
     }
 
+
+
     public void setSession(Session session) {
         this.session = session;
     }
@@ -73,4 +75,6 @@ public class Ticket {
         }
         return total;
     }
+
+
 }
