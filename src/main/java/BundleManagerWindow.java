@@ -11,8 +11,7 @@ public class BundleManagerWindow extends JFrame{
     private JButton addBundleButton;
     private JButton removeBundleButton;
     private JButton editBundleButton;
-
-    public BundleManagerWindow(){
+    public BundleManagerWindow() {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setContentPane(mainPanel);
         pack();
@@ -78,9 +77,6 @@ public class BundleManagerWindow extends JFrame{
         dispose();
     }
 
-    public static void main(String[] args) {
-        new BundleManagerWindow().setVisible(true);
-    }
 }
 
 

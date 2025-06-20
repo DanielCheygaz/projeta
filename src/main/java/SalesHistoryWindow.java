@@ -36,7 +36,6 @@ public class SalesHistoryWindow extends JFrame{
     }
 
     private void backButtonActionPerformed(ActionEvent e) {
-        new SalesMainWindow().setVisible(true);
         setVisible(false);
     }
 

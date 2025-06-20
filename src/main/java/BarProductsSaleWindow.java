@@ -111,7 +111,6 @@ public class BarProductsSaleWindow extends JFrame {
         }
 
         JOptionPane.showMessageDialog(this, "Venda finalizada com sucesso!");
-        new SalesMainWindow().setVisible(true);
         dispose();
     }
 
