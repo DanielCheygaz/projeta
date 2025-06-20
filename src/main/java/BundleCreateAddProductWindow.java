@@ -17,13 +17,13 @@ public class BundleCreateAddProductWindow extends JFrame{
     }
 
     private void cancelButtonPerformed(ActionEvent e){
-        new BundleCreateBarProductsSelectWindow().setVisible(true);
+        new BundleCreateBarProductsSelectWindow(this).setVisible(true);
         dispose();
     }
 
     private void saveButtonPerformed(ActionEvent e){
         JOptionPane.showMessageDialog(this, "Produto adicionado ao bundle!");
-        new BundleCreateBarProductsSelectWindow().setVisible(true);
+        new BundleCreateBarProductsSelectWindow(this).setVisible(true);
         dispose();
     }
 

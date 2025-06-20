@@ -13,11 +13,13 @@ public class BundleCreateBarProductsSelectWindow extends JFrame{
     private JButton finishBundleButton;
     private JTable addedProductsTable;
     private JScrollPane scrollPaneAddedProducts;
+    private JFrame previousWindow;
 
-    public BundleCreateBarProductsSelectWindow(){
+    public BundleCreateBarProductsSelectWindow(JFrame previousWindow) {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setContentPane(mainPanel);
         pack();
+        this.previousWindow = previousWindow;
         backButton.addActionListener(this::backButtonPerformed);
         addProductButton.addActionListener(this::addProductButtonPerformed);
         removeProdutoButton.addActionListener(this::removeProductButtonPerformed);
@@ -47,7 +49,11 @@ public class BundleCreateBarProductsSelectWindow extends JFrame{
     }
 
     private void backButtonPerformed(ActionEvent e){
-        new BundleManagerWindow().setVisible(true);
+        if(previousWindow == null) {
+            new MainWindow().setVisible(true);
+        } else {
+            previousWindow.setVisible(true);
+        }
         dispose();
     }
 
@@ -103,11 +109,8 @@ public class BundleCreateBarProductsSelectWindow extends JFrame{
 
 
     private void finishBundleButtonPerformed(ActionEvent e){
-        new BundleManagerWindow().setVisible(true);
+        new BundleManagerWindow(this).setVisible(true);
         dispose();
     }
 
-    public static void main(String[] args) {
-        new BundleCreateBarProductsSelectWindow().setVisible(true);
-    }
 }

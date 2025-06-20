@@ -29,7 +29,7 @@ public class BarProductsSaleWindow extends JFrame {
         String[] columns = {"Nome do Produto", "Preço"};
         DefaultTableModel tableModel = new DefaultTableModel(columns, 0);
         for (Product product : AppData.getInstance().getProductList()) {
-            if(product.getName().equals("KitKat")) {
+            if(product.getName().equals("KitKat")){
                 Object[] row = {product.getName(), product.getPrice()-product.getPrice()*0.2};
                 tableModel.addRow(row);
             }

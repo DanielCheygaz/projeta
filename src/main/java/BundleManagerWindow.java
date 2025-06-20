@@ -11,8 +11,10 @@ public class BundleManagerWindow extends JFrame{
     private JButton addBundleButton;
     private JButton removeBundleButton;
     private JButton editBundleButton;
-    public BundleManagerWindow() {
+    private JFrame previousWindow;
+    public BundleManagerWindow(JFrame previousWindow) {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        this.previousWindow = previousWindow;
         setContentPane(mainPanel);
         pack();
         backButton.addActionListener(this::backButtonPerformed);
@@ -46,12 +48,16 @@ public class BundleManagerWindow extends JFrame{
         bundlesTable.setModel(tableModel);
     }
     private void backButtonPerformed(ActionEvent e){
-        new SalesMainWindow().setVisible(true);
+        if(previousWindow == null) {
+            new MainWindow().setVisible(true);
+        } else {
+            previousWindow.setVisible(true);
+        }
         dispose();
     }
 
     private void addBundleButtonPerformed(ActionEvent e){
-        new BundleCreateBarProductsSelectWindow().setVisible(true);
+        new BundleCreateBarProductsSelectWindow(this).setVisible(true);
         dispose();
     }
 
@@ -73,7 +79,7 @@ public class BundleManagerWindow extends JFrame{
     }
 
     private void editBundleButtonPerformed(ActionEvent e){
-        new BundleCreateBarProductsSelectWindow().setVisible(true);
+        new BundleCreateBarProductsSelectWindow(this).setVisible(true);
         dispose();
     }
 
