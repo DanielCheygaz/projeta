@@ -56,6 +56,5 @@ public class RoomCreateWindow extends JFrame{
 
     }
 
-    public static void main(String[] args){new RoomCreateWindow().setVisible(true);}
 
 }

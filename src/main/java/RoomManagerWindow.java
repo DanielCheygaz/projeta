@@ -92,12 +92,4 @@ public class RoomManagerWindow extends JFrame{
     }
 
 
-
-
-
-    public static void main(String[] args){
-        new RoomManagerWindow().setVisible(true);
-    }
-
-
 }
