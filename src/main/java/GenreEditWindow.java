@@ -11,7 +11,7 @@ public class GenreEditWindow extends JFrame{
     private GenreManagerWindow previousWindow;
 
     public GenreEditWindow(GenreManagerWindow previousWindow, Genre genre) throws HeadlessException {
-        super("Editar" + genre.getName());
+        super("Editar " + genre.getName());
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setContentPane(mainPanel);
         pack();

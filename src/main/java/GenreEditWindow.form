@@ -17,7 +17,7 @@
         <properties>
           <font size="24" style="1"/>
           <foreground color="-1184268"/>
-          <text value="Editar Categoria"/>
+          <text value="Editar Género"/>
         </properties>
       </component>
       <grid id="96d56" layout-manager="GridLayoutManager" row-count="1" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
