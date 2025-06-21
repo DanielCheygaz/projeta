@@ -134,7 +134,4 @@ public class ReceiptEditWindow extends JFrame {
         dispose();
     }
 
-    public static void main(String[] args) {
-        new ReceiptEditWindow(null).setVisible(true);
-    }
 }

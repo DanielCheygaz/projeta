@@ -58,7 +58,4 @@ public class SalesMainWindow extends JFrame{
         dispose();
     }
 
-    public static void main(String[] args){
-        new SalesMainWindow().setVisible(true);
-    }
 }
