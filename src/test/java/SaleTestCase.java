@@ -1,3 +1,5 @@
+//João Amado - 2231032
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -31,5 +33,16 @@ public class SaleTestCase {
         sale.addLine(saleLine2);
 
         assertEquals(12.4, sale.getTotalPrice(), 0.01);
+    }
+
+    @Test
+    public void testRemoveLine() {
+        Product product = new Product("Sumo", 1.5, 5);
+        SaleLine line = new SaleLine(product, 1);
+        sale.addLine(line);
+        sale.removeLine(line);
+
+        assertEquals(0, sale.getSaleLines().size());
+        assertEquals(0.0, sale.getTotalPrice(), 0.01);
     }
 }
