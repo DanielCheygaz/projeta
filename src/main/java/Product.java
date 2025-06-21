@@ -26,6 +26,16 @@ public class Product {
     }
 
     public void editProduct(String name, double price, int units){
+        if (name == null || name.trim().isEmpty()) {
+            throw new IllegalArgumentException("O nome do produto não pode ser vazio.");
+        }
+        if (price < 0) {
+            throw new IllegalArgumentException("O preço não pode ser negativo.");
+        }
+        if (units < 0) {
+            throw new IllegalArgumentException("As unidades não podem ser negativas.");
+        }
+
         this.name = name;
         this.price = price;
         this.units = units;

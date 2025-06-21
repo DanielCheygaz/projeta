@@ -34,6 +34,7 @@ public class BarProductsSaleWindow extends JFrame {
         String[] columns = {"Nome do Produto", "Preço"};
         DefaultTableModel tableModel = new DefaultTableModel(columns, 0);
         for (Product product : AppData.getInstance().getProductList()) {
+            //TODO: Implementar lógica de desconto
             Object[] row = {product.getName(), product.getPrice()};
             tableModel.addRow(row);
         }
@@ -76,24 +77,13 @@ public class BarProductsSaleWindow extends JFrame {
     }
 
     private void finishSaleButtonPerformed(ActionEvent e) {
-        if (AppData.getInstance().getActiveSale() == null ||
-                AppData.getInstance().getActiveSale().getSaleLines().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Nenhum produto foi adicionado à venda.");
+        Sale activeSale = AppData.getInstance().getActiveSale();
+        if (activeSale == null || activeSale.getSaleLines().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Nenhum bilhete/produto foi adicionado à venda.");
             return;
         }
 
-        if (currentTicket == null) {
-            currentTicket = new Ticket(
-                    AppData.getInstance().getTicketList().size() + 1,
-                    null,
-                    calcularTotalProdutos(),
-                    "bar"
-            );
-            AppData.getInstance().addTicket(currentTicket);
-        }
-
-        JOptionPane.showMessageDialog(this, "Venda finalizada com sucesso!");
-        new MainWindow().setVisible(true);
+        new ReceiptEditWindow(this).setVisible(true);
         dispose();
     }
 

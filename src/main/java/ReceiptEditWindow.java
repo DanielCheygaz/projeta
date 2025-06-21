@@ -103,8 +103,9 @@ public class ReceiptEditWindow extends JFrame {
     }
 
     private void finishSaleButtonPerformed(ActionEvent e) {
+        AppData.getInstance().finalizeSale();
         JOptionPane.showMessageDialog(this, "Venda finalizada com sucesso!");
-        new MainWindow().setVisible(true);
+        new SalesMainWindow().setVisible(true);
         dispose();
     }
 

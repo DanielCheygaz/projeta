@@ -10,6 +10,7 @@ public class AppData {
     private LinkedList<Ticket> ticketList = new LinkedList<>();
     private LinkedList<Bundle> bundleList = new LinkedList<>();
     private Sale activeSale = null;
+    private LinkedList<Sale> sales = new LinkedList<>();
 
     // TODO: meter os "new LinkedList<>()" para dentro do construtor quando removermos os dados estáticos
     public AppData() {
@@ -186,11 +187,22 @@ public class AppData {
         return bundleList;
     }
 
+    public LinkedList<Sale> getSales() {
+        return sales;
+    }
+
     public Sale getActiveSale() {
         return activeSale;
     }
 
     public void startSale(){
         this.activeSale = new Sale();
+    }
+
+    public void finalizeSale() {
+        if (activeSale != null) {
+            sales.add(activeSale); // guardar a venda
+            activeSale = null;     // limpar venda ativa
+        }
     }
 }

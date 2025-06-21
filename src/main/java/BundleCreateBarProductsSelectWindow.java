@@ -14,9 +14,9 @@ public class BundleCreateBarProductsSelectWindow extends JFrame {
     private JButton finishBundleButton;
     private JTable addedProductsTable;
     private JScrollPane scrollPaneAddedProducts;
-    private JFrame previousWindow;
+    private BundleManagerWindow previousWindow;
 
-    public BundleCreateBarProductsSelectWindow(JFrame previousWindow) {
+    public BundleCreateBarProductsSelectWindow(BundleManagerWindow previousWindow) {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setContentPane(mainPanel);
         pack();
@@ -128,6 +128,8 @@ public class BundleCreateBarProductsSelectWindow extends JFrame {
         AppData.getInstance().getBundleList().add(novoBundle);
 
         JOptionPane.showMessageDialog(this, "Bundle criado com sucesso!");
+
+        previousWindow.loadBundles();
         if (previousWindow != null) previousWindow.setVisible(true);
         dispose();
     }
