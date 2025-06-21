@@ -15,7 +15,7 @@ public class Room {
 
 
     public int getNumberOfSeats() {
-        return numberColumns*numberColumns;
+        return numberColumns*numberRows;
     }
 
     public void setNumberOfSeats(int numberColumns, int numberRows) {
