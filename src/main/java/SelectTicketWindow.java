@@ -28,8 +28,4 @@ public class SelectTicketWindow extends JFrame {
         setVisible(false);
     }
 
-    public static void main(String[] args){
-        new SelectTicketWindow().setVisible(true);
-    }
-
 }

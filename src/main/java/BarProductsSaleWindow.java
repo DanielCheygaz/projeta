@@ -153,9 +153,6 @@ public class BarProductsSaleWindow extends JFrame {
         }
     }
 
-
-
-
     private void backButtonPerformed(ActionEvent e) {
         if (previousWindow != null) {
             previousWindow.setVisible(true);
@@ -163,7 +160,4 @@ public class BarProductsSaleWindow extends JFrame {
         dispose();
     }
 
-    public static void main(String[] args) {
-        new BarProductsSaleWindow(null, null).setVisible(true);
-    }
 }
