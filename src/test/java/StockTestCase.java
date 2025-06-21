@@ -10,7 +10,8 @@ public class StockTestCase {
 
     @BeforeEach
     public void setUp(){
-        product = new Product("Coca Cola", 1.2, 15);
+        units = 15;
+        product = new Product("Coca Cola", 1.2, units);
     }
 
     @Test
