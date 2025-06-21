@@ -53,34 +53,13 @@ public class SessionSelectWindow extends JFrame {
     }
 
     private void finishSaleButtonPerformed(ActionEvent e){
-
-
-        int selectedRow = sessionTable.getSelectedRow();
-
-        if (selectedRow == -1) {
-            JOptionPane.showMessageDialog(this, "Selecione uma sessão antes de finalizar a venda.");
+        Sale activeSale = AppData.getInstance().getActiveSale();
+        if (activeSale == null || activeSale.getSaleLines().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Nenhum bilhete/produto foi adicionado à venda.");
             return;
         }
 
-        int sessionId = (int) sessionTable.getValueAt(selectedRow, 0);
-        Session selectedSession = AppData.getInstance().getSessionList()
-                .stream().filter(s -> s.getID() == sessionId).findFirst().orElse(null);
-
-        if (selectedSession != null) {
-            // Simular venda de bilhete
-            int newTicketId = AppData.getInstance().getTicketList().size() + 1;
-            currentTicket = new Ticket(newTicketId, selectedSession, 10.0, "estudante");
-            AppData.getInstance().addTicket(currentTicket);
-
-            JOptionPane.showMessageDialog(this, "Venda finalizada com sucesso!\nBilhete ID: " + newTicketId);
-
-        } else {
-            JOptionPane.showMessageDialog(this, "Erro: sessão não encontrada.");
-        }
-        new SalesMainWindow().setVisible(true);
-
-        // Here you would typically finalize the sale, e.g., save to a database or print a receipt.
-
+        new ReceiptEditWindow(this).setVisible(true);
         dispose();
     }
 

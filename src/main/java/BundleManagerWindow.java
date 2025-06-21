@@ -30,7 +30,7 @@ public class BundleManagerWindow extends JFrame {
         loadBundles();
     }
 
-    private void loadBundles() {
+    public void loadBundles() {
         String[] columns = {"ID do Bundle", "Nome do Bundle", "Produtos no Bundle"};
         DefaultTableModel tableModel = new DefaultTableModel(columns, 0);
 
@@ -79,4 +79,5 @@ public class BundleManagerWindow extends JFrame {
         // Para editar bundles reais, seria necessário passar os dados do bundle selecionado.
         JOptionPane.showMessageDialog(this, "Funcionalidade de edição ainda não implementada.");
     }
+
 }
