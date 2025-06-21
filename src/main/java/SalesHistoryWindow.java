@@ -89,7 +89,4 @@ public class SalesHistoryWindow extends JFrame {
         JOptionPane.showMessageDialog(this, message.toString());
     }
 
-    public static void main(String[] args) {
-        new SalesHistoryWindow().setVisible(true);
-    }
 }
